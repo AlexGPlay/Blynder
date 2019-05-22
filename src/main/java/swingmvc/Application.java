@@ -1,6 +1,5 @@
 package swingmvc;
 
-import java.awt.BorderLayout;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -8,28 +7,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import javafx.stage.Stage;
 import swingmvc.exception.IllegalViewException;
 import swingmvc.finder.*;
 import swingmvc.mapper.AutowiredMapping;
 import swingmvc.mapper.ControllerMapping;
 import swingmvc.util.InstanceSaver;
 import swingmvc.util.Pair;
+import swingmvc.view.HTMLHandler;
+import swingmvc.view.Window;
 
-public class Application {
+public class Application extends javafx.application.Application{
 
 	private static List<Class<?>> classes = new ArrayList<>();
 	private static List<Class<?>> controllers = new ArrayList<>();
 	private static List<Class<?>> beans = new ArrayList<>();
 	private static Map<String, Pair<Class<?>,Method>> routes = new HashMap<>();
-	private static JFrame frame = new JFrame();
-	private static JPanel contentPane = new JPanel();
 	
-	public Application() throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException, InstantiationException {
-		execute();
+	private static Window mainWindow;
+	
+	public static void launchApp() {
+		launch();
 	}
+	
+	public Application() {}
 	
 	public static void navigate(String url) {
 		Pair<Class<?>, Method> data = routes.get(url);
@@ -53,36 +56,21 @@ public class Application {
 	}
 	
 	private static void createView(Object view) throws IllegalViewException {
-		if(isValidView(view)) {
-			JPanel panel = (JPanel)view;
-			contentPane.removeAll();
-			contentPane.add(panel);
-			frame.pack();
+		if(view instanceof JPanel)
+			mainWindow.setSwing((JPanel)view);
+		
+		else if(view instanceof String) {
+			mainWindow.setHtml( new HTMLHandler().getHtml((String)view));
 		}
-		else {
-			throw new IllegalViewException("La vista no es un JPanel");
-		}
-	}
-	
-	private static boolean isValidView(Object view) {
-		return view instanceof JPanel;
 	}
 	
 	private void execute() throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException, InstantiationException {
 		groupClasses();
-		createWindow();
 		navigateToIndex();
 	}
 	
 	private void navigateToIndex() {
 		navigate("/");
-	}
-
-	private void createWindow() {
-		frame.setTitle("Test");
-		frame.setVisible(true);
-		frame.setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout());
 	}
 	
 	private void groupClasses() throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException, InstantiationException {
@@ -91,6 +79,12 @@ public class Application {
 		routes = new ControllerMapping().map(controllers);
 		beans = new BeanFinder().findBeans(classes);
 		new AutowiredMapping().mapAutowired(beans);
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		mainWindow = new Window(primaryStage);
+		execute();
 	}
 	
 }

@@ -63,6 +63,7 @@ public class ClassFinder {
 		try (Stream<Path> paths = Files.walk(Paths.get("./src"))) {
 		    return paths
 		    .filter( Files::isRegularFile )
+		    .filter( f -> !f.toString().contains("resources") )
 		    .map( p -> p.toString() )
 		    .collect( Collectors.toList() );
 		} 
