@@ -4,6 +4,9 @@ import javax.swing.JPanel;
 
 import atrahasis.core.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker;
 import javafx.embed.swing.SwingNode;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
@@ -29,8 +32,8 @@ public class Window{
 			pane.getChildren().add(node);
 			
 			mainStage.setScene(new Scene(pane,150,150));
-			mainStage.show();
 			mainStage.sizeToScene();
+			mainStage.show();
 		});
 		
 	}
@@ -38,13 +41,24 @@ public class Window{
 	public void setHtml(String html) {
 		
 		Platform.runLater( () -> {
+			String code = new HTMLHandler().getHtml(html);
+			
 			WebView browser = new WebView();
 			WebEngine webEngine = browser.getEngine();
-			webEngine.loadContent(html);
+			webEngine.setJavaScriptEnabled(true);
 			
-			JSObject win = 
-                    (JSObject) webEngine.executeScript("window");
-            win.setMember("app", new ViewClass());
+			webEngine.getLoadWorker().stateProperty().addListener(
+	            new ChangeListener<Worker.State>() {
+	                public void changed(ObservableValue<? extends Worker.State> ov, Worker.State oldState, Worker.State newState) {
+	                    if (newState == Worker.State.SUCCEEDED) {                        
+	                        JSObject jso = (JSObject) webEngine.executeScript("window");
+	                        jso.setMember("app", new ViewClass());
+	                    }
+	                }
+	            }
+	        );
+            
+			webEngine.loadContent(code);
 			Scene mainScene = new Scene(browser);
 			
 			mainStage.setScene(mainScene);

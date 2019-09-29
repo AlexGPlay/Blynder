@@ -15,7 +15,6 @@ import atrahasis.core.mapper.AutowiredMapping;
 import atrahasis.core.mapper.ControllerMapping;
 import atrahasis.core.util.InstanceSaver;
 import atrahasis.core.util.Pair;
-import atrahasis.core.view.HTMLHandler;
 import atrahasis.core.view.Window;
 import javafx.stage.Stage;
 
@@ -60,7 +59,7 @@ public class Application extends javafx.application.Application{
 			mainWindow.setSwing((JPanel)view);
 		
 		else if(view instanceof String) {
-			mainWindow.setHtml( new HTMLHandler().getHtml((String)view));
+			mainWindow.setHtml((String)view);
 		}
 	}
 	
