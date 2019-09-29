@@ -1,4 +1,4 @@
-package swingmvc.util;
+package atrahasis.core.util;
 
 import java.util.HashMap;
 import java.util.Map;

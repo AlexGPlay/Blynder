@@ -1,4 +1,4 @@
-package swingmvc.view;
+package atrahasis.core.view;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import swingmvc.io.FileManager;
+import atrahasis.core.io.FileManager;
 
 public class HTMLHandler {
 

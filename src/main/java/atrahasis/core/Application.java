@@ -1,4 +1,4 @@
-package swingmvc;
+package atrahasis.core;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,15 +9,15 @@ import java.util.Map;
 
 import javax.swing.JPanel;
 
+import atrahasis.core.exception.IllegalViewException;
+import atrahasis.core.finder.*;
+import atrahasis.core.mapper.AutowiredMapping;
+import atrahasis.core.mapper.ControllerMapping;
+import atrahasis.core.util.InstanceSaver;
+import atrahasis.core.util.Pair;
+import atrahasis.core.view.HTMLHandler;
+import atrahasis.core.view.Window;
 import javafx.stage.Stage;
-import swingmvc.exception.IllegalViewException;
-import swingmvc.finder.*;
-import swingmvc.mapper.AutowiredMapping;
-import swingmvc.mapper.ControllerMapping;
-import swingmvc.util.InstanceSaver;
-import swingmvc.util.Pair;
-import swingmvc.view.HTMLHandler;
-import swingmvc.view.Window;
 
 public class Application extends javafx.application.Application{
 

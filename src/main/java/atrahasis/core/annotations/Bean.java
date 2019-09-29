@@ -1,4 +1,4 @@
-package swingmvc.annotations;
+package atrahasis.core.annotations;
 
 import static java.lang.annotation.ElementType.TYPE;
 

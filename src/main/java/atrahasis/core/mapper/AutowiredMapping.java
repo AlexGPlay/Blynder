@@ -1,11 +1,11 @@
-package swingmvc.mapper;
+package atrahasis.core.mapper;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
-import swingmvc.finder.AutowiredFinder;
-import swingmvc.util.InstanceSaver;
-import swingmvc.util.Pair;
+import atrahasis.core.finder.AutowiredFinder;
+import atrahasis.core.util.InstanceSaver;
+import atrahasis.core.util.Pair;
 
 public class AutowiredMapping {
 	

@@ -1,4 +1,4 @@
-package swingmvc.finder;
+package atrahasis.core.finder;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package swingmvc.util;
+package atrahasis.core.util;
 
 public class Pair<T,K> {
 

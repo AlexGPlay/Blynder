@@ -1,4 +1,4 @@
-package swingmvc.io;
+package atrahasis.core.io;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

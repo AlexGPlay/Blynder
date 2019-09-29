@@ -1,4 +1,4 @@
-package swingmvc.finder;
+package atrahasis.core.finder;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import swingmvc.annotations.Autowired;
-import swingmvc.util.Pair;
+import atrahasis.core.util.Pair;
+import atrahasis.core.annotations.Autowired;
 
 public class AutowiredFinder {
 

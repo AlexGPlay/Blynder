@@ -1,4 +1,4 @@
-package swingmvc.exception;
+package atrahasis.core.exception;
 
 public class IllegalViewException extends Exception{
 

@@ -1,7 +1,8 @@
-package swingmvc.view;
+package atrahasis.core.view;
 
 import javax.swing.JPanel;
 
+import atrahasis.core.Application;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingNode;
 import javafx.scene.Scene;
@@ -10,7 +11,6 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
-import swingmvc.Application;
 
 public class Window{
 	

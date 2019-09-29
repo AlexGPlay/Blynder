@@ -1,10 +1,10 @@
-package swingmvc.finder;
+package atrahasis.core.finder;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import swingmvc.util.BeanAnnotations;
+import atrahasis.core.util.BeanAnnotations;
 
 public class BeanFinder {
 

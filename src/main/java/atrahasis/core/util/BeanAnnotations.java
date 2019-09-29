@@ -1,11 +1,11 @@
-package swingmvc.util;
+package atrahasis.core.util;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
-import swingmvc.annotations.Bean;
-import swingmvc.annotations.Controller;
+import atrahasis.core.annotations.Bean;
+import atrahasis.core.annotations.Controller;
 
 public class BeanAnnotations {
 

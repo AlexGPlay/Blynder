@@ -1,9 +1,9 @@
-package swingmvc.finder;
+package atrahasis.core.finder;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import swingmvc.annotations.Controller;
+import atrahasis.core.annotations.Controller;
 
 public class ControllerFinder {
 

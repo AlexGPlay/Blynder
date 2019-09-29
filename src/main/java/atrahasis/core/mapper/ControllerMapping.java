@@ -1,4 +1,4 @@
-package swingmvc.mapper;
+package atrahasis.core.mapper;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import swingmvc.annotations.Path;
-import swingmvc.util.Pair;
+import atrahasis.core.annotations.Path;
+import atrahasis.core.util.Pair;
 
 public class ControllerMapping {
 
