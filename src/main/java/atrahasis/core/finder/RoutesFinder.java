@@ -10,13 +10,12 @@ import atrahasis.core.util.Pair;
 
 public class RoutesFinder {
 
-	public Pair<Class<?>, Method> findRoute(Map<String, Pair<Class<?>,Method>> routes, String url) {
+	public Pair<String, Map<String,Object>> findRoute(Map<String, Pair<Class<?>,Method>> routes, String url) {
 		Pair<Class<?>, Method> pair = routes.get(url);
 		Map<String,Object> data = new HashMap<String,Object>();
-
 		
 		if(pair != null)
-			return pair;
+			return new Pair<String, Map<String,Object>>(url,data);
 		
 		for(Map.Entry<String, Pair<Class<?>,Method>> entry : routes.entrySet()) {
 			String key = entry.getKey();
@@ -42,6 +41,9 @@ public class RoutesFinder {
 			
 			if(!isValidUrl(data,key,url))
 				data.clear();
+			
+			else
+				return new Pair<String, Map<String,Object>>(key, data);
 		}
 		
 		

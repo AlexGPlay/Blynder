@@ -15,6 +15,7 @@ import atrahasis.core.mapper.AutowiredMapping;
 import atrahasis.core.mapper.ControllerMapping;
 import atrahasis.core.util.InstanceSaver;
 import atrahasis.core.util.Pair;
+import atrahasis.core.util.ParamSorter;
 import atrahasis.core.view.Window;
 import javafx.stage.Stage;
 
@@ -34,12 +35,16 @@ public class Application extends javafx.application.Application{
 	public Application() {}
 	
 	public static void navigate(String url) {
-		Pair<Class<?>, Method> data = routes.get(url);
-		Class<?> clazz = data.object1;
-		Method method = data.object2;
+		Pair<String, Map<String,Object>> data = new RoutesFinder().findRoute(routes, url);
+		Pair<Class<?>, Method> route = routes.get(data.object1);
+		
+		Class<?> clazz = route.object1;
+		Method method = route.object2;
+		Map<String,Object> params = data.object2;
 		
 		try {
-			Object view = method.invoke( InstanceSaver.lookForInstance(clazz) );
+			List<Object> dataParams = new ParamSorter().sortParameters(params, method);
+			Object view = method.invoke( InstanceSaver.lookForInstance(clazz), dataParams );
 			createView(view);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
