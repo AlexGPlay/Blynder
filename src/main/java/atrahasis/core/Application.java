@@ -44,7 +44,7 @@ public class Application extends javafx.application.Application{
 		
 		try {
 			List<Object> dataParams = new ParamSorter().sortParameters(params, method);
-			Object view = method.invoke( InstanceSaver.lookForInstance(clazz), dataParams );
+			Object view = method.invoke( InstanceSaver.lookForInstance(clazz), dataParams.toArray() );
 			createView(view);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();

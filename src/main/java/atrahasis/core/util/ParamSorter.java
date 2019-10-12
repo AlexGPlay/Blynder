@@ -15,16 +15,19 @@ public class ParamSorter {
 		
 		for(Parameter param : method.getParameters()) {
 			if(param.isAnnotationPresent( PathVariable.class )) {
-				sortedParams.add( getDataForAnnotatedParam(parameters, param) );
+				sortedParams.add( getDataForAnnotatedParam(parameters, param, param.getAnnotationsByType(PathVariable.class)[0]) );
 			}
 			
+			else {
+				sortedParams.add(null);
+			}
 		}
 		
 		return sortedParams;
 	}
 	
-	private Object getDataForAnnotatedParam(Map<String,Object> data, Parameter param) {
-		return data.get(param.getName());
+	private Object getDataForAnnotatedParam(Map<String,Object> data, Parameter param, PathVariable annotation) {
+		return data.get(annotation.name().equals("") ? param.getName() : annotation.name());
 	}
 	
 	
