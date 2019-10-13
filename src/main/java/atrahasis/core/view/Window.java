@@ -3,6 +3,7 @@ package atrahasis.core.view;
 import javax.swing.JPanel;
 
 import atrahasis.core.Application;
+import atrahasis.core.template.Model;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -38,10 +39,10 @@ public class Window{
 		
 	}
 	
-	public void setHtml(String html) {
+	public void setHtml(String html, Model model) {
 		
 		Platform.runLater( () -> {
-			String code = new HTMLHandler().getHtml(html);
+			String code = new HTMLHandler().getHtml(html, model);
 			
 			WebView browser = new WebView();
 			WebEngine webEngine = browser.getEngine();

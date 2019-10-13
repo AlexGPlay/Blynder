@@ -13,6 +13,7 @@ import atrahasis.core.exception.IllegalViewException;
 import atrahasis.core.finder.*;
 import atrahasis.core.mapper.AutowiredMapping;
 import atrahasis.core.mapper.ControllerMapping;
+import atrahasis.core.template.Model;
 import atrahasis.core.util.InstanceSaver;
 import atrahasis.core.util.Pair;
 import atrahasis.core.util.ParamSorter;
@@ -43,9 +44,10 @@ public class Application extends javafx.application.Application{
 		Map<String,Object> params = data.object2;
 		
 		try {
-			List<Object> dataParams = new ParamSorter().sortParameters(params, method);
+			Model model = new Model();
+			List<Object> dataParams = new ParamSorter().sortParameters(params, method, model);
 			Object view = method.invoke( InstanceSaver.lookForInstance(clazz), dataParams.toArray() );
-			createView(view);
+			createView(view, model);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
@@ -59,12 +61,12 @@ public class Application extends javafx.application.Application{
 		}
 	}
 	
-	private static void createView(Object view) throws IllegalViewException {
+	private static void createView(Object view, Model model) throws IllegalViewException {
 		if(view instanceof JPanel)
 			mainWindow.setSwing((JPanel)view);
 		
 		else if(view instanceof String) {
-			mainWindow.setHtml((String)view);
+			mainWindow.setHtml((String)view, model);
 		}
 	}
 	
