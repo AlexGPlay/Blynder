@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 
 import atrahasis.core.io.FileManager;
 import atrahasis.core.template.Model;
+import atrahasis.core.template.Thymeleaf;
 
 public class HTMLHandler {
 
@@ -14,7 +15,7 @@ public class HTMLHandler {
 			res = new FileManager().loadContent(file);
 		} catch (IOException | URISyntaxException e) {}
 		
-		return res;
+		return new Thymeleaf().processHtml(res, model);
 	}
 	
 }

@@ -35,7 +35,9 @@ public class RoutesFinder {
 				data.put(params.get(i).substring(2,params.get(i).length()-2), temp);
 				
 				nUrl = nUrl.replaceFirst(temp, "");
-				nUrl = nUrl.replaceFirst(seps.get(i+1), "");
+				
+				if(i+1 < seps.size())
+					nUrl = nUrl.replaceFirst(seps.get(i+1), "");
 			}
 			
 			
