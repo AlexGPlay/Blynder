@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ClassFinder {
+public class ClassFinder implements IClassFinder{
 
 	public List<Class<?>> findClasses() throws ClassNotFoundException{
 		List<String> files = findFiles();

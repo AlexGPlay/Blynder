@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import atrahasis.core.annotations.Controller;
 
-public class ControllerFinder {
+public class ControllerFinder implements IControllerFinder{
 
 	public List<Class<?>> findControllers(List<Class<?>> classes){
 		return classes

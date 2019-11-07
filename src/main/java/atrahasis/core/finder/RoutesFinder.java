@@ -8,7 +8,7 @@ import java.util.Map;
 
 import atrahasis.core.util.Pair;
 
-public class RoutesFinder {
+public class RoutesFinder implements IRoutesFinder{
 
 	public Pair<String, Map<String,Object>> findRoute(Map<String, Pair<Class<?>,Method>> routes, String url) {
 		Pair<Class<?>, Method> pair = routes.get(url);

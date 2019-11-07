@@ -1,5 +1,6 @@
 package atrahasis.core;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -9,10 +10,9 @@ import java.util.Map;
 
 import javax.swing.JPanel;
 
+import atrahasis.core.configurator.BasicConfigurator;
+import atrahasis.core.configurator.IConfigurator;
 import atrahasis.core.exception.IllegalViewException;
-import atrahasis.core.finder.*;
-import atrahasis.core.mapper.AutowiredMapping;
-import atrahasis.core.mapper.ControllerMapping;
 import atrahasis.core.template.Model;
 import atrahasis.core.util.InstanceSaver;
 import atrahasis.core.util.Pair;
@@ -28,15 +28,21 @@ public class Application extends javafx.application.Application{
 	private static Map<String, Pair<Class<?>,Method>> routes = new HashMap<>();
 	
 	private static Window mainWindow;
+	private static IConfigurator configurator;
 	
 	public static void launchApp() {
+		Application.launchApp(new BasicConfigurator());
+	}
+	
+	public static void launchApp(IConfigurator configurator) {
+		Application.configurator = configurator;
 		launch();
 	}
 	
 	public Application() {}
 	
 	public static void navigate(String url) {
-		Pair<String, Map<String,Object>> data = new RoutesFinder().findRoute(routes, url);
+		Pair<String, Map<String,Object>> data = configurator.getRoutesFinder().findRoute(routes, url);
 		Pair<Class<?>, Method> route = routes.get(data.object1);
 		
 		Class<?> clazz = route.object1;
@@ -80,11 +86,13 @@ public class Application extends javafx.application.Application{
 	}
 	
 	private void groupClasses() throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException, InstantiationException {
-		classes = new ClassFinder().findClasses();
-		controllers = new ControllerFinder().findControllers(classes);
-		routes = new ControllerMapping().map(controllers);
-		beans = new BeanFinder().findBeans(classes);
-		new AutowiredMapping().mapAutowired(beans);
+		classes = configurator.getClassFinder().findClasses();
+		controllers = configurator.getControllerFinder().findControllers(classes);
+		routes = configurator.getControllerMapper().map(controllers);
+		beans = configurator.getBeanFinder().findBeans(classes);
+		
+		List<Pair<Class<?>,Field>> fields = configurator.getAutowiredFinder().findAutowired(beans);
+		configurator.getAutowiredMapper().mapAutowired(beans, fields);
 	}
 
 	@Override

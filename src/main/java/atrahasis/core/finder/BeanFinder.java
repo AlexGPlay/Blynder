@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import atrahasis.core.util.BeanAnnotations;
 
-public class BeanFinder {
+public class BeanFinder implements IBeanFinder{
 
 	public List<Class<?>> findBeans(List<Class<?>> clazz){
 		return clazz

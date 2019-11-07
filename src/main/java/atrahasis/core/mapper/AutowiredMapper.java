@@ -3,15 +3,12 @@ package atrahasis.core.mapper;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import atrahasis.core.finder.AutowiredFinder;
 import atrahasis.core.util.InstanceSaver;
 import atrahasis.core.util.Pair;
 
-public class AutowiredMapping {
+public class AutowiredMapper implements IAutowiredMapper{
 	
-	public void mapAutowired(List<Class<?>> classes) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
-		List<Pair<Class<?>,Field>> fields = new AutowiredFinder().findAutowired(classes);
-		
+	public void mapAutowired(List<Class<?>> classes, List<Pair<Class<?>,Field>> fields) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
 		for(Pair<Class<?>,Field> pair : fields)
 			initField(pair,classes);
 	}

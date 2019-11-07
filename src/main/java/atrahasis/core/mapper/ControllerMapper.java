@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import atrahasis.core.annotations.Path;
 import atrahasis.core.util.Pair;
 
-public class ControllerMapping {
+public class ControllerMapper implements IControllerMapper{
 
 	public Map<String, Pair<Class<?>,Method>> map(List<Class<?>> classes){
 		Map<String, Pair<Class<?>,Method>> map = new HashMap<>();

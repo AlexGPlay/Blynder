@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import atrahasis.core.util.Pair;
 import atrahasis.core.annotations.Autowired;
 
-public class AutowiredFinder {
+public class AutowiredFinder implements IAutowiredFinder{
 
 	public List<Pair<Class<?>,Field>> findAutowired(List<Class<?>> classes){
 		List<Pair<Class<?>,Field>> fields = new ArrayList<>();
