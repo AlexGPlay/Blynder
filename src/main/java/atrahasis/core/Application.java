@@ -18,16 +18,15 @@ import atrahasis.core.util.InstanceSaver;
 import atrahasis.core.util.Pair;
 import atrahasis.core.util.ParamSorter;
 import atrahasis.core.view.Window;
-import javafx.stage.Stage;
 
-public class Application extends javafx.application.Application{
+public class Application{
 
 	private static List<Class<?>> classes = new ArrayList<>();
 	private static List<Class<?>> controllers = new ArrayList<>();
 	private static List<Class<?>> beans = new ArrayList<>();
 	private static Map<String, Pair<Class<?>,Method>> routes = new HashMap<>();
 	
-	private static Window mainWindow;
+	private static Window mainWindow = new Window();
 	private static IConfigurator configurator;
 	
 	public static void launchApp() {
@@ -36,10 +35,22 @@ public class Application extends javafx.application.Application{
 	
 	public static void launchApp(IConfigurator configurator) {
 		Application.configurator = configurator;
-		launch();
+		new Application();
 	}
 	
-	public Application() {}
+	public Application() {
+		try {
+			execute();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public static void navigate(String url) {
 		Pair<String, Map<String,Object>> data = configurator.getRoutesFinder().findRoute(routes, url);
@@ -93,12 +104,6 @@ public class Application extends javafx.application.Application{
 		
 		List<Pair<Class<?>,Field>> fields = configurator.getAutowiredFinder().findAutowired(beans);
 		configurator.getAutowiredMapper().mapAutowired(beans, fields);
-	}
-
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		mainWindow = new Window(primaryStage);
-		execute();
 	}
 	
 }
