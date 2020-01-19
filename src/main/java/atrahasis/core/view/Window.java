@@ -16,6 +16,13 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
 
+/**
+ * 
+ * A wrapper class for the GUI of the framework, it makes the project able to
+ * change the implementation of the window without the other parts of the project
+ * needing the change anything.
+ *
+ */
 public class Window{
 	
 	private Stage mainStage;

@@ -10,6 +10,15 @@ import java.util.stream.Collectors;
 import atrahasis.core.annotations.Path;
 import atrahasis.core.util.Pair;
 
+/**
+ * 
+ * This class is the built-in controller mapper. The process this class
+ * will do, is to map the controllers into a map that has the URL as the key
+ * and a pair of class - method as the value, making the application faster
+ * when navigating between URLs. For more information read the IControllerMapper
+ * documentation.
+ *
+ */
 public class ControllerMapper implements IControllerMapper{
 
 	public Map<String, Pair<Class<?>,Method>> map(List<Class<?>> classes){
@@ -22,6 +31,19 @@ public class ControllerMapper implements IControllerMapper{
 		return map;
 	}
 	
+	/**
+	 * 
+	 * Given a controller, this method will map the URL into the
+	 * controller class and method. This will be made using the getPathMethods
+	 * to extract the path methods from a given class and the getValue method
+	 * that will extract the URL from a path method.
+	 * @param clazz
+	 * The controller that will be analyzed.
+	 * @return
+	 * A map containing the URLs inside the controller and a pair that references
+	 * the class itself and the method that controlls that URL.
+	 * 
+	 */
 	private Map<String, Pair<Class<?>,Method>> mapController(Class<?> clazz){
 		List<Method> pathMethods = getPathMethods(clazz);
 		Map<String, Pair<Class<?>,Method>> map = new HashMap<>();
@@ -29,18 +51,38 @@ public class ControllerMapper implements IControllerMapper{
 		pathMethods
 		.stream()
 		.forEach(
-				m -> map.put(
-						getValue(m), 
-						new Pair<Class<?>,Method>(clazz,m))
+			m -> map.put(
+					getValue(m), 
+					new Pair<Class<?>,Method>(clazz,m)
+				)
 		);
 		
 		return map;
 	}
 	
+	/**
+	 * 
+	 * Given a path method, this class will extract the URL from the annotation.
+	 * @param method
+	 * A path method.
+	 * @return
+	 * The URL that is linked to the method.
+	 * 
+	 */
 	private String getValue(Method method) {
 		return method.getAnnotation(Path.class).value();
 	}
 
+	/**
+	 * 
+	 * Iterates all the class methods looking for the path ones and returning
+	 * them as a list.
+	 * @param clazz
+	 * The controller class that will be analyzed.
+	 * @return
+	 * A list of path methods.
+	 * 
+	 */
 	private List<Method> getPathMethods(Class<?> clazz) {
 		return Arrays
 				.stream(clazz.getMethods())

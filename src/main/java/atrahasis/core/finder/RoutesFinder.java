@@ -8,6 +8,13 @@ import java.util.Map;
 
 import atrahasis.core.util.Pair;
 
+/**
+ * 
+ * RoutesFinder is the built-in implementation of the IRoutesFinder interface.
+ * This class will provide a working class for the mapping of user routes to
+ * controller routes.
+ *
+ */
 public class RoutesFinder implements IRoutesFinder{
 
 	public Pair<String, Map<String,Object>> findRoute(Map<String, Pair<Class<?>,Method>> routes, String url) {
@@ -52,10 +59,37 @@ public class RoutesFinder implements IRoutesFinder{
 		return null;
 	}
 	
+	/**
+	 * 
+	 * Given a user url this class will check if it maps against any of the
+	 * controller urls of the project.
+	 * @param params
+	 * The parameters given in the url as a hash.
+	 * @param keyUrl
+	 * The base controller url.
+	 * @param url
+	 * The user url.
+	 * @return
+	 * True if the user url maps against the given url.<br>
+	 * False if the user url doesn't map against the given url.
+	 * 
+	 */
 	private boolean isValidUrl(Map<String,Object> params, String keyUrl, String url) {
 		return generateRealUrl(params,keyUrl).equals(url);
 	}
 	
+	/**
+	 * 
+	 * Helper method that recreates the user url with the parameters it has
+	 * and the base url.
+	 * @param map
+	 * The parameters of the user url.
+	 * @param url
+	 * The base url.
+	 * @return
+	 * The formed url with the base url and the parameters that should replicate
+	 * the user url.
+	 */
 	private String generateRealUrl(Map<String,Object> map, String url) {
 		String lUrl = url;
 		
@@ -66,6 +100,15 @@ public class RoutesFinder implements IRoutesFinder{
 		return lUrl;
 	}
 	
+	/**
+	 * 
+	 * Helper method that extracts the parameters of the user url and its
+	 * separators for a later analysis.
+	 * @param url
+	 * The url given by the user.
+	 * @return
+	 * A list of pairs with the parameters in the url and the separators between them.
+	 */
 	private Pair<List<String>,List<String>> getParameters(String url) {
 		List<String> parameters = new ArrayList<>();
 		List<String> separators = new ArrayList<>();

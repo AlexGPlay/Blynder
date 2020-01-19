@@ -15,6 +15,13 @@ import atrahasis.core.mapper.ControllerMapper;
 import atrahasis.core.mapper.IAutowiredMapper;
 import atrahasis.core.mapper.IControllerMapper;
 
+/**
+ * 
+ * The basic configurator class provides the framework finding and mapping classes,
+ * meaning that this is the base configurator if you don't use a configurator of
+ * your own.
+ *
+ */
 public class BasicConfigurator implements IConfigurator{
 
 	protected IAutowiredFinder autowiredFinder;
