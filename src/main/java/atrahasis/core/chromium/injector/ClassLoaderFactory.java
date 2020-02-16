@@ -6,7 +6,7 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JarInjector {
+public class ClassLoaderFactory {
 
 	public URLClassLoader injectDependency(String... path) {
 		try {

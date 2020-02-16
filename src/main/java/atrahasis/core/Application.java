@@ -10,6 +10,8 @@ import java.util.Map;
 
 import javax.swing.JPanel;
 
+import atrahasis.core.chromium.handler.AppHandlerObserver;
+import atrahasis.core.chromium.handler.InitializedObserver;
 import atrahasis.core.configurator.BasicConfigurator;
 import atrahasis.core.configurator.IConfigurator;
 import atrahasis.core.exception.IllegalViewException;
@@ -19,15 +21,17 @@ import atrahasis.core.util.Pair;
 import atrahasis.core.util.ParamSorter;
 import atrahasis.core.view.Window;
 
-public class Application{
+public class Application implements InitializedObserver, AppHandlerObserver{
 
 	private static List<Class<?>> classes = new ArrayList<>();
 	private static List<Class<?>> controllers = new ArrayList<>();
 	private static List<Class<?>> beans = new ArrayList<>();
 	private static Map<String, Pair<Class<?>,Method>> routes = new HashMap<>();
 	
-	private static Window mainWindow = new Window();
+	private static Window mainWindow;
 	private static IConfigurator configurator;
+
+	private static Application instance;
 	
 	public static void launchApp() {
 		Application.launchApp(new BasicConfigurator());
@@ -35,21 +39,16 @@ public class Application{
 	
 	public static void launchApp(IConfigurator configurator) {
 		Application.configurator = configurator;
-		new Application();
+		instance = new Application();
+		instance.execute();
+		mainWindow = new Window();
+		mainWindow.initializeChromium();
 	}
 	
-	public Application() {
-		try {
-			execute();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		}
+	private Application() {}
+	
+	public static Application getInstance() {
+		return instance;
 	}
 	
 	public static void navigate(String url) {
@@ -78,6 +77,11 @@ public class Application{
 		}
 	}
 	
+	private static void navigateToIndex() {
+		navigate("/");
+		mainWindow.setVisible(true);
+	}
+	
 	private static void createView(Object view, Model model) throws IllegalViewException {
 		if(view instanceof JPanel)
 			mainWindow.setSwing((JPanel)view);
@@ -87,13 +91,22 @@ public class Application{
 		}
 	}
 	
-	private void execute() throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException, InstantiationException {
-		groupClasses();
-		navigateToIndex();
-	}
-	
-	private void navigateToIndex() {
-		navigate("/");
+	private void execute() {
+		try {
+			groupClasses();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private void groupClasses() throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException, InstantiationException {
@@ -104,6 +117,16 @@ public class Application{
 		
 		List<Pair<Class<?>,Field>> fields = configurator.getAutowiredFinder().findAutowired(beans);
 		configurator.getAutowiredMapper().mapAutowired(beans, fields);
+	}
+
+	@Override
+	public void update() {
+		navigateToIndex();
+	}
+
+	@Override
+	public void update(String data) {
+		navigate(data);
 	}
 	
 }

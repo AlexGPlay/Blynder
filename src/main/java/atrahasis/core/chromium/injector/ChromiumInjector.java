@@ -6,7 +6,7 @@ import java.net.URLClassLoader;
 public class ChromiumInjector {
 
 	private String basePath = "chromium/%s/java-cef-build-bin/bin/";
-	private String extraPath = "chromium-compile/Compilation.jar";
+	private String extraPath = "chromium/class/Compilation.jar";
 	private String libPath = basePath;
 	
 	public URLClassLoader addJar(OSDetector.OS os) {
@@ -21,7 +21,7 @@ public class ChromiumInjector {
 		if(os.equals(OSDetector.OS.Mac))
 			path = getMacPath();
 
-		URLClassLoader loader = new JarInjector().injectDependency(path, extraPath);
+		URLClassLoader loader = new ClassLoaderFactory().injectDependency(path, extraPath);
 		setLibraryPath(libPath);
 		return loader;
 	}

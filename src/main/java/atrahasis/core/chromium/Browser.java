@@ -2,9 +2,13 @@ package atrahasis.core.chromium;
 
 import java.awt.Component;
 
+import atrahasis.core.Application;
+import atrahasis.core.chromium.handler.AppHandlerObserver;
+import atrahasis.core.chromium.handler.InitializedObserver;
 import atrahasis.core.chromium.injector.ChromiumInjector;
 import atrahasis.core.chromium.injector.OSDetector;
 import atrahasis.core.chromium.injector.ObjectManager;
+import atrahasis.core.chromium.util.DataUri;
 
 public class Browser {
 
@@ -12,7 +16,7 @@ public class Browser {
 	private Class<?> browser;
 	
 	public Browser() {
-		this("<h1>Prueba</h1>");
+		this("<html><body><a href='http://www.google.es'>Test</a></body></html>");
 	}
 	
 	public Browser(String html) {
@@ -31,6 +35,8 @@ public class Browser {
 	
 	private void initializeBrowser(String html) {
 		Class<?> cefApp = manager.getClass("org.cef.CefApp", "org.cef.CefApp", "getInstance", null);
+		initializeAppHandler(cefApp);
+		
 		Class<?> client = manager.getClass("org.cef.CefApp", "org.cef.CefClient", "createClient", cefApp);
 		
 		Object[] params = {"data:text/html," + html, true, false};
@@ -45,11 +51,64 @@ public class Browser {
 				types,
 				params
 		);
+		
+		initializeLifeSpanHandler(browser);
+	}
+	
+	private void initializeAppHandler(Class<?> cefApp) {
+		Class<?> appHandlerClass = manager.getClass("org.atrahasis.AppHandler");
+		Object appHandlerInstance = manager.getInstanceForClass(appHandlerClass);
+		
+		Object[] params = { appHandlerInstance };
+		
+		Class<?>[] types = { manager.getClassWithoutInstance("org.cef.handler.CefAppHandler") };
+		
+		manager.invokeMethodForClass(cefApp, "addAppHandler", params, types);
+		
+		manager.invokeMethodForClass(
+				appHandlerClass, "addObserver", 
+				new Object[] { Application.getInstance() }, 
+				new Class<?>[]{ AppHandlerObserver.class }
+		);
+	}
+	
+	private void initializeLifeSpanHandler(Class<?> browser) {
+		Object client = manager.invokeMethodForClass(
+				browser, 
+				"getClient", 
+				new Object[] {}, 
+				new Class<?>[] {}
+			);
+		
+		manager.invokeMethodForClass(
+				client.getClass(), 
+				"removeLifeSpanHandler", 
+				new Object[] {}, 
+				new Class<?>[] {}
+			);
+	
+		Class<?> lifeSpanHandlerClass = manager.getClass("org.atrahasis.LifeSpanHandler");
+		Object lifeSpanHandlerInstance = manager.getInstanceForClass(lifeSpanHandlerClass);
+		
+		manager.invokeMethodForClass(
+				client.getClass(), 
+				"addLifeSpanHandler", 
+				new Object[] { lifeSpanHandlerInstance }, 
+				new Class<?>[] { manager.getClassWithoutInstance("org.cef.handler.CefLifeSpanHandler") }
+			);
+		
+		manager.invokeMethodForClass(
+				lifeSpanHandlerClass, "addObserver", 
+				new Object[] { Application.getInstance() }, 
+				new Class<?>[]{ InitializedObserver.class }
+		);
 	}
 	
 	public void loadHTML(String html) {
-		String[] args = {"data:text/html," + html};
+		String[] args = {DataUri.create("text/html", html)};
 		Class<?>[] types = {String.class};
+
+		System.out.println("Invocando loadURL");
 		manager.invokeMethodForClass(browser, "loadURL", args, types);
 	}
 	
