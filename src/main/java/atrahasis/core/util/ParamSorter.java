@@ -9,8 +9,29 @@ import java.util.Map;
 import atrahasis.core.annotations.PathVariable;
 import atrahasis.core.template.Model;
 
+/**
+ * 
+ * A helper class that allows the framework to sort the PathVariables for
+ * their later injection into the controller method.
+ *
+ */
 public class ParamSorter {
 
+	/**
+	 * 
+	 * Given the map that contains the PathVariables values, the method that
+	 * they need to be injected into and the model that will contain the result,
+	 * this method sorts the parameters so they match the order of the method ones.
+	 * @param parameters
+	 * The PathVariable parameters.
+	 * @param method
+	 * The Method that hosts the URL.
+	 * @param model
+	 * A model that is inserted if the user requests it.
+	 * @return
+	 * A list of sorted objects that will be inserted into the method.
+	 * 
+	 */
 	public List<Object> sortParameters(Map<String,Object> parameters, Method method, Model model){
 		List<Object> sortedParams = new ArrayList<>();
 		
@@ -31,6 +52,19 @@ public class ParamSorter {
 		return sortedParams;
 	}
 	
+	/**
+	 * 
+	 * A helper method that will look for the value of a PathVariable.
+	 * @param data
+	 * A map that contains the path variables.
+	 * @param param
+	 * The parameter of the method.
+	 * @param annotation
+	 * The pathVariable annotation
+	 * @return
+	 * The value of the pathVariable.
+	 * 
+	 */
 	private Object getDataForAnnotatedParam(Map<String,Object> data, Parameter param, PathVariable annotation) {
 		return data.get(annotation.name().equals("") ? param.getName() : annotation.name());
 	}

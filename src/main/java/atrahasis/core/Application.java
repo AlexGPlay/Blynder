@@ -21,6 +21,14 @@ import atrahasis.core.util.Pair;
 import atrahasis.core.util.ParamSorter;
 import atrahasis.core.view.Window;
 
+/**
+ * 
+ * The main application class. This class will be called if the application needs
+ * to start, it is the entry point of the framework. Once you call the launchApp
+ * method, all the process will start, indexing all the necessary data from the
+ * project and launching the index view.
+ *
+ */
 public class Application implements InitializedObserver, AppHandlerObserver{
 
 	private static List<Class<?>> classes = new ArrayList<>();

@@ -9,6 +9,13 @@ import java.util.stream.Collectors;
 import atrahasis.core.util.Pair;
 import atrahasis.core.annotations.Autowired;
 
+/**
+ * 
+ * The AutowiredFinder class is the built-in implementation if the AutowiredFinder
+ * interface, making it possible to use the framework autowired function
+ * without creating a user own implementation.
+ *
+ */
 public class AutowiredFinder implements IAutowiredFinder{
 
 	public List<Pair<Class<?>,Field>> findAutowired(List<Class<?>> classes){
@@ -20,6 +27,15 @@ public class AutowiredFinder implements IAutowiredFinder{
 		return fields;
 	}
 	
+	/**
+	 * 
+	 * Given a class, this method looks for autowired fields in all the class fields.
+	 * This private method is used only for a class in order to make the process easier and
+	 * more readable.
+	 * @param clazz is the class which will be analyzed looking for autowired fields.
+	 * @return A list composed of pairs made of the current class and its autowired fields.
+	 * 
+	 */
 	private List<Pair<Class<?>,Field>> findAutowiredFields(Class<?> clazz){
 		List<Field> allFields = new ArrayList<Field>( Arrays.asList( clazz.getFields() ) );
 		allFields.addAll( Arrays.asList( clazz.getDeclaredFields() ) );
@@ -31,6 +47,13 @@ public class AutowiredFinder implements IAutowiredFinder{
 				.collect(Collectors.toList());
 	}
 	
+	/**
+	 * 
+	 * A boolean method used to encapsulate the Autowired finding condition.
+	 * @param field which will be tested.
+	 * @return <b>True</b> if the field is autowired annotated or <b>False</b> if not.
+	 * 
+	 */
 	private boolean isAutowired(Field field) {
 		return field.isAnnotationPresent(Autowired.class);
 	}

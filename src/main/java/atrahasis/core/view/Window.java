@@ -13,6 +13,13 @@ import atrahasis.core.browser.BrowserFactory.Browser;
 import atrahasis.core.browser.IBrowser;
 import atrahasis.core.template.Model;
 
+/**
+ * 
+ * A wrapper class for the GUI of the framework, it makes the project able to
+ * change the implementation of the window without the other parts of the project
+ * needing the change anything.
+ *
+ */
 public class Window{
 	
 	private JFrame frame;
