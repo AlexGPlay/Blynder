@@ -1,16 +1,17 @@
-package atrahasis.core.chromium;
+package atrahasis.core.browser.chromium;
 
 import java.awt.Component;
 
 import atrahasis.core.Application;
-import atrahasis.core.chromium.handler.AppHandlerObserver;
-import atrahasis.core.chromium.handler.InitializedObserver;
-import atrahasis.core.chromium.injector.ChromiumInjector;
-import atrahasis.core.chromium.injector.OSDetector;
-import atrahasis.core.chromium.injector.ObjectManager;
-import atrahasis.core.chromium.util.DataUri;
+import atrahasis.core.browser.IBrowser;
+import atrahasis.core.browser.chromium.handler.AppHandlerObserver;
+import atrahasis.core.browser.chromium.handler.InitializedObserver;
+import atrahasis.core.browser.chromium.injector.ChromiumInjector;
+import atrahasis.core.browser.chromium.injector.OSDetector;
+import atrahasis.core.browser.chromium.injector.ObjectManager;
+import atrahasis.core.browser.chromium.util.DataUri;
 
-public class Browser {
+public class Browser implements IBrowser{
 
 	private ObjectManager manager;
 	private Class<?> browser;
@@ -21,6 +22,18 @@ public class Browser {
 	
 	public Browser(String html) {
 		initialize(html);
+	}
+	
+	public void loadHTML(String html) {
+		String[] args = {DataUri.create("text/html", html)};
+		Class<?>[] types = {String.class};
+
+		System.out.println("Invocando loadURL");
+		manager.invokeMethodForClass(browser, "loadURL", args, types);
+	}
+	
+	public Component getUI() {
+		return (Component) manager.invokeMethodForClass(browser, "getUIComponent", new Object[]{}, new Class<?>[] {});
 	}
 	
 	private void initialize(String html) {
@@ -103,17 +116,6 @@ public class Browser {
 				new Class<?>[]{ InitializedObserver.class }
 		);
 	}
-	
-	public void loadHTML(String html) {
-		String[] args = {DataUri.create("text/html", html)};
-		Class<?>[] types = {String.class};
 
-		System.out.println("Invocando loadURL");
-		manager.invokeMethodForClass(browser, "loadURL", args, types);
-	}
-	
-	public Component getUI() {
-		return (Component) manager.invokeMethodForClass(browser, "getUIComponent", new Object[]{}, new Class<?>[] {});
-	}
 	
 }

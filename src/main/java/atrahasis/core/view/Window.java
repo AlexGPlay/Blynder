@@ -2,11 +2,15 @@ package atrahasis.core.view;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import atrahasis.core.chromium.Browser;
+import atrahasis.core.browser.BrowserFactory;
+import atrahasis.core.browser.BrowserFactory.Browser;
+import atrahasis.core.browser.IBrowser;
 import atrahasis.core.template.Model;
 
 public class Window{
@@ -14,7 +18,7 @@ public class Window{
 	private JFrame frame;
 	private JPanel mainPane;
 	
-	private Browser browser;
+	private IBrowser browser;
 	
 	public Window() {
 		frame = new JFrame();
@@ -23,14 +27,25 @@ public class Window{
 		frame.getContentPane().add(mainPane);
 		
 		frame.setVisible(false);
+		addWindowCloseEvent();
 	}
 	
-	public void initializeChromium() {
-		browser = new Browser();
+	private void addWindowCloseEvent() {
+		frame.addWindowListener(new WindowAdapter() {
+
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+			
+		});
+	}
+	
+	public void initializeBrowser(Browser browser) {
+		this.browser = new BrowserFactory(browser).getBrowser();
 		
 		System.out.println("GUI subroutine");
-		browser.loadHTML("<h1>loading</h1>");
-		changeView(browser.getUI());
+		this.browser.loadHTML("<h1>loading</h1>");
+		changeView(this.browser.getUI());
 		
 		frame.setSize(100, 100);
 		frame.setVisible(true);

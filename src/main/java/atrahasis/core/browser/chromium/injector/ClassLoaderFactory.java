@@ -1,4 +1,4 @@
-package atrahasis.core.chromium.injector;
+package atrahasis.core.browser.chromium.injector;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;

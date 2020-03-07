@@ -1,4 +1,4 @@
-package atrahasis.core.chromium.injector;
+package atrahasis.core.browser.chromium.injector;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URLClassLoader;

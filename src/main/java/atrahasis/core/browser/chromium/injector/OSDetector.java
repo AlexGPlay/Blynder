@@ -1,4 +1,4 @@
-package atrahasis.core.chromium.injector;
+package atrahasis.core.browser.chromium.injector;
 public class OSDetector {
 
 	public static enum OS {

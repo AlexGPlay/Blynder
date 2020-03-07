@@ -1,5 +1,6 @@
 package atrahasis.core.configurator;
 
+import atrahasis.core.browser.BrowserFactory.Browser;
 import atrahasis.core.finder.IAutowiredFinder;
 import atrahasis.core.finder.IBeanFinder;
 import atrahasis.core.finder.IClassFinder;
@@ -17,5 +18,6 @@ public interface IConfigurator {
 	public IRoutesFinder getRoutesFinder();
 	public IAutowiredMapper getAutowiredMapper();
 	public IControllerMapper getControllerMapper();
+	public Browser getBrowser();
 	
 }

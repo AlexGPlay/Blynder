@@ -1,5 +1,6 @@
 package atrahasis.core.configurator;
 
+import atrahasis.core.browser.BrowserFactory.Browser;
 import atrahasis.core.finder.AutowiredFinder;
 import atrahasis.core.finder.BeanFinder;
 import atrahasis.core.finder.ClassFinder;
@@ -24,6 +25,7 @@ public class BasicConfigurator implements IConfigurator{
 	protected IRoutesFinder routesFinder;
 	protected IAutowiredMapper autowiredMapper;
 	protected IControllerMapper controllerMapper;
+	protected Browser browser;
 	
 	public BasicConfigurator() {
 		this.autowiredFinder = new AutowiredFinder();
@@ -33,6 +35,7 @@ public class BasicConfigurator implements IConfigurator{
 		this.routesFinder = new RoutesFinder();
 		this.autowiredMapper = new AutowiredMapper();
 		this.controllerMapper = new ControllerMapper();
+		this.browser = Browser.Standard;
 	}
 	
 	@Override
@@ -68,6 +71,11 @@ public class BasicConfigurator implements IConfigurator{
 	@Override
 	public IControllerMapper getControllerMapper() {
 		return controllerMapper;
+	}
+
+	@Override
+	public Browser getBrowser() {
+		return browser;
 	}
 
 }

@@ -1,5 +1,6 @@
 package atrahasis.core.configurator;
 
+import atrahasis.core.browser.BrowserFactory.Browser;
 import atrahasis.core.finder.IAutowiredFinder;
 import atrahasis.core.finder.IBeanFinder;
 import atrahasis.core.finder.IClassFinder;
@@ -42,6 +43,11 @@ public class CustomConfigurator extends BasicConfigurator{
 	
 	public CustomConfigurator with(IControllerMapper controllerMapper) {
 		this.controllerMapper = controllerMapper;
+		return this;
+	}
+	
+	public CustomConfigurator with(Browser browser) {
+		this.browser = browser;
 		return this;
 	}
 	

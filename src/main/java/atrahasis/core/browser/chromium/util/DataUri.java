@@ -2,7 +2,7 @@
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 
-package atrahasis.core.chromium.util;
+package atrahasis.core.browser.chromium.util;
 
 import javax.xml.bind.DatatypeConverter;
 

@@ -1,4 +1,4 @@
-package atrahasis.core.chromium.injector;
+package atrahasis.core.browser.chromium.injector;
 
 import java.lang.reflect.Field;
 import java.net.URLClassLoader;

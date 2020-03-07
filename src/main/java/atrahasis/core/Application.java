@@ -10,8 +10,8 @@ import java.util.Map;
 
 import javax.swing.JPanel;
 
-import atrahasis.core.chromium.handler.AppHandlerObserver;
-import atrahasis.core.chromium.handler.InitializedObserver;
+import atrahasis.core.browser.chromium.handler.AppHandlerObserver;
+import atrahasis.core.browser.chromium.handler.InitializedObserver;
 import atrahasis.core.configurator.BasicConfigurator;
 import atrahasis.core.configurator.IConfigurator;
 import atrahasis.core.exception.IllegalViewException;
@@ -42,7 +42,8 @@ public class Application implements InitializedObserver, AppHandlerObserver{
 		instance = new Application();
 		instance.execute();
 		mainWindow = new Window();
-		mainWindow.initializeChromium();
+		mainWindow.initializeBrowser(configurator.getBrowser());
+		navigateToIndex();
 	}
 	
 	private Application() {}

@@ -1,4 +1,4 @@
-package atrahasis.core.chromium.handler;
+package atrahasis.core.browser.chromium.handler;
 
 public interface AppHandlerObservable {
 
