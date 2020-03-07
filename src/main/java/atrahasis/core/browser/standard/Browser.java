@@ -15,6 +15,12 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 
+/**
+ * 
+ * Standard implementation of the IBrowser. This implementation is based on
+ * the JavaFX webView.
+ *
+ */
 public class Browser implements IBrowser{
 
 	private WebView browser;

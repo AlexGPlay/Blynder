@@ -1,5 +1,10 @@
 package atrahasis.core.browser;
 
+/**
+ * 
+ * Factory that given an enum object will create that browser.
+ *
+ */
 public class BrowserFactory {
 
 	public static enum Browser { Standard, Chromium }
@@ -9,6 +14,15 @@ public class BrowserFactory {
 		this.browser = browser;
 	}
 	
+	/**
+	 * 
+	 * Given the browser from the enum, this method will return an instance
+	 * of the browser.
+	 * TODO: Metaprogram the browser creation in order to get a more scalable
+	 * codebase.
+	 * @return IBrowser
+	 * 
+	 */
 	public IBrowser getBrowser() {
 		if(browser == Browser.Standard)
 			return new atrahasis.core.browser.standard.Browser();

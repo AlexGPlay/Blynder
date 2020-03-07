@@ -11,6 +11,13 @@ import atrahasis.core.browser.chromium.injector.OSDetector;
 import atrahasis.core.browser.chromium.injector.ObjectManager;
 import atrahasis.core.browser.chromium.util.DataUri;
 
+/**
+ * 
+ * Chromium implementation of the IBrowser interface. This implementation is
+ * based on the JCEF bindings. The bindings aren't 100% functional, there are
+ * times where the app will crash if this browser is used.
+ *
+ */
 public class Browser implements IBrowser{
 
 	private ObjectManager manager;
