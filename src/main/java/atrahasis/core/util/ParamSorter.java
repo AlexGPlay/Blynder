@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import atrahasis.core.annotations.PathVariable;
+import atrahasis.core.network.Request;
+import atrahasis.core.network.Response;
 import atrahasis.core.template.Model;
 
 /**
@@ -32,7 +34,7 @@ public class ParamSorter {
 	 * A list of sorted objects that will be inserted into the method.
 	 * 
 	 */
-	public List<Object> sortParameters(Map<String,Object> parameters, Method method, Model model){
+	public List<Object> sortParameters(Map<String,Object> parameters, Method method, Model model, Request request, Response response){
 		List<Object> sortedParams = new ArrayList<>();
 		
 		for(Parameter param : method.getParameters()) {
@@ -42,6 +44,14 @@ public class ParamSorter {
 			
 			else if(param.getType() == Model.class) {
 				sortedParams.add(model);
+			}
+			
+			else if(param.getType() == Request.class) {
+				sortedParams.add(request);
+			}
+			
+			else if(param.getType() == Response.class) {
+				sortedParams.add(response);
 			}
 			
 			else {

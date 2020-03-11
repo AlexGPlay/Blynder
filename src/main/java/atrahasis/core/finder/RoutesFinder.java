@@ -18,6 +18,7 @@ import atrahasis.core.util.Pair;
 public class RoutesFinder implements IRoutesFinder{
 
 	public Pair<String, Map<String,Object>> findRoute(Map<String, Pair<Class<?>,Method>> routes, String url) {
+		url = url.startsWith("/") ? url : "/" + url;
 		Pair<Class<?>, Method> pair = routes.get(url);
 		Map<String,Object> data = new HashMap<String,Object>();
 		

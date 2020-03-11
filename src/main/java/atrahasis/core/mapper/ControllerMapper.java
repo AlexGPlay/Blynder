@@ -70,7 +70,8 @@ public class ControllerMapper implements IControllerMapper{
 	 * 
 	 */
 	private String getValue(Method method) {
-		return method.getAnnotation(Path.class).value();
+		String path = method.getAnnotation(Path.class).value();
+		return path.startsWith("/") ? path : "/" + path;
 	}
 
 	/**

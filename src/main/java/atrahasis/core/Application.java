@@ -15,6 +15,9 @@ import atrahasis.core.browser.chromium.handler.InitializedObserver;
 import atrahasis.core.configurator.BasicConfigurator;
 import atrahasis.core.configurator.IConfigurator;
 import atrahasis.core.exception.IllegalViewException;
+import atrahasis.core.network.Request;
+import atrahasis.core.network.Response;
+import atrahasis.core.network.url.AppUrlHandlerSetter;
 import atrahasis.core.template.Model;
 import atrahasis.core.util.InstanceSaver;
 import atrahasis.core.util.Pair;
@@ -40,12 +43,14 @@ public class Application implements InitializedObserver, AppHandlerObserver{
 	private static IConfigurator configurator;
 
 	private static Application instance;
+	private static HashMap<String,Object> data = new HashMap<>();
 	
 	public static void launchApp() {
 		Application.launchApp(new BasicConfigurator());
 	}
 	
 	public static void launchApp(IConfigurator configurator) {
+		new AppUrlHandlerSetter().setUrlManager();
 		Application.configurator = configurator;
 		instance = new Application();
 		instance.execute();
@@ -67,10 +72,12 @@ public class Application implements InitializedObserver, AppHandlerObserver{
 		Class<?> clazz = route.object1;
 		Method method = route.object2;
 		Map<String,Object> params = data.object2;
+		Request request = new Request("GET", new HashMap<>(), params, new HashMap<>());
+		Response response = new Response();
 		
 		try {
 			Model model = new Model();
-			List<Object> dataParams = new ParamSorter().sortParameters(params, method, model);
+			List<Object> dataParams = new ParamSorter().sortParameters(params, method, model, request, response);
 			Object view = method.invoke( InstanceSaver.lookForInstance(clazz), dataParams.toArray() );
 			createView(view, model);
 		} catch (IllegalAccessException e) {
@@ -126,6 +133,22 @@ public class Application implements InitializedObserver, AppHandlerObserver{
 		
 		List<Pair<Class<?>,Field>> fields = configurator.getAutowiredFinder().findAutowired(beans);
 		configurator.getAutowiredMapper().mapAutowired(beans, fields);
+	}
+	
+	public void set(String name, Object value) {
+		data.put(name, value);
+	}
+	
+	public Object get(String name) {
+		return data.get(name);
+	}
+	
+	public Object remove(String name) {
+		return data.remove(name);
+	}
+	
+	public boolean hasKey(String key) {
+		return data.containsKey(key);
 	}
 
 	@Override
