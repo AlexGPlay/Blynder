@@ -73,13 +73,14 @@ public class Application implements InitializedObserver, AppHandlerObserver{
 		Method method = route.object2;
 		Map<String,Object> params = data.object2;
 		Request request = new Request("GET", new HashMap<>(), params, new HashMap<>());
-		Response response = new Response();
+		Response response;
 		
 		try {
 			Model model = new Model();
-			List<Object> dataParams = new ParamSorter().sortParameters(params, method, model, request, response);
-			Object view = method.invoke( InstanceSaver.lookForInstance(clazz), dataParams.toArray() );
-			createView(view, model);
+			List<Object> dataParams = new ParamSorter().sortParameters(params, method, model, request);
+			Object responseObject = method.invoke( InstanceSaver.lookForInstance(clazz), dataParams.toArray() );
+			response = checkResponse(responseObject);
+			doResponseAction(response, model);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
@@ -91,6 +92,24 @@ public class Application implements InitializedObserver, AppHandlerObserver{
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private static void doResponseAction(Response response, Model model) throws IllegalViewException {
+		String redirect = response.getRedirect();
+		if(redirect != null) {
+			Application.navigate(redirect);
+		}
+		else {
+			Object view = response.getToRender();
+			createView(view, model);
+		}
+	}
+	
+	private static Response checkResponse(Object object) {
+		if(!(object instanceof Response))
+			throw new RuntimeException("Return type must be a response");
+		
+		return (Response)object;
 	}
 	
 	private static void navigateToIndex() {

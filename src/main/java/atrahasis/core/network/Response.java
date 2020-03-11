@@ -14,20 +14,24 @@ public class Response {
 		redirect = null;
 	}
 	
-	public void render(Object toRender) {
+	public Response render(Object toRender) {
 		this.toRender = toRender;
+		return this;
 	}
 	
-	public void redirect(String redirectUrl) {
+	public Response redirect(String redirectUrl) {
 		this.redirect = redirectUrl;
+		return this;
 	}
 	
-	public void statusCode(int statusCode) {
+	public Response statusCode(int statusCode) {
 		this.statusCode = statusCode;
+		return this;
 	}
 	
-	public void response(String response) {
+	public Response response(String response) {
 		this.response = response;
+		return this;
 	}
 
 	public int getStatusCode() {

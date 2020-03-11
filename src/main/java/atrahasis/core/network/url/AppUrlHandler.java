@@ -18,7 +18,13 @@ public class AppUrlHandler extends Handler{
             return new AjaxAppUrlConnection(url, proxy, this);
         }
         
-        String appUrl = "/" + url.toString().replace("app://", "");
+        String appUrl = url.toString().replace("app:", "");
+        if(appUrl.isEmpty()) {
+        	appUrl = "/";
+        }
+        else {
+        	appUrl = appUrl.replace("//", "/");
+        }
         Application.navigate(appUrl);
         // Return a default HttpURLConnection instance.
         return new URL(null).openConnection(proxy);
