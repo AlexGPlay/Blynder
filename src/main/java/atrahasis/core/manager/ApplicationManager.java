@@ -24,7 +24,10 @@ public class ApplicationManager {
 	private List<Class<?>> classes;
 	private List<Class<?>> controllers;
 	private List<Class<?>> beans;
+	private List<Class<?>> filters;
+	
 	private Map<String, Pair<Class<?>,Method>> routes;
+	private Map<Class<?>, List<Class<?>>> controllerFilters;
 	
 	private Window mainWindow;
 	private IConfigurator configurator;
@@ -61,8 +64,10 @@ public class ApplicationManager {
 	private void initializeVariables() {
 		classes = new ArrayList<>();
 		controllers = new ArrayList<>();
+		filters = new ArrayList<>();
 		beans = new ArrayList<>();
 		routes = new HashMap<>();
+		controllerFilters = new HashMap<>();
 		data = new HashMap<>();
 	}
 	
@@ -78,7 +83,9 @@ public class ApplicationManager {
 		try {
 			classes = configurator.getClassFinder().findClasses();
 			controllers = configurator.getControllerFinder().findControllers(classes);
+			filters = configurator.getFilterFinder().findFilters(classes);
 			routes = configurator.getControllerMapper().map(controllers);
+			controllerFilters = configurator.getFilterMapper().map(controllers, filters);
 			beans = configurator.getBeanFinder().findBeans(classes);
 			
 			List<Pair<Class<?>,Field>> fields = configurator.getAutowiredFinder().findAutowired(beans);

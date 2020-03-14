@@ -6,6 +6,7 @@ import java.util.List;
 
 import atrahasis.core.annotations.Bean;
 import atrahasis.core.annotations.Controller;
+import atrahasis.core.annotations.Filter;
 
 /**
  * 
@@ -27,6 +28,7 @@ public class BeanAnnotations {
 		
 		beans.add(Controller.class);
 		beans.add(Bean.class);
+		beans.add(Filter.class);
 		
 		return beans;
 	}

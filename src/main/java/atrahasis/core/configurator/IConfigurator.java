@@ -5,9 +5,11 @@ import atrahasis.core.finder.IAutowiredFinder;
 import atrahasis.core.finder.IBeanFinder;
 import atrahasis.core.finder.IClassFinder;
 import atrahasis.core.finder.IControllerFinder;
+import atrahasis.core.finder.IFilterFinder;
 import atrahasis.core.finder.IRoutesFinder;
 import atrahasis.core.mapper.IAutowiredMapper;
 import atrahasis.core.mapper.IControllerMapper;
+import atrahasis.core.mapper.IFilterMapper;
 
 /**
  * 
@@ -66,6 +68,26 @@ public interface IConfigurator {
 	 * 
 	 */
 	public IControllerMapper getControllerMapper();
+	
+	/**
+	 * 
+	 * @return The browser that will be used to render the html pages.
+	 * 
+	 */
 	public Browser getBrowser();
+	
+	/**
+	 * 
+	 * @return The filter finder class which will be used in the process.
+	 * 
+	 */
+	public IFilterFinder getFilterFinder();
+	
+	/**
+	 * 
+	 * @return The filter mapper class which will be used in the process.
+	 * 
+	 */
+	public IFilterMapper getFilterMapper();
 	
 }

@@ -3,6 +3,7 @@ package atrahasis.core.network;
 public class Response {
 
 	private int statusCode;
+	private boolean canContinue;
 	private Object toRender;
 	private String response;
 	private String redirect;
@@ -12,6 +13,7 @@ public class Response {
 		toRender = null;
 		response = null;
 		redirect = null;
+		canContinue = false;
 	}
 	
 	public Response render(Object toRender) {
@@ -33,6 +35,11 @@ public class Response {
 		this.response = response;
 		return this;
 	}
+	
+	public Response canContinue() {
+		canContinue = true;
+		return this;
+	}
 
 	public int getStatusCode() {
 		return statusCode;
@@ -48,6 +55,10 @@ public class Response {
 
 	public String getRedirect() {
 		return redirect;
+	}
+	
+	public boolean isAbleToContinue() {
+		return canContinue;
 	}
 	
 }

@@ -5,9 +5,11 @@ import atrahasis.core.finder.IAutowiredFinder;
 import atrahasis.core.finder.IBeanFinder;
 import atrahasis.core.finder.IClassFinder;
 import atrahasis.core.finder.IControllerFinder;
+import atrahasis.core.finder.IFilterFinder;
 import atrahasis.core.finder.IRoutesFinder;
 import atrahasis.core.mapper.IAutowiredMapper;
 import atrahasis.core.mapper.IControllerMapper;
+import atrahasis.core.mapper.IFilterMapper;
 
 /**
  * 
@@ -110,6 +112,40 @@ public class CustomConfigurator extends BasicConfigurator{
 		return this;
 	}
 	
+	/**
+	 * 
+	 * Changes the current FilterFinder instance with a new one.
+	 * @param filterFinder is the new instance that will be used.
+	 * @return The current Configurator instance, making it easier to concatenate
+	 * changes.
+	 * 
+	 */
+	public CustomConfigurator with(IFilterFinder filterFinder) {
+		this.filterFinder = filterFinder;
+		return this;
+	}
+	
+	/**
+	 * 
+	 * Changes the current FilterMapper instance with a new one.
+	 * @param filterMapper is the new instance that will be used.
+	 * @return The current Configurator instance, making it easier to concatenate
+	 * changes.
+	 * 
+	 */
+	public CustomConfigurator with(IFilterMapper filterMapper) {
+		this.filterMapper = filterMapper;
+		return this;
+	}
+	
+	/**
+	 * 
+	 * Changes the current Browser type with a new one.
+	 * @param browser is the new instance that will be used.
+	 * @return The current Configurator instance, making it easier to concatenate
+	 * changes.
+	 * 
+	 */
 	public CustomConfigurator with(Browser browser) {
 		this.browser = browser;
 		return this;
