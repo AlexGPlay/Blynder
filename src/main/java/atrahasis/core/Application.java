@@ -73,13 +73,13 @@ public class Application implements InitializedObserver, AppHandlerObserver{
 		Method method = route.object2;
 		Map<String,Object> params = data.object2;
 		Request request = new Request("GET", new HashMap<>(), params, new HashMap<>());
-		Response response;
+		Response response = new Response();
 		
 		try {
 			Model model = new Model();
-			List<Object> dataParams = new ParamSorter().sortParameters(params, method, model, request);
+			List<Object> dataParams = new ParamSorter().sortParameters(params, method, model, request, response);
 			Object responseObject = method.invoke( InstanceSaver.lookForInstance(clazz), dataParams.toArray() );
-			response = checkResponse(responseObject);
+			response = checkResponse(responseObject, response);
 			doResponseAction(response, model);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
@@ -105,11 +105,21 @@ public class Application implements InitializedObserver, AppHandlerObserver{
 		}
 	}
 	
-	private static Response checkResponse(Object object) {
-		if(!(object instanceof Response))
-			throw new RuntimeException("Return type must be a response");
+	private static Response checkResponse(Object returnResponse, Response paramsResponse) {
+		Response toReturn;
 		
-		return (Response)object;
+		if(returnResponse == null) {
+			toReturn = paramsResponse;
+		}
+		else {
+			if(!(returnResponse instanceof Response)) {
+				throw new RuntimeException("Controller return type must be response or void");
+			}
+			
+			toReturn = (Response)returnResponse;
+		}
+		
+		return toReturn;
 	}
 	
 	private static void navigateToIndex() {
