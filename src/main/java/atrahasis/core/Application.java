@@ -7,11 +7,10 @@ import atrahasis.core.manager.ApplicationManager;
 
 /**
  * 
- * The main application class. This class will be called if the application needs
- * to start, it is the entry point of the framework. Once you call the launchApp
- * method, all the process will start, indexing all the necessary data from the
- * project and launching the index view.
- *
+ * Application is the facade that the user will use to interact with the
+ * framework. This facade has a direct communication with the ApplicationManager
+ * instance, this instance is the one that will do all the heavy work.
+ * 
  */
 public class Application{
 	

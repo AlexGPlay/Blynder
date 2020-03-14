@@ -1,7 +1,6 @@
 package atrahasis.core.manager;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,13 +12,11 @@ import javax.swing.JPanel;
 import atrahasis.core.configurator.IConfigurator;
 import atrahasis.core.exception.IllegalViewException;
 import atrahasis.core.exception.MapApplicationException;
-import atrahasis.core.network.Request;
+import atrahasis.core.manager.navigation.NavigationManager;
 import atrahasis.core.network.Response;
 import atrahasis.core.network.url.AppUrlHandlerSetter;
 import atrahasis.core.template.Model;
-import atrahasis.core.util.InstanceSaver;
 import atrahasis.core.util.Pair;
-import atrahasis.core.util.ParamSorter;
 import atrahasis.core.view.Window;
 
 public class ApplicationManager {
@@ -109,31 +106,17 @@ public class ApplicationManager {
 	//																//
 	//////////////////////////////////////////////////////////////////
 	
-	public void navigate(String url) {
-		Pair<String, Map<String,Object>> data = configurator.getRoutesFinder().findRoute(routes, url);
-		Pair<Class<?>, Method> route = routes.get(data.object1);
-		
-		Class<?> clazz = route.object1;
-		Method method = route.object2;
-		Map<String,Object> params = data.object2;
-		Request request = new Request("GET", new HashMap<>(), params, new HashMap<>());
-		Response response = new Response();
-		
+	public void navigate(String url){
 		try {
-			Model model = new Model();
-			List<Object> dataParams = new ParamSorter().sortParameters(params, method, model, request, response);
-			Object responseObject = method.invoke( InstanceSaver.lookForInstance(clazz), dataParams.toArray() );
-			response = checkResponse(responseObject, response);
-			doResponseAction(response, model);
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		} catch (IllegalViewException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
+			Pair<Response, Model> response = new NavigationManager(
+					url, 
+					configurator.getRoutesFinder(), 
+					routes
+			).call();
+			
+			doResponseAction(response.object1, response.object2);
+		}
+		catch(IllegalViewException e) {
 			e.printStackTrace();
 		}
 	}
@@ -147,23 +130,6 @@ public class ApplicationManager {
 			Object view = response.getToRender();
 			createView(view, model);
 		}
-	}
-	
-	private Response checkResponse(Object returnResponse, Response paramsResponse) {
-		Response toReturn;
-		
-		if(returnResponse == null) {
-			toReturn = paramsResponse;
-		}
-		else {
-			if(!(returnResponse instanceof Response)) {
-				throw new RuntimeException("Controller return type must be response or void");
-			}
-			
-			toReturn = (Response)returnResponse;
-		}
-		
-		return toReturn;
 	}
 	
 	private void createView(Object view, Model model) throws IllegalViewException {

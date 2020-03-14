@@ -2,10 +2,7 @@ package atrahasis.core.browser.chromium;
 
 import java.awt.Component;
 
-import atrahasis.core.Application;
 import atrahasis.core.browser.IBrowser;
-import atrahasis.core.browser.chromium.handler.AppHandlerObserver;
-import atrahasis.core.browser.chromium.handler.InitializedObserver;
 import atrahasis.core.browser.chromium.injector.ChromiumInjector;
 import atrahasis.core.browser.chromium.injector.OSDetector;
 import atrahasis.core.browser.chromium.injector.ObjectManager;
