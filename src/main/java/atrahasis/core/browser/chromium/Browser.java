@@ -85,11 +85,17 @@ public class Browser implements IBrowser{
 		
 		manager.invokeMethodForClass(cefApp, "addAppHandler", params, types);
 		
-		manager.invokeMethodForClass(
-				appHandlerClass, "addObserver", 
-				new Object[] { Application.getInstance() }, 
-				new Class<?>[]{ AppHandlerObserver.class }
-		);
+		/**
+		 *
+		 * For now, application observer for chrome won't be used.
+		 * 
+		 */
+		
+		//manager.invokeMethodForClass(
+		//		appHandlerClass, "addObserver", 
+		//		new Object[] { Application.getInstance() }, 
+		//		new Class<?>[]{ AppHandlerObserver.class }
+		//);
 	}
 	
 	private void initializeLifeSpanHandler(Class<?> browser) {
@@ -117,11 +123,17 @@ public class Browser implements IBrowser{
 				new Class<?>[] { manager.getClassWithoutInstance("org.cef.handler.CefLifeSpanHandler") }
 			);
 		
-		manager.invokeMethodForClass(
-				lifeSpanHandlerClass, "addObserver", 
-				new Object[] { Application.getInstance() }, 
-				new Class<?>[]{ InitializedObserver.class }
-		);
+		/**
+		 *
+		 * For now, application observer for chrome won't be used.
+		 * 
+		 */
+		
+		//manager.invokeMethodForClass(
+		//		lifeSpanHandlerClass, "addObserver", 
+		//		new Object[] { Application.getInstance() }, 
+		//		new Class<?>[]{ InitializedObserver.class }
+		//);
 	}
 
 	
