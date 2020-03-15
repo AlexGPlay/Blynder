@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import atrahasis.core.finder.IRoutesFinder;
+import atrahasis.core.manager.security.FilterManager;
 import atrahasis.core.network.Request;
 import atrahasis.core.network.Response;
 import atrahasis.core.template.Model;
@@ -25,11 +26,13 @@ public class NavigationManager {
 	private String url;
 	private IRoutesFinder finder;
 	private Map<String, Pair<Class<?>,Method>> routes;
+	private FilterManager filterManager;
 
-	public NavigationManager(String url, IRoutesFinder finder, Map<String, Pair<Class<?>,Method>> routes) {
+	public NavigationManager(String url, IRoutesFinder finder, Map<String, Pair<Class<?>,Method>> routes, FilterManager filterManager) {
 		this.url = url;
 		this.finder = finder;
 		this.routes = routes;
+		this.filterManager = filterManager;
 	}
 
 	public Pair<Response, Model> call() {
@@ -40,8 +43,8 @@ public class NavigationManager {
 		Method method = controller.object2;
 
 		Map<String,Object> params = data.object2;
-
-		return invokeController(clazz, method, params);
+		
+		return invokeRoutingMethods(clazz, method, params);
 	}
 
 	/**
@@ -63,6 +66,43 @@ public class NavigationManager {
 		return routes.get(path);
 	}
 	
+
+	/**
+	 * 
+	 * This method invokes the filter and the controller that are in charge of
+	 * the URL invoked by the user.
+	 *
+	 */
+	private Pair<Response, Model> invokeRoutingMethods(Class<?> controllerClass, Method controllerMethod, Map<String,Object> controllerParams) {
+		Request request = new Request(url, "GET", new HashMap<>(), controllerParams, new HashMap<>());
+		Response response = new Response();
+		Model model = new Model();
+		
+		response = invokeFilter(controllerClass, request, response);
+		if(!response.isAbleToContinue()) 
+			return new Pair<Response,Model>(response, model);
+		
+		response = invokeController(controllerClass, controllerMethod, controllerParams, model, request, response);
+		return new Pair<Response,Model>(response, model);
+	}
+	
+	/**
+	 * 
+	 * Invokes the filterManager with the url controller, the given request and the base response.
+	 * 
+	 * @param controllerClass that is routing the url
+	 * @param request sent by the user
+	 * @param response that will be managed
+	 * @return response -> <br>
+	 * 	The continue flag will be true if the request passes the filters<br>
+	 * 	The continue flag will be false if the request didn't pass the filters
+	 * 	and there will be a redirect or render to manage the request.
+	 * 
+	 */
+	private Response invokeFilter(Class<?> controllerClass, Request request, Response response) {
+		return filterManager.call(controllerClass, request, response);
+	}
+	
 	/**
 	 * 
 	 *	Given the controller class, method and params, this method will return
@@ -70,14 +110,16 @@ public class NavigationManager {
 	 *	and the model the user wants to render.
 	 *
 	 */
-	private Pair<Response, Model> invokeController(Class<?> controllerClass, Method controllerMethod, Map<String,Object> controllerParams) {
-		Request request = new Request("GET", new HashMap<>(), controllerParams, new HashMap<>());
-		Response response = new Response();
-		Model model = new Model();
-		
+	private Response invokeController(Class<?> controllerClass, 
+										Method controllerMethod, 
+										Map<String,Object> controllerParams, 
+										Model model,
+										Request request, 
+										Response response
+	) {
 		List<Object> dataParams = new ParamSorter().sortParameters(controllerParams, controllerMethod, model, request, response);
 		Object responseObject = invokeMethod(controllerClass, controllerMethod, dataParams);
-		return new Pair<Response,Model>(getValidResponse(responseObject, response), model);
+		return getValidResponse(responseObject, response);
 	}
 	
 	/**

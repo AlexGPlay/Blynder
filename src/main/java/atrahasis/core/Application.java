@@ -21,6 +21,7 @@ public class Application{
 	public static void launchApp(IConfigurator configurator) {
 		try {
 			ApplicationManager.initializeInstance(configurator);
+			ApplicationManager.getInstance().navigate("/");
 		} catch (MapApplicationException e) {
 			e.printStackTrace();
 			System.exit(0);
@@ -31,19 +32,19 @@ public class Application{
 		ApplicationManager.getInstance().navigate(url);
 	}
 	
-	public void set(String name, Object value) {
+	public static void set(String name, Object value) {
 		ApplicationManager.getInstance().put(name, value);
 	}
 	
-	public Object get(String name) {
+	public static Object get(String name) {
 		return ApplicationManager.getInstance().get(name);
 	}
 	
-	public Object remove(String name) {
+	public static Object remove(String name) {
 		return ApplicationManager.getInstance().remove(name);
 	}
 	
-	public boolean hasKey(String key) {
+	public static boolean hasKey(String key) {
 		return ApplicationManager.getInstance().containsKey(key);
 	}
 

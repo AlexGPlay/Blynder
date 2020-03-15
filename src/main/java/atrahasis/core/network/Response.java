@@ -36,8 +36,8 @@ public class Response {
 		return this;
 	}
 	
-	public Response canContinue() {
-		canContinue = true;
+	public Response canContinue(boolean canContinue) {
+		this.canContinue = canContinue;
 		return this;
 	}
 

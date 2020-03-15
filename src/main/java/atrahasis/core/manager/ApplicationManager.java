@@ -13,6 +13,7 @@ import atrahasis.core.configurator.IConfigurator;
 import atrahasis.core.exception.IllegalViewException;
 import atrahasis.core.exception.MapApplicationException;
 import atrahasis.core.manager.navigation.NavigationManager;
+import atrahasis.core.manager.security.FilterManager;
 import atrahasis.core.network.Response;
 import atrahasis.core.network.url.AppUrlHandlerSetter;
 import atrahasis.core.template.Model;
@@ -28,6 +29,7 @@ public class ApplicationManager {
 	
 	private Map<String, Pair<Class<?>,Method>> routes;
 	private Map<Class<?>, List<Class<?>>> controllerFilters;
+	private FilterManager filterManager;
 	
 	private Window mainWindow;
 	private IConfigurator configurator;
@@ -58,7 +60,6 @@ public class ApplicationManager {
 		initializeUrlManager();
 		mapApplication();
 		initializeWindow();
-		launchApplication();
 	}
 	
 	private void initializeVariables() {
@@ -90,6 +91,8 @@ public class ApplicationManager {
 			
 			List<Pair<Class<?>,Field>> fields = configurator.getAutowiredFinder().findAutowired(beans);
 			configurator.getAutowiredMapper().mapAutowired(beans, fields);
+			
+			filterManager = new FilterManager(controllerFilters, filters);
 		}
 		catch(Exception e) {
 			throw new MapApplicationException();
@@ -99,10 +102,7 @@ public class ApplicationManager {
 	private void initializeWindow() {
 		mainWindow = new Window();
 		mainWindow.initializeBrowser(configurator.getBrowser());
-	}
-	
-	private void launchApplication() {
-		navigateToIndex();
+		mainWindow.setVisible(true);
 	}
 	
 	//////////////////////////////////////////////////////////////////
@@ -118,7 +118,8 @@ public class ApplicationManager {
 			Pair<Response, Model> response = new NavigationManager(
 					url, 
 					configurator.getRoutesFinder(), 
-					routes
+					routes,
+					filterManager
 			).call();
 			
 			doResponseAction(response.object1, response.object2);
@@ -146,11 +147,6 @@ public class ApplicationManager {
 		else if(view instanceof String) {
 			mainWindow.setHtml((String)view, model);
 		}
-	}
-	
-	private void navigateToIndex() {
-		navigate("/");
-		mainWindow.setVisible(true);
 	}
 	
 	//////////////////////////////////////////////////////////////////
