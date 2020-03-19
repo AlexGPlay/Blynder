@@ -1,7 +1,9 @@
 package atrahasis.core.view;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 
 import atrahasis.core.io.FileManager;
 import atrahasis.core.template.Model;
@@ -31,9 +33,40 @@ public class HTMLHandler {
 		String res = "<body>Error</body>";
 		try {
 			res = new FileManager().loadContent(file);
-		} catch (IOException | URISyntaxException e) {}
+			String processedHtml = new Thymeleaf().processHtml(res, model);
+			String newFileName = createFilename(file, processedHtml);
+			return new FileManager().saveContent(newFileName, processedHtml);
+		} catch (IOException | URISyntaxException e) {
+			return null;
+		}
 		
-		return new Thymeleaf().processHtml(res, model);
+	}
+	
+	private String createFilename(String ogFile, String processedString) {
+		File f = getFileFromResource(ogFile);
+		
+		String fileName = f.getName();
+		String[] fileData = fileName.split("\\.");
+		fileName = fileData[0] + "_ahs";
+		if(fileData.length > 1)
+			fileName += "." + fileData[1];
+		
+		String path = f.getAbsolutePath().replace(f.getName(), "");
+		path = path.replace(File.separator + File.separator, File.separator);
+		path = path.startsWith(File.separator) ? path.substring(0,path.length()-1) : path;
+		path = path.endsWith(File.separator) ? path.substring(0,path.length()-1) : path;
+		
+		return String.format("%s" + File.separator + "%s", path, fileName);
+	}
+	
+	private File getFileFromResource(String ogFile) {
+		try {
+			URL url = getClass().getClassLoader().getResource(ogFile);
+			return new File(url.toURI());
+		}
+		catch(URISyntaxException e) {
+			return null;
+		}
 	}
 	
 }

@@ -77,7 +77,7 @@ public class Browser implements IBrowser{
 	public void loadHTML(String html) {
 		Platform.setImplicitExit(false);
 		Platform.runLater(() -> {
-			engine.loadContent(html);
+			engine.load(html);
 			panel.repaint();
 		});
 	}
