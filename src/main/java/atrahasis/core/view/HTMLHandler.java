@@ -45,9 +45,11 @@ public class HTMLHandler {
 	private String createFilename(String ogFile, String processedString) {
 		File f = getFileFromResource(ogFile);
 		
+		int hash = processedString.hashCode();
+		
 		String fileName = f.getName();
 		String[] fileData = fileName.split("\\.");
-		fileName = fileData[0] + "_ahs";
+		fileName = fileData[0] + "_" + hash;
 		if(fileData.length > 1)
 			fileName += "." + fileData[1];
 		
