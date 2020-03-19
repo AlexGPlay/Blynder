@@ -50,7 +50,6 @@ public class Window{
 	public void initializeBrowser(Browser browser) {
 		this.browser = new BrowserFactory(browser).getBrowser();
 		
-		System.out.println("GUI subroutine");
 		this.browser.loadHTML("<h1>loading</h1>");
 		changeView(this.browser.getUI());
 		
