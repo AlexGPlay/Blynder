@@ -14,6 +14,7 @@ import atrahasis.core.template.Model;
 import atrahasis.core.util.InstanceSaver;
 import atrahasis.core.util.Pair;
 import atrahasis.core.util.ParamSorter;
+import atrahasis.core.util.QueryParamsExtractor;
 
 /**
  * 
@@ -43,6 +44,8 @@ public class NavigationManager {
 		Method method = controller.object2;
 
 		Map<String,Object> params = data.object2;
+		Map<String,Object> queryParams = new QueryParamsExtractor(url).extract();
+		params.putAll(queryParams);
 		
 		return invokeRoutingMethods(clazz, method, params);
 	}
