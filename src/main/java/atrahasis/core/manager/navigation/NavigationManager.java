@@ -11,7 +11,7 @@ import atrahasis.core.manager.security.FilterManager;
 import atrahasis.core.network.Request;
 import atrahasis.core.network.Response;
 import atrahasis.core.template.Model;
-import atrahasis.core.util.InstanceSaver;
+import atrahasis.core.util.BeanInstanceManager;
 import atrahasis.core.util.Pair;
 import atrahasis.core.util.ParamSorter;
 import atrahasis.core.util.QueryParamsExtractor;
@@ -133,7 +133,7 @@ public class NavigationManager {
 	 */
 	private Object invokeMethod(Class<?> controllerClass, Method controllerMethod, List<Object> dataParams) {
 		try {
-			return controllerMethod.invoke( InstanceSaver.lookForInstance(controllerClass), dataParams.toArray() );
+			return controllerMethod.invoke( BeanInstanceManager.lookForInstance(controllerClass), dataParams.toArray() );
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| InstantiationException e) {
 			e.printStackTrace();

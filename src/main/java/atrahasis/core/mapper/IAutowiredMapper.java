@@ -39,6 +39,6 @@ public interface IAutowiredMapper {
 	 * or if the instantiation fails for some other reason.
 	 * 
 	 */
-	public void mapAutowired(List<Class<?>> classes, List<Pair<Class<?>,Field>> fields) throws IllegalArgumentException, IllegalAccessException, InstantiationException;
+	public void mapAutowired(Object parentInstance, List<Class<?>> classes, List<Pair<Class<?>,Field>> fields) throws IllegalArgumentException, IllegalAccessException, InstantiationException;
 	
 }

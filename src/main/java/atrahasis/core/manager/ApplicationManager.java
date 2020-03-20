@@ -1,6 +1,5 @@
 package atrahasis.core.manager;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +16,7 @@ import atrahasis.core.manager.security.FilterManager;
 import atrahasis.core.network.Response;
 import atrahasis.core.network.url.AppUrlHandlerSetter;
 import atrahasis.core.template.Model;
+import atrahasis.core.util.BeanInstanceManager;
 import atrahasis.core.util.Pair;
 import atrahasis.core.view.Window;
 
@@ -89,8 +89,7 @@ public class ApplicationManager {
 			controllerFilters = configurator.getFilterMapper().map(controllers, filters);
 			beans = configurator.getBeanFinder().findBeans(classes);
 			
-			List<Pair<Class<?>,Field>> fields = configurator.getAutowiredFinder().findAutowired(beans);
-			configurator.getAutowiredMapper().mapAutowired(beans, fields);
+			BeanInstanceManager.initInstanceSaver(beans, configurator.getAutowiredMapper(), configurator.getAutowiredFinder());
 			
 			filterManager = new FilterManager(controllerFilters, filters);
 		}

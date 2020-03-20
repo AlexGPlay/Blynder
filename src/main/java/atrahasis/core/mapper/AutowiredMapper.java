@@ -3,7 +3,7 @@ package atrahasis.core.mapper;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import atrahasis.core.util.InstanceSaver;
+import atrahasis.core.util.BeanInstanceManager;
 import atrahasis.core.util.Pair;
 
 /**
@@ -15,9 +15,9 @@ import atrahasis.core.util.Pair;
  */
 public class AutowiredMapper implements IAutowiredMapper{
 	
-	public void mapAutowired(List<Class<?>> classes, List<Pair<Class<?>,Field>> fields) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
+	public void mapAutowired(Object parentInstance, List<Class<?>> beans, List<Pair<Class<?>,Field>> fields) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
 		for(Pair<Class<?>,Field> pair : fields)
-			initField(pair,classes);
+			initField(parentInstance, pair, beans);
 	}
 	
 	/**
@@ -42,17 +42,16 @@ public class AutowiredMapper implements IAutowiredMapper{
 	 * or if the instantiation fails for some other reason.
 	 * 
 	 */
-	private void initField(Pair<Class<?>,Field> field, List<Class<?>> classes) throws IllegalArgumentException, IllegalAccessException, InstantiationException{
+	private void initField(Object parentInstance, Pair<Class<?>,Field> field, List<Class<?>> classes) throws IllegalArgumentException, IllegalAccessException, InstantiationException{
 		Class<?> clazz = getFieldClass(field.object2, classes);
 		Field f = field.object2;
 		
-		Object o = InstanceSaver.lookForInstance(clazz);
-		Object c = InstanceSaver.lookForInstance(field.object1);
+		Object toInject = BeanInstanceManager.lookForInstance(clazz);
 		
 		f.setAccessible(true);
-		f.set(c, o);
+		f.set(parentInstance, toInject);
 		f.setAccessible(false);
-	}
+	}  
 	
 	/**
 	 * 
