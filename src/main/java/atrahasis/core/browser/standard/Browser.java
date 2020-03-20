@@ -3,8 +3,10 @@ package atrahasis.core.browser.standard;
 import java.awt.Component;
 import java.util.concurrent.Semaphore;
 
+import com.sun.javafx.webkit.WebConsoleListener;
+
 import atrahasis.core.browser.IBrowser;
-import atrahasis.core.browser.standard.util.AppBinding;
+import atrahasis.core.browser.standard.util.*;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -21,6 +23,7 @@ import netscape.javascript.JSObject;
  * the JavaFX webView.
  *
  */
+@SuppressWarnings("restriction")
 public class Browser implements IBrowser{
 
 	private WebView browser;
@@ -64,12 +67,31 @@ public class Browser implements IBrowser{
 		Platform.runLater(() -> {
 			browser = new WebView();
 			engine = browser.getEngine();
+			initializeBrowserMethods();
 			engine.setJavaScriptEnabled(true);
 			Scene scene = new Scene(browser);
 			panel.setScene(scene);
 			
 			addAppBinding();
 			sem.release();
+		});
+	}
+	
+	private void initializeBrowserMethods() {
+		engine.setOnAlert(new AlertHandler());
+		engine.setConfirmHandler(new ConfirmationHandler());
+		engine.setOnError(new ErrorHandler());
+		engine.setPromptHandler(new PromptHandler());
+		setOutputListener();
+	}
+
+	private void setOutputListener() {
+		WebConsoleListener.setDefaultListener((webView, message, lineNumber, sourceId) -> {
+			if(sourceId != null)
+				System.out.println(message + "[" + sourceId + ":" + lineNumber + "]");
+			
+			else
+				System.out.println(message);
 		});
 	}
 	
