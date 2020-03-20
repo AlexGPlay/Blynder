@@ -27,4 +27,18 @@ public class FileManager {
 		return new FileLoader().getContent(file);
 	}
 	
+	/**
+	 * 
+	 * Given a filename and a string, this method will invoke the filesaver class
+	 * which will store that string into a file with the given name.
+	 * @param fileName is the name of the file
+	 * @param content that will be stored in the file
+	 * @return The path to the file as string
+	 * @throws IOException if there is a problem writing the file.
+	 * 
+	 */
+	public String saveContent(String fileName, String content) throws IOException {
+		return new FileSaver().saveContent(fileName, content);
+	}
+	
 }
