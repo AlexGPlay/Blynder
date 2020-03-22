@@ -42,6 +42,6 @@ public interface IRoutesFinder {
 	 * }
 	 * 	
 	 */
-	public Pair<String, Map<String,Object>> findRoute(Map<String, Pair<Class<?>,Method>> routes, String url);
+	public Pair<String, Map<String,Object>> findRoute(Map<String, Map<String, Pair<Class<?>,Method>>> routes, String url, String method);
 	
 }

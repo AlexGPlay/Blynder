@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import atrahasis.core.annotations.Controller;
 import atrahasis.core.annotations.Path;
 import atrahasis.core.util.Pair;
 
@@ -21,8 +22,8 @@ import atrahasis.core.util.Pair;
  */
 public class ControllerMapper implements IControllerMapper{
 
-	public Map<String, Pair<Class<?>,Method>> map(List<Class<?>> classes){
-		Map<String, Pair<Class<?>,Method>> map = new HashMap<>();
+	public Map<String, Map<String, Pair<Class<?>,Method>>> map(List<Class<?>> classes){
+		Map<String, Map<String, Pair<Class<?>,Method>>> map = new HashMap<>();
 		
 		classes
 		.stream()
@@ -44,20 +45,29 @@ public class ControllerMapper implements IControllerMapper{
 	 * the class itself and the method that controlls that URL.
 	 * 
 	 */
-	private Map<String, Pair<Class<?>,Method>> mapController(Class<?> clazz){
+	private Map<String, Map<String, Pair<Class<?>,Method>>> mapController(Class<?> clazz){
 		List<Method> pathMethods = getPathMethods(clazz);
-		Map<String, Pair<Class<?>,Method>> map = new HashMap<>();
+		Map<String, Map<String, Pair<Class<?>,Method>>> map = new HashMap<>();
 		
 		pathMethods
 		.stream()
 		.forEach(
-			m -> map.put(
-					getValue(m), 
-					new Pair<Class<?>,Method>(clazz,m)
-				)
+			m -> {
+				String path = getValue(m);
+				String method = controllerAnnotation(clazz, m.getAnnotation(Path.class).method());
+				Map<String, Pair<Class<?>,Method>> temp = map.containsKey(path) ? map.get(path) : new HashMap<>();
+				temp.put(method, new Pair<Class<?>,Method>(clazz,m));
+				map.put(getValue(m), temp);
+			}
 		);
 		
 		return map;
+	}
+	
+	private String controllerAnnotation(Class<?> clazz, String method){
+		if(clazz.isAnnotationPresent(Controller.class))
+			return "GET";
+		return method;
 	}
 	
 	/**

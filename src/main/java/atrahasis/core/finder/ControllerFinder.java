@@ -3,6 +3,7 @@ package atrahasis.core.finder;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import atrahasis.core.annotations.ApiController;
 import atrahasis.core.annotations.Controller;
 
 /**
@@ -24,7 +25,7 @@ public class ControllerFinder implements IControllerFinder{
 	/**
 	 * 
 	 * This method, given a project class will check if the class is annotated
-	 * with the controller annotation or not.
+	 * with a controller annotation or not.
 	 * @param clazz
 	 * The class that will be checked.
 	 * @return
@@ -32,7 +33,7 @@ public class ControllerFinder implements IControllerFinder{
 	 * False if the class is not annotated.
 	 */
 	private boolean isController(Class<?> clazz) {
-		return clazz.isAnnotationPresent(Controller.class);
+		return clazz.isAnnotationPresent(Controller.class) || clazz.isAnnotationPresent(ApiController.class);
 	}
 	
 }

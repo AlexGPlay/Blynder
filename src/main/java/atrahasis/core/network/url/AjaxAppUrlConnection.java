@@ -2,75 +2,130 @@ package atrahasis.core.network.url;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.Proxy;
 import java.net.URL;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import org.apache.commons.io.IOUtils;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import sun.net.www.protocol.http.HttpURLConnection;
-import sun.net.www.protocol.http.Handler;
+import atrahasis.core.Application;
+import atrahasis.core.network.Request;
+import atrahasis.core.network.Response;
 
-@SuppressWarnings("restriction")
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+
+
 public class AjaxAppUrlConnection extends HttpURLConnection  {
 
-	private PipedInputStream pipedIn;
-    private ReentrantLock lock;
+    private Proxy proxy;
+    private Response response;
+    private ByteArrayOutputStream output;
     
-    protected AjaxAppUrlConnection(URL url, Proxy proxy, Handler handler) throws IOException {
-        super(url, proxy, handler);
-        this.pipedIn = null;
-        this.lock = new ReentrantLock(true);
+    protected AjaxAppUrlConnection(URL url, Proxy proxy) throws IOException {
+        super(url);
+        this.proxy = proxy;
+        this.output = new ByteArrayOutputStream();
+        setDoOutput(true);
+    }
+    
+    private void executeAppQuery() {
+        String appUrl = url.toString().replace("app:", "");
+        if(appUrl.isEmpty()) {
+        	appUrl = "/";
+        }
+        else {
+        	appUrl = appUrl.replace("//", "/");
+        }
+        
+        Request request = prepareRequest();
+        response = Application.navigate(appUrl, request);
+    }
+    
+    private Request prepareRequest() {
+    	String url = getURL().toString();
+    	String method = getRequestMethod();
+    	Map<String,List<String>> headers = getRequestProperties();
+		Map<String,Object> params = new HashMap<>();
+		
+		String bodyJson = new String(output.toByteArray());
+		Map<String,Object> body = jsonToMap(bodyJson);
+    	
+    	return new Request(url, method, headers, params, body);
+    }
+    
+    @SuppressWarnings("unchecked")
+	private Map<String,Object> jsonToMap(String json){
+    	try {
+			return new ObjectMapper().readValue(json, HashMap.class);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return new HashMap<>();
+		}
     }
     
     @Override
-    public InputStream getInputStream() throws IOException {
-
-        lock.lock();
-        try {
-
-            // Do we have to set up our own input stream?
-            if (pipedIn == null) {
-
-                PipedOutputStream pipedOut = new PipedOutputStream();
-                pipedIn = new PipedInputStream(pipedOut);
-
-                InputStream in = super.getInputStream();
-                /*
-                 * Careful here! for some reason, the getInputStream method seems
-                 * to be calling itself (no idea why). Therefore, if we haven't set
-                 * pipedIn before calling super.getInputStream(), we will run into
-                 * a loop or into EOFExceptions!
-                 */
-
-                // TODO: timeout?
-                new Thread(new Runnable() {
-                    public void run() {
-                        try {
-
-                            // Pass the original data on to the browser.
-                            byte[] data = IOUtils.toByteArray(in);
-                            pipedOut.write(data);
-                            pipedOut.flush();
-                            pipedOut.close();
-
-                            // Do something with the data? Decompress it if it was
-                            // gzipped, for example.
-
-                            // Signal that the browser has finished.
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
-            }
-        } finally {
-            lock.unlock();
-        }
-        return pipedIn;
+    public OutputStream getOutputStream() {
+    	return output;
     }
+    
+    @Override
+    public InputStream getInputStream(){
+    	executeAppQuery();
+    	String test = (String) getResponse();
+    	InputStream targetStream = new ByteArrayInputStream(test.getBytes());
+    	return targetStream;
+    }
+    
+    @Override
+    public InputStream getErrorStream(){    	
+    	String test = (String) getResponse();
+    	InputStream targetStream = new ByteArrayInputStream(test.getBytes());
+    	return targetStream;
+    }
+    
+    @Override
+    public int getResponseCode() {
+    	if(response == null)
+    		return 100;
+    	
+    	return response.isRenderizable() ? response.getStatusCode() : 308;
+    }
+
+	@Override
+	public boolean usingProxy() {
+		return proxy != null;
+	}
+	
+	@Override
+	public String getResponseMessage() throws IOException {
+		return String.format("APP/0.3 %s OK", getResponseCode(), getResponseStatus());
+	}
+	
+	private String getResponseStatus() {
+		return getResponseCode() >= 200 && getResponseCode() <= 300 ? "OK" : "Error"; 
+	}
+	
+	private String getResponse() {
+		if(response == null)
+			return "waiting";
+		
+		if(response.isRenderizable())
+			return "redirected";
+		
+		return (String)response.getResponse();
+	}
+	
+	@Override
+	public void disconnect() { }
+
+	@Override
+	public void connect() { }
+
 
 }

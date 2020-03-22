@@ -4,6 +4,7 @@ import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
+import atrahasis.core.annotations.ApiController;
 import atrahasis.core.annotations.Bean;
 import atrahasis.core.annotations.Controller;
 import atrahasis.core.annotations.Filter;
@@ -33,6 +34,7 @@ public class BeanAnnotations {
 		beans.add(Filter.class);
 		beans.add(Service.class);
 		beans.add(Repository.class);
+		beans.add(ApiController.class);
 		
 		return beans;
 	}

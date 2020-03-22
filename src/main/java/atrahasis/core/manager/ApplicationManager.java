@@ -13,6 +13,7 @@ import atrahasis.core.exception.IllegalViewException;
 import atrahasis.core.exception.MapApplicationException;
 import atrahasis.core.manager.navigation.NavigationManager;
 import atrahasis.core.manager.security.FilterManager;
+import atrahasis.core.network.Request;
 import atrahasis.core.network.Response;
 import atrahasis.core.network.url.AppUrlHandlerSetter;
 import atrahasis.core.template.Model;
@@ -27,7 +28,7 @@ public class ApplicationManager {
 	private List<Class<?>> beans;
 	private List<Class<?>> filters;
 	
-	private Map<String, Pair<Class<?>,Method>> routes;
+	private Map<String, Map<String, Pair<Class<?>,Method>>> routes;
 	private Map<Class<?>, List<Class<?>>> controllerFilters;
 	private FilterManager filterManager;
 	
@@ -112,19 +113,30 @@ public class ApplicationManager {
 	//																//
 	//////////////////////////////////////////////////////////////////
 	
-	public void navigate(String url){
+	public Response navigate(String url){
+		return navigate(url, null);
+	}
+	
+	public Response navigate(String url, Request request) {
 		try {
 			Pair<Response, Model> response = new NavigationManager(
 					url, 
 					configurator.getRoutesFinder(), 
 					routes,
-					filterManager
+					filterManager,
+					request
 			).call();
 			
+			if(response == null) {
+				
+			}
+			
 			doResponseAction(response.object1, response.object2);
+			return response.object1;
 		}
-		catch(IllegalViewException e) {
+		catch(IllegalViewException | NullPointerException e) {
 			e.printStackTrace();
+			return new Response().response(e.getMessage()).statusCode(404);
 		}
 	}
 	
@@ -134,7 +146,10 @@ public class ApplicationManager {
 			navigate(redirect);
 		}
 		else {
-			Object view = response.getToRender();
+			if(!response.isRenderizable())
+				return;
+			
+			Object view = response.getResponse();
 			createView(view, model);
 		}
 	}

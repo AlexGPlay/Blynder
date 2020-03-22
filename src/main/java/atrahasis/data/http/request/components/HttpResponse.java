@@ -6,6 +6,8 @@ import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import atrahasis.core.network.Response;
+
 public class HttpResponse {
 
 	private String response;
@@ -48,6 +50,12 @@ public class HttpResponse {
 
 	public Map<String, String> getHeaders() {
 		return headers;
+	}
+	
+	public Response toResponse() {
+		return new Response()
+				.statusCode(statusCode)
+				.response(response);
 	}
 	
 	@SuppressWarnings("unchecked")

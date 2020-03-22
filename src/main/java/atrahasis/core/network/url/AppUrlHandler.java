@@ -4,30 +4,18 @@ import java.io.IOException;
 import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLStreamHandler;
 
-import atrahasis.core.Application;
-import sun.net.www.protocol.http.Handler;
-
-@SuppressWarnings("restriction")
-public class AppUrlHandler extends Handler{
+public class AppUrlHandler extends URLStreamHandler{
 	
     @Override
     protected URLConnection openConnection(URL url, Proxy proxy) throws IOException {
-
-        if (url.toString().contains("ajax=1")) {
-            return new AjaxAppUrlConnection(url, proxy, this);
-        }
-        
-        String appUrl = url.toString().replace("app:", "");
-        if(appUrl.isEmpty()) {
-        	appUrl = "/";
-        }
-        else {
-        	appUrl = appUrl.replace("//", "/");
-        }
-        Application.navigate(appUrl);
-        // Return a default HttpURLConnection instance.
-        return new URL(null).openConnection(proxy);
+        return new AjaxAppUrlConnection(url, proxy);
     }
+
+	@Override
+	protected URLConnection openConnection(URL url) throws IOException {
+		return this.openConnection(url, null);
+	}
     
 }

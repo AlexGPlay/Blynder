@@ -4,21 +4,16 @@ public class Response {
 
 	private int statusCode;
 	private boolean canContinue;
-	private Object toRender;
-	private String response;
+	private Object response;
 	private String redirect;
+	private String responseType;
 
 	public Response() {
 		statusCode = 200;
-		toRender = null;
 		response = null;
 		redirect = null;
+		responseType = null;
 		canContinue = false;
-	}
-	
-	public Response render(Object toRender) {
-		this.toRender = toRender;
-		return this;
 	}
 	
 	public Response redirect(String redirectUrl) {
@@ -31,7 +26,7 @@ public class Response {
 		return this;
 	}
 	
-	public Response response(String response) {
+	public Response response(Object response) {
 		this.response = response;
 		return this;
 	}
@@ -40,16 +35,17 @@ public class Response {
 		this.canContinue = canContinue;
 		return this;
 	}
+	
+	public Response responseType(String responseType) {
+		this.responseType = responseType;
+		return this;
+	}
 
 	public int getStatusCode() {
 		return statusCode;
 	}
 
-	public Object getToRender() {
-		return toRender;
-	}
-
-	public String getResponse() {
+	public Object getResponse() {
 		return response;
 	}
 
@@ -59,6 +55,14 @@ public class Response {
 	
 	public boolean isAbleToContinue() {
 		return canContinue;
+	}
+	
+	public String getResponseType() {
+		return responseType;
+	}
+	
+	public boolean isRenderizable() {
+		return getResponseType().contains("html") || getResponseType().contains("swing");
 	}
 	
 }

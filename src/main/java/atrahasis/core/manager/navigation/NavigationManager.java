@@ -1,11 +1,14 @@
 package atrahasis.core.manager.navigation;
 
+import java.awt.Component;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import atrahasis.core.annotations.ApiController;
+import atrahasis.core.annotations.Controller;
 import atrahasis.core.finder.IRoutesFinder;
 import atrahasis.core.manager.security.FilterManager;
 import atrahasis.core.network.Request;
@@ -26,19 +29,27 @@ public class NavigationManager {
 
 	private String url;
 	private IRoutesFinder finder;
-	private Map<String, Pair<Class<?>,Method>> routes;
+	private Map<String, Map<String, Pair<Class<?>,Method>>> routes;
 	private FilterManager filterManager;
+	private Request request;
 
-	public NavigationManager(String url, IRoutesFinder finder, Map<String, Pair<Class<?>,Method>> routes, FilterManager filterManager) {
+	public NavigationManager(
+			String url, 
+			IRoutesFinder finder, 
+			Map<String, Map<String, Pair<Class<?>,Method>>> routes, 
+			FilterManager filterManager,
+			Request request
+	) {
 		this.url = url;
 		this.finder = finder;
 		this.routes = routes;
 		this.filterManager = filterManager;
+		this.request = request == null ? new Request(url) : request;
 	}
 
 	public Pair<Response, Model> call() {
 		Pair<String, Map<String,Object>> data = getUrlData();
-		Pair<Class<?>, Method> controller = getController(data.object1);
+		Pair<Class<?>, Method> controller = getController(data.object1, request.getMethod());
 
 		Class<?> clazz = controller.object1;
 		Method method = controller.object2;
@@ -56,7 +67,7 @@ public class NavigationManager {
 	 * 
 	 */
 	private Pair<String, Map<String,Object>> getUrlData(){
-		return finder.findRoute(routes, url);
+		return finder.findRoute(routes, url, request.getMethod());
 	}
 
 
@@ -65,8 +76,8 @@ public class NavigationManager {
 	 * Returns the pair class-method where this path will be handled.
 	 * 
 	 */
-	private Pair<Class<?>, Method> getController(String path){
-		return routes.get(path);
+	private Pair<Class<?>, Method> getController(String path, String method){
+		return routes.get(path).get(method);
 	}
 	
 
@@ -77,7 +88,7 @@ public class NavigationManager {
 	 *
 	 */
 	private Pair<Response, Model> invokeRoutingMethods(Class<?> controllerClass, Method controllerMethod, Map<String,Object> controllerParams) {
-		Request request = new Request(url, "GET", new HashMap<>(), controllerParams, new HashMap<>());
+		Request request = this.request == null ? new Request(url, "GET", new HashMap<>(), controllerParams, new HashMap<>()) : this.request;
 		Response response = new Response();
 		Model model = new Model();
 		
@@ -86,7 +97,24 @@ public class NavigationManager {
 			return new Pair<Response,Model>(response, model);
 		
 		response = invokeController(controllerClass, controllerMethod, controllerParams, model, request, response);
+		response = insertResponseType(controllerClass, response);
 		return new Pair<Response,Model>(response, model);
+	}
+	
+	private Response insertResponseType(Class<?> controller, Response response) {
+		if(controller.isAnnotationPresent(ApiController.class))
+			return response.responseType("application/api");
+		
+		else if(controller.isAnnotationPresent(Controller.class)) {
+			if(response.getResponse() instanceof String) {
+				return response.responseType("application/html");
+			}
+			else if(response.getResponse() instanceof Component) {
+				return response.responseType("application/swing");
+			}
+		}
+		
+		return response;
 	}
 	
 	/**

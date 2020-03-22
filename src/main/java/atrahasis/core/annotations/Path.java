@@ -16,10 +16,14 @@ import java.lang.annotation.Target;
  * You can make a path method, for example, like this "@Path('/index')", this
  * will make the index path available for navigation, meaning that if you go
  * to this path, the application will attend to this method.
+ * You can set the path method with the annotation, the base controllers will ignore
+ * the method and will request with GET. The method variable will only be used in
+ * the ApiController paths.
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(METHOD)
 public @interface Path {
 	String value();
+	String method() default "GET";
 }

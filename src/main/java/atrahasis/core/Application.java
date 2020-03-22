@@ -4,6 +4,8 @@ import atrahasis.core.configurator.BasicConfigurator;
 import atrahasis.core.configurator.IConfigurator;
 import atrahasis.core.exception.MapApplicationException;
 import atrahasis.core.manager.ApplicationManager;
+import atrahasis.core.network.Request;
+import atrahasis.core.network.Response;
 
 /**
  * 
@@ -28,8 +30,12 @@ public class Application{
 		}
 	}
 
-	public static void navigate(String url) {
-		ApplicationManager.getInstance().navigate(url);
+	public static Response navigate(String url) {
+		return ApplicationManager.getInstance().navigate(url);
+	}
+	
+	public static Response navigate(String url, Request request) {
+		return ApplicationManager.getInstance().navigate(url, request);
 	}
 	
 	public static void set(String name, Object value) {

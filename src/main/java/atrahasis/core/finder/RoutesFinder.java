@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import atrahasis.core.util.Pair;
 
@@ -17,15 +18,19 @@ import atrahasis.core.util.Pair;
  */
 public class RoutesFinder implements IRoutesFinder{
 
-	public Pair<String, Map<String,Object>> findRoute(Map<String, Pair<Class<?>,Method>> routes, String url) {
+	public Pair<String, Map<String,Object>> findRoute(Map<String, Map<String, Pair<Class<?>,Method>>> routes, String url, String method) {
 		url = url.startsWith("/") ? url : "/" + url;
-		Pair<Class<?>, Method> pair = routes.get(url);
+		
 		Map<String,Object> data = new HashMap<String,Object>();
 		
-		if(pair != null)
+		if(routes.containsKey(url) && routes.get(url).containsKey(method))
 			return new Pair<String, Map<String,Object>>(url,data);
+			
 		
-		for(Map.Entry<String, Pair<Class<?>,Method>> entry : routes.entrySet()) {
+		for(Entry<String, Map<String, Pair<Class<?>, Method>>> entry : routes.entrySet()) {
+			if(!entry.getValue().containsKey(method))
+				continue;
+			
 			String key = entry.getKey();
 			
 			Pair<List<String>,List<String>> paramPair = getParameters(key);

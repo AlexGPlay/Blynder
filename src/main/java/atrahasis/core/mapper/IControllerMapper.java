@@ -42,6 +42,6 @@ public interface IControllerMapper {
 	 * Pair.object2: "TestMethod"<br>
 	 * 
 	 */
-	public Map<String, Pair<Class<?>,Method>> map(List<Class<?>> classes);
+	public Map<String, Map<String, Pair<Class<?>,Method>>> map(List<Class<?>> classes);
 	
 }
