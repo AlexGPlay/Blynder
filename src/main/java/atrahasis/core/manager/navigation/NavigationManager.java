@@ -18,6 +18,7 @@ import atrahasis.core.util.BeanInstanceManager;
 import atrahasis.core.util.Pair;
 import atrahasis.core.util.ParamSorter;
 import atrahasis.core.util.QueryParamsExtractor;
+import javafx.scene.Scene;
 
 /**
  * 
@@ -107,8 +108,16 @@ public class NavigationManager {
 		
 		else if(controller.isAnnotationPresent(Controller.class)) {
 			if(response.getResponse() instanceof String) {
-				return response.responseType("application/html");
+				String viewName = (String)response.getResponse();
+				if(viewName.contains(".html"))
+					return response.responseType("application/html");
+				else if(viewName.contains(".fxml"))
+					return response.responseType("application/fxml");
 			}
+			else if(response.getResponse() instanceof Scene) {
+				return response.responseType("application/javafx");
+			}
+			
 			else if(response.getResponse() instanceof Component) {
 				return response.responseType("application/swing");
 			}

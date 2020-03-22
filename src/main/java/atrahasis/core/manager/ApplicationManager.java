@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JPanel;
-
 import atrahasis.core.configurator.IConfigurator;
 import atrahasis.core.exception.IllegalViewException;
 import atrahasis.core.exception.MapApplicationException;
@@ -150,16 +148,7 @@ public class ApplicationManager {
 				return;
 			
 			Object view = response.getResponse();
-			createView(view, model);
-		}
-	}
-	
-	private void createView(Object view, Model model) throws IllegalViewException {
-		if(view instanceof JPanel)
-			mainWindow.setSwing((JPanel)view);
-		
-		else if(view instanceof String) {
-			mainWindow.setHtml((String)view, model);
+			mainWindow.setView(view, model);
 		}
 	}
 	

@@ -62,6 +62,9 @@ public class AjaxAppUrlConnection extends HttpURLConnection  {
     @SuppressWarnings("unchecked")
 	private Map<String,Object> jsonToMap(String json){
     	try {
+    		if(json.isEmpty())
+    			return new HashMap<>();
+    		
 			return new ObjectMapper().readValue(json, HashMap.class);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();

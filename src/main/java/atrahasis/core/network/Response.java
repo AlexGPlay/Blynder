@@ -62,7 +62,7 @@ public class Response {
 	}
 	
 	public boolean isRenderizable() {
-		return getResponseType().contains("html") || getResponseType().contains("swing");
+		return !getResponseType().contains("api");
 	}
 	
 }
