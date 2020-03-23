@@ -4,6 +4,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * 
+ * A built-in FileSaver, given a filename and a string content, this method will
+ * create a file with that name and that content.
+ *
+ */
 public class FileSaver {
 
 	/**

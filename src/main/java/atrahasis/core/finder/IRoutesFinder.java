@@ -25,12 +25,16 @@ public interface IRoutesFinder {
 	 * petition to that controller and map 3 to the id parameter.
 	 * @param routes
 	 * The routes that are hosted in the project. This hash is formed with a 
-	 * string that contains the base route and the pair of it is the class
+	 * string that contains the base route and another map. The second map contains
+	 * the method of the route, GET or POST for example, the pair of it is the class
 	 * that hosts the controller and the method that hosts the URL.
-	 * An example of this could be that there is a URL called "/test/{id}" and
-	 * its pair can be the TestController class and the TestMethod.
+	 * An example of this could be that there is a URL called "/test/{id}" that 
+	 * answers GET petitions and its pair can be the TestController class and 
+	 * the TestMethod.
 	 * @param url
 	 * The URL that the user wants to go to.
+	 * @param method
+	 * The method that the user wants to request.
 	 * @return
 	 * Returns a pair of base URL - Variable data.
 	 * For example, if the user wants to navigate to "/test/3" and there is

@@ -28,10 +28,29 @@ import javafx.scene.Scene;
  */
 public class NavigationManager {
 
+	/**
+	 * The url that the user wants to navigate to.
+	 */
 	private String url;
+	
+	/**
+	 * The RoutesFinder implementation that will be used to map the route.
+	 */
 	private IRoutesFinder finder;
+	
+	/**
+	 * A map that contains all the routes of the application.
+	 */
 	private Map<String, Map<String, Pair<Class<?>,Method>>> routes;
+	
+	/**
+	 * The filter manager instance that will filter the request if needed.
+	 */
 	private FilterManager filterManager;
+	
+	/**
+	 * The request itself, it will be null if doesn't come from an ajax.
+	 */
 	private Request request;
 
 	public NavigationManager(
@@ -48,6 +67,20 @@ public class NavigationManager {
 		this.request = request == null ? new Request(url) : request;
 	}
 
+	/**
+	 * 
+	 * Class entry point. This method will invoke the main processes in order
+	 * to navigate through the application. The steps that it will follow are:<br>
+	 * 1. Extract the URL segments.<br>
+	 * 2. Get the class-method pair that handles the URL with the request method.<br>
+	 * 3. Extract the query params.<br>
+	 * 4. Try to invoke the controller invoking the filters first if they exist.<br>
+	 * 
+	 * @return
+	 * Pair<Response,Model>:<br>
+	 * Response - The response that the controller gives back.<br>
+	 * Model - The model that the controller fills if there is one.
+	 */
 	public Pair<Response, Model> call() {
 		Pair<String, Map<String,Object>> data = getUrlData();
 		Pair<Class<?>, Method> controller = getController(data.object1, request.getMethod());
@@ -102,6 +135,21 @@ public class NavigationManager {
 		return new Pair<Response,Model>(response, model);
 	}
 	
+	/**
+	 * 
+	 * Given the response that the controller handled, this method will insert
+	 * the response type. The tyes that the application can handle right now are:
+	 * - Api<br>
+	 * - HTML<br>
+	 * - FXML<br>
+	 * - JavaFX (Scene)<br>
+	 * - Swing (Component)<br>
+	 * @param controller that handled the request.
+	 * @param response that is returned by the controller.
+	 * @return
+	 * The response with the responseType field filled.
+	 * 
+	 */
 	private Response insertResponseType(Class<?> controller, Response response) {
 		if(controller.isAnnotationPresent(ApiController.class))
 			return response.responseType("application/api");

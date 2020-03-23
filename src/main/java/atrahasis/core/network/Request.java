@@ -4,6 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 
+ * Request class is an internal class for the network communications of the app.
+ * This class holds many of the parameters a real request would have. It can be
+ * used in the controllers and in the filters to check what request the user sent.
+ * In case of an ajax request, this class will map the real request data.
+ *
+ */
 public class Request {
 
 	private String method;

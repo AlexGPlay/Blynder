@@ -4,6 +4,13 @@ import javax.swing.JOptionPane;
 
 import javafx.util.Callback;
 
+/**
+ * 
+ * Class that handles the javascript confirm invocations. When a javascript confirm
+ * method is invoked, this class will handle the invocation and show a swing
+ * JOptionPane with the alert message.
+ *
+ */
 public class ConfirmationHandler implements Callback<String,Boolean>{
 
 	@Override

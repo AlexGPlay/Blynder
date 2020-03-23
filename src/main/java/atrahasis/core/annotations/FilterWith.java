@@ -10,7 +10,8 @@ import java.lang.annotation.Target;
  * 
  * Annotation used to mark what filters will be executed before the controller
  * methods of a given class. The values of this annotation will be the filter
- * classes that will be executed.
+ * classes that will be executed. A controller marked with a filterWith annotation
+ * will have the filters executed before it's routing methods.
  *
  */
 @Retention(RetentionPolicy.RUNTIME)

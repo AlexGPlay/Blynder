@@ -31,8 +31,9 @@ public class BeanInstanceManager {
 	
 	/**
 	 * 
-	 * A method that looks for an instance of an autowired field, if it doesn't
-	 * exist this method creates it.
+	 * A methdo that creates the instances of the beans. It will store the 
+	 * instance if it is an storable beans or in other hand if it isn't the instance
+	 * will die once it is used.
 	 * @param clazz
 	 * The class that needs an instance.
 	 * @return
@@ -50,7 +51,17 @@ public class BeanInstanceManager {
 		return BeanAnnotations.isStorable(clazz) ? getStorableObject(clazz) : getUnstorableObject(clazz);
 	}
 	
-	private static Object getStorableObject(Class<?> clazz) throws InstantiationException, IllegalAccessException {
+	/**
+	 * 
+	 * Given a class that is storable, this method will check if an instance of that
+	 * bean already exists and return it or it will instantiate the first instance of
+	 * that bean and put it in the map for another use.
+	 * 
+	 * @param clazz which instance will be returned.
+	 * @return An instance of the class.
+	 *
+	 */
+	private static Object getStorableObject(Class<?> clazz) {
 		Object o = instances.get(clazz);
 		
 		if(o == null) {
@@ -61,10 +72,33 @@ public class BeanInstanceManager {
 		return o;
 	}
 	
+	/**
+	 * 
+	 * Given a class that is not storable, this method will instantiate the given
+	 * class and return that instance.
+	 * 
+	 * @param clazz which instance will be returned.
+	 * @return An instance of the class.
+	 *
+	 */
 	private static Object getUnstorableObject(Class<?> clazz) {
 		return instantiateObject(clazz);
 	}
 	
+	/**
+	 * 
+	 * This method creates the instance of the given class. The class can be
+	 * an special instance. If the class is an special instance the instantiation
+	 * will be created in another way, if it isn't an special instance it will
+	 * be created using the default constructor. After creating the instance
+	 * this method will call the autowired mapper and will map the autowired fields
+	 * of the class.
+	 * 
+	 * @param clazz that will be instantiated.
+	 * @return
+	 * The instance of the object.
+	 * 
+	 */
 	private static Object instantiateObject(Class<?> clazz) {
 		try {
 			Object sI = getSpecialInstance(clazz);
@@ -80,6 +114,19 @@ public class BeanInstanceManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * This methods returns an instance of a class if it is an special class
+	 * or null if it isn't. An special instance is for example, the HttpRepository,
+	 * it needs an special instance because those classes are interfaces. The instance
+	 * will be created from the HttpProxyFactory.
+	 * 
+	 * @param clazz that will be instantiated if it is specialInstance.
+	 * @return
+	 * The instance of the class if it special.<br>
+	 * Null if it isn't special.
+	 * 
+	 */
 	private static Object getSpecialInstance(Class<?> clazz) {
 		if(clazz.isInterface() && HttpRepository.class.isAssignableFrom(clazz)) {
 			return new HttpProxyFactory(clazz).create();

@@ -1,5 +1,14 @@
 package atrahasis.core.network;
 
+/**
+ * 
+ * Response class is an internal class used for network communications. This class
+ * holds many of the real parameters a response would have. A controller will be
+ * the one that returns a response that will be used in other parts of the app.
+ * It is also used as a response for external communications, for example, if there
+ * is an ajax call, this response will be mapped as a real one.
+ *
+ */
 public class Response {
 
 	private int statusCode;

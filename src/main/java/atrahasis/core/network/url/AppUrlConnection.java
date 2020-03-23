@@ -20,14 +20,22 @@ import atrahasis.core.network.Response;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
-
-public class AjaxAppUrlConnection extends HttpURLConnection  {
+/**
+ * 
+ * This HttpURLConnection inherits the capabilities of its parent to create
+ * connections, but instead of opening a connection to get the data it will
+ * ask the application for a controller to answer the request. In case of
+ * an APIController, the data won't be rendered but returned. In case of a
+ * renderizable it will be rendered and returned.
+ *
+ */
+public class AppUrlConnection extends HttpURLConnection  {
 
     private Proxy proxy;
     private Response response;
     private ByteArrayOutputStream output;
     
-    protected AjaxAppUrlConnection(URL url, Proxy proxy) throws IOException {
+    protected AppUrlConnection(URL url, Proxy proxy) throws IOException {
         super(url);
         this.proxy = proxy;
         this.output = new ByteArrayOutputStream();

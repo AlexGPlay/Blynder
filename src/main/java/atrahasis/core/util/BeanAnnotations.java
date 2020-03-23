@@ -39,6 +39,19 @@ public class BeanAnnotations {
 		return beans;
 	}
 	
+	/**
+	 * 
+	 * Given an annotation class checks if the beans is storable. Storable
+	 * beans are stored in memory since they won't need to be re-instantiated.
+	 * For example, the repository interfaces doesn't hold any information so
+	 * they are only instantiated once.
+	 * 
+	 * @param clazz that will be checked.
+	 * @return
+	 * True if it storable<br>
+	 * False if it isn't.
+	 * 
+	 */
 	public static boolean isStorable(Class<?> clazz) {
 		Annotation[] classes = clazz.getAnnotations();
 		for(Annotation annotation : classes) {
@@ -48,6 +61,14 @@ public class BeanAnnotations {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * Creates a list that contains all of the storable classes.
+	 * 
+	 * @return
+	 * A list that contaisn all the storable classes.
+	 * 
+	 */
 	private static List<Class<? extends Annotation>> getStorableBeans(){
 		List<Class<? extends Annotation>> beans = new ArrayList<>();
 		

@@ -5,6 +5,13 @@ import javax.swing.JOptionPane;
 import javafx.scene.web.PromptData;
 import javafx.util.Callback;
 
+/**
+ * 
+ * Class that handles the javascript prompt invocations. When a javascript prompt
+ * method is invoked, this class will handle the invocation and show a swing
+ * JOptionPane with the alert message.
+ *
+ */
 public class PromptHandler implements Callback<PromptData, String>{
 
 	@Override

@@ -5,6 +5,13 @@ import javax.swing.JOptionPane;
 import javafx.event.EventHandler;
 import javafx.scene.web.WebEvent;
 
+/**
+ * 
+ * Class that handles the javascript alert invocations. When a javascript alert
+ * method is invoked, this class will handle the invocation and show a swing
+ * JOptionPane with the alert message.
+ *
+ */
 public class AlertHandler implements EventHandler<WebEvent<String>>{
 
 	@Override
