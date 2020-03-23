@@ -18,6 +18,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import atrahasis.data.http.request.components.Request;
 import atrahasis.data.http.request.components.RequestParams;
 
+/**
+ * 
+ * This class creates the request that will be sent via the requester. This
+ * instance contains the complete URL, data, headers and params.
+ * This is the last step before the request can be send.
+ *
+ */
 public class UriRequestFactory {
 	
 	private Request request;

@@ -13,6 +13,14 @@ import atrahasis.data.http.request.components.HttpResponse;
 import atrahasis.data.http.request.components.Request;
 import atrahasis.data.http.request.components.RequestParams;
 
+/**
+ * 
+ * The requester class is a wrapper for the HttpUriRequest from the apache 
+ * http library. This class issues a request and gets the HttpResponse from it.
+ * The CloseableHttpResponse from the apache http library is converted into
+ * the HttpResponse the moment it is received.
+ *
+ */
 public class Requester {
 	
 	private HttpUriRequest uriRequest;

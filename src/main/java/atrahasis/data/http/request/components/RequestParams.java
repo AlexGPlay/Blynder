@@ -5,6 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 
+ * The RequestParams is just a class that holds the data that will be used in
+ * the petition. This class holds the data, headers, params and segments that
+ * will be sent.
+ *
+ */
 public class RequestParams {
 
 	private Map<String, Object> data;

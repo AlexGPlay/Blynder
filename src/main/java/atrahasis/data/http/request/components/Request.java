@@ -1,5 +1,11 @@
 package atrahasis.data.http.request.components;
 
+/**
+ * 
+ * The request object is a container for the URL and the petition method of the
+ * data module.
+ *
+ */
 public class Request {
 
 	private String url;

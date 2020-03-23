@@ -8,6 +8,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import atrahasis.core.network.Response;
 
+/**
+ * 
+ * The HttpResponse holds all that comes from the requester after a petition
+ * is executed. This class data can be extracted into a map or a core response.
+ * The core response transformation can help if you want to make an intermediate
+ * call, for example: ajax -> app -> api service. In that example the ajax call
+ * will execute an app method and the method will handle the request, for example,
+ * with a repository, the response from the repository can be returned as a core
+ * response and that can be handled by the ajax call.
+ * 
+ */
 public class HttpResponse {
 
 	private String response;

@@ -9,6 +9,14 @@ import atrahasis.data.http.request.builder.RequestParamsBuilder;
 import atrahasis.data.http.request.components.Request;
 import atrahasis.data.http.request.components.RequestParams;
 
+/**
+ * 
+ * The DynamicProxy that will handle all the invocations for HttpRepositories.
+ * This class will extract the method parameters and the annotation in order
+ * to build the request. All the building and the requesting process is handled
+ * in builder and service classes.
+ *
+ */
 public class HttpRepositoryProxy implements InvocationHandler{
 
 	@Override

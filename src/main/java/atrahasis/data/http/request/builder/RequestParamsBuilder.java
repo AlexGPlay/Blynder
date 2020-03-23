@@ -12,6 +12,13 @@ import atrahasis.data.http.annotations.Params;
 import atrahasis.data.http.annotations.Segment;
 import atrahasis.data.http.request.components.RequestParams;
 
+/**
+ * 
+ * Given the method and the args of the method that is invoked to do the petition,
+ * this class extracts the params in order to create a request. This request has
+ * the data, headers, params and the url segments.
+ *
+ */
 public class RequestParamsBuilder {
 
 	private Method m;

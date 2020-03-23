@@ -4,6 +4,13 @@ import java.lang.reflect.Method;
 
 import atrahasis.data.http.annotations.Request;
 
+/**
+ * 
+ * Given the method that is executed for the request, this class extracts the
+ * url and the petition method and returns the component request. The component
+ * request is a different object from the request network object.
+ *
+ */
 public class RequestBuilder {
 
 	private Method m;

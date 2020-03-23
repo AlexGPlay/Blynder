@@ -12,6 +12,12 @@ import org.apache.http.util.EntityUtils;
 
 import atrahasis.data.http.request.components.HttpResponse;
 
+/**
+ * 
+ * Given an CloseableHttpResponse from the Requester, this class wil create a
+ * framework native HttpResponse so it can be used in other parts of the app.
+ *
+ */
 public class HttpResponseBuilder {
 
 	private CloseableHttpResponse response;
