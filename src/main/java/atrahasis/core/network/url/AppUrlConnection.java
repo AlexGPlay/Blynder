@@ -123,7 +123,7 @@ public class AppUrlConnection extends HttpURLConnection  {
 	}
 	
 	private String getResponse() {
-		if(response == null)
+		if(response == null || response.getResponseType() == null)
 			return "waiting";
 		
 		if(response.isRenderizable())

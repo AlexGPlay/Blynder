@@ -3,7 +3,6 @@ package atrahasis.data.http.request.components;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import atrahasis.core.network.Response;
@@ -73,7 +72,7 @@ public class HttpResponse {
 	public Map<String, Object> toMap(){
 		try {
 			return new ObjectMapper().readValue(response, HashMap.class);
-		} catch (JsonProcessingException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
