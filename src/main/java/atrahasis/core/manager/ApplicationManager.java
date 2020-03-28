@@ -17,6 +17,7 @@ import atrahasis.core.network.url.AppUrlHandlerSetter;
 import atrahasis.core.template.Model;
 import atrahasis.core.util.BeanInstanceManager;
 import atrahasis.core.util.Pair;
+import atrahasis.core.view.NotFoundView;
 import atrahasis.core.view.Window;
 
 /**
@@ -302,8 +303,9 @@ public class ApplicationManager {
 			}
 			
 			else if(response.object1.getStatusCode() == 404) {
-				// Renderizar mensaje de pagina no encontrada
-				return response.object1;
+				response.object1
+				.response(new NotFoundView())
+				.responseType("application/swing");
 			}
 			
 			else if(response.object1.getStatusCode() == 500) {
@@ -315,7 +317,7 @@ public class ApplicationManager {
 		}
 		catch(IllegalViewException | NullPointerException e) {
 			e.printStackTrace();
-			return new Response().response(e.getMessage()).statusCode(404);
+			return new Response().response(e.getMessage()).statusCode(500);
 		}
 	}
 	
