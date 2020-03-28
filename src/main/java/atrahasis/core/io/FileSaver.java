@@ -32,7 +32,8 @@ public class FileSaver {
 	}
 	
 	private String writeFile(File file, String content) throws IOException {
-		file.getParentFile().mkdirs();
+		if(file.getParentFile() != null)
+			file.getParentFile().mkdirs();
 		FileWriter fileWriter = new FileWriter(file);
 		fileWriter.write(content);
 		fileWriter.close();

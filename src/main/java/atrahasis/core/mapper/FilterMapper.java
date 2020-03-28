@@ -54,7 +54,10 @@ public class FilterMapper implements IFilterMapper{
 		FilterWith annotation = controller.getAnnotation(FilterWith.class);
 		
 		controllerFilters.addAll( getClassesFromFilterAsClass(annotation.filtersAsClasses()) );
-		controllerFilters.addAll( getClassesFromFilterAsString(annotation.filtersAsString(), filters) );
+		
+		for(Class<?> clazz : getClassesFromFilterAsString(annotation.filtersAsString(), filters) )
+			if(!controllerFilters.contains(clazz))
+				controllerFilters.add(clazz);
 		
 		return controllerFilters;
 	}

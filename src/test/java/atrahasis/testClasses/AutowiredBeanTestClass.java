@@ -7,6 +7,6 @@ import atrahasis.core.annotations.Bean;
 public class AutowiredBeanTestClass {
 
 	@Autowired
-	private Object ob;
+	public BeanParamNoAutowiredTestClass ob;
 	
 }

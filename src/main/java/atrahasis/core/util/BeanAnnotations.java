@@ -55,7 +55,7 @@ public class BeanAnnotations {
 	public static boolean isStorable(Class<?> clazz) {
 		Annotation[] classes = clazz.getAnnotations();
 		for(Annotation annotation : classes) {
-			if(getStorableBeans().contains(annotation.getClass()))
+			if(getStorableBeans().contains(annotation.annotationType()))
 				return true;
 		}
 		return false;

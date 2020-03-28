@@ -38,7 +38,10 @@ public class AutowiredFinder implements IAutowiredFinder{
 	 */
 	private List<Pair<Class<?>,Field>> findAutowiredFields(Class<?> clazz){
 		List<Field> allFields = new ArrayList<Field>( Arrays.asList( clazz.getFields() ) );
-		allFields.addAll( Arrays.asList( clazz.getDeclaredFields() ) );
+		
+		for(Field field : clazz.getDeclaredFields())
+			if(!allFields.contains(field))
+				allFields.add(field);
 		
 		return allFields
 				.stream()

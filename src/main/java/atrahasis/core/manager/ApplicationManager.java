@@ -33,28 +33,28 @@ public class ApplicationManager {
 	 * A list of all the classes of the project.
 	 * 
 	 */
-	private List<Class<?>> classes;
+	protected List<Class<?>> classes;
 	
 	/**
 	 * 
 	 * A list of all the controllers of the project.
 	 * 
 	 */
-	private List<Class<?>> controllers;
+	protected List<Class<?>> controllers;
 	
 	/**
 	 * 
 	 * A list of all the beans of the project.
 	 * 
 	 */
-	private List<Class<?>> beans;
+	protected List<Class<?>> beans;
 	
 	/**
 	 * 
 	 * A list of all the filters of the project.
 	 * 
 	 */
-	private List<Class<?>> filters;
+	protected List<Class<?>> filters;
 	
 	/**
 	 * 
@@ -69,7 +69,7 @@ public class ApplicationManager {
 	 * from an url are hashed as the url values.
 	 * 
 	 */
-	private Map<String, Map<String, Pair<Class<?>,Method>>> routes;
+	protected Map<String, Map<String, Pair<Class<?>,Method>>> routes;
 	
 	/**
 	 * 
@@ -79,7 +79,7 @@ public class ApplicationManager {
 	 * The map will contain an entry such as { FooFilter.class => [FooFilter1.class, FooFilter2.class] }.
 	 * 
 	 */
-	private Map<Class<?>, List<Class<?>>> controllerFilters;
+	protected Map<Class<?>, List<Class<?>>> controllerFilters;
 	
 	/**
 	 * 
@@ -87,21 +87,21 @@ public class ApplicationManager {
 	 * NavigationManager.
 	 * 
 	 */
-	private FilterManager filterManager;
+	protected FilterManager filterManager;
 	
 	/**
 	 * 
 	 * The MainWindow that renders the user view.
 	 * 
 	 */
-	private Window mainWindow;
+	protected Window mainWindow;
 	
 	/**
 	 * 
 	 * The configurator given by the user at the creation of the app.
 	 * 
 	 */
-	private IConfigurator configurator;
+	protected IConfigurator configurator;
 	
 	/**
 	 * 
@@ -109,7 +109,7 @@ public class ApplicationManager {
 	 * as session, username or what the user wants.
 	 * 
 	 */
-	private HashMap<String,Object> data;
+	protected HashMap<String,Object> data;
 	
 	
 	/**
@@ -117,7 +117,7 @@ public class ApplicationManager {
 	 * The singleton instance of the ApplicationManager.
 	 * 
 	 */
-	private static ApplicationManager instance;
+	protected static ApplicationManager instance;
 	
 	/**
 	 * 
@@ -162,7 +162,7 @@ public class ApplicationManager {
 	 * Creates a default instance for all the lists and maps.
 	 * 
 	 */
-	private void initializeVariables() {
+	protected void initializeVariables() {
 		classes = new ArrayList<>();
 		controllers = new ArrayList<>();
 		filters = new ArrayList<>();
@@ -178,7 +178,7 @@ public class ApplicationManager {
 	 * @param configurator instance given by the user or the default one.
 	 * 
 	 */
-	private void initializeConfigurator(IConfigurator configurator) {
+	protected void initializeConfigurator(IConfigurator configurator) {
 		this.configurator = configurator;
 	}
 	
@@ -189,7 +189,7 @@ public class ApplicationManager {
 	 * will be able to handle hrefs, ajax calls and other requests to the schema.
 	 * 
 	 */
-	private void initializeUrlManager() {
+	protected void initializeUrlManager() {
 		new AppUrlHandlerSetter().setUrlManager();
 	}
 	
@@ -207,7 +207,7 @@ public class ApplicationManager {
 	 * If there is a problem in the mapping process.
 	 * 
 	 */
-	private void mapApplication() throws MapApplicationException {
+	protected void mapApplication() throws MapApplicationException {
 		try {
 			classes = configurator.getClassFinder().findClasses();
 			controllers = configurator.getControllerFinder().findControllers(classes);
@@ -233,7 +233,7 @@ public class ApplicationManager {
 	 * is taken care pretty quickly so it won't be noticed by the user.
 	 * 
 	 */
-	private void initializeWindow() {
+	protected void initializeWindow() {
 		mainWindow = new Window();
 		mainWindow.initializeBrowser(configurator.getBrowser());
 		mainWindow.setVisible(true);
@@ -301,6 +301,15 @@ public class ApplicationManager {
 				return null;
 			}
 			
+			else if(response.object1.getStatusCode() == 404) {
+				// Renderizar mensaje de pagina no encontrada
+				return response.object1;
+			}
+			
+			else if(response.object1.getStatusCode() == 500) {
+				return response.object1;
+			}
+			
 			doResponseAction(response.object1, response.object2);
 			return response.object1;
 		}
@@ -328,7 +337,7 @@ public class ApplicationManager {
 	 * If the view is not supported.
 	 * 
 	 */
-	private void doResponseAction(Response response, Model model) throws IllegalViewException {
+	protected void doResponseAction(Response response, Model model) throws IllegalViewException {
 		String redirect = response.getRedirect();
 		if(redirect != null) {
 			navigate(redirect);

@@ -82,8 +82,18 @@ public class NavigationManager {
 	 * Model - The model that the controller fills if there is one.
 	 */
 	public Pair<Response, Model> call() {
+		if(url == null || finder == null || routes == null || filterManager == null)
+			return new Pair<Response,Model>(new Response().statusCode(404), new Model());
+		
 		Pair<String, Map<String,Object>> data = getUrlData();
+		
+		if(data == null)
+			return new Pair<Response,Model>(new Response().statusCode(404), new Model());
+		
 		Pair<Class<?>, Method> controller = getController(data.object1, request.getMethod());
+		
+		if(controller == null)
+			return new Pair<Response,Model>(new Response().statusCode(404), new Model());
 
 		Class<?> clazz = controller.object1;
 		Method method = controller.object2;
@@ -111,7 +121,11 @@ public class NavigationManager {
 	 * 
 	 */
 	private Pair<Class<?>, Method> getController(String path, String method){
-		return routes.get(path).get(method);
+		Map<String, Pair<Class<?>, Method>> pathMethods = routes.get(path);
+		if(pathMethods == null)
+			return null;
+		
+		return pathMethods.get(method);
 	}
 	
 
@@ -151,6 +165,9 @@ public class NavigationManager {
 	 * 
 	 */
 	private Response insertResponseType(Class<?> controller, Response response) {
+		if(response.getResponse() == null)
+			return response.statusCode(500);
+		
 		if(controller.isAnnotationPresent(ApiController.class))
 			return response.responseType("application/api");
 		
@@ -171,7 +188,7 @@ public class NavigationManager {
 			}
 		}
 		
-		return response;
+		return response.statusCode(500);
 	}
 	
 	/**
