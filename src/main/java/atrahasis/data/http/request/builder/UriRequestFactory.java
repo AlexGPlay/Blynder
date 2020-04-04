@@ -2,6 +2,7 @@ package atrahasis.data.http.request.builder;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -71,12 +72,14 @@ public class UriRequestFactory {
 			
 			URIBuilder builder = new URIBuilder(url);
 			
-			List<String> nSegments = builder.getPathSegments();
-			nSegments.addAll(this.params.getSegments());
-			builder.setPathSegments(nSegments);
+			List<String> finalSegments = new ArrayList<>();
+			finalSegments.addAll(builder.getPathSegments());
+			finalSegments.addAll(this.params.getSegments());
+			builder.setPathSegments(finalSegments);
 			
-			for (Map.Entry<String, Object> entry : params.entrySet()) 
-				builder.addParameter(entry.getKey(), entry.getValue().toString());
+			if(params != null)
+				for (Map.Entry<String, Object> entry : params.entrySet()) 
+					builder.addParameter(entry.getKey(), entry.getValue().toString());
 			
 			return builder.build();
 		} catch (URISyntaxException e) {

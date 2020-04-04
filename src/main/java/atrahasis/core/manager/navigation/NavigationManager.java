@@ -165,6 +165,9 @@ public class NavigationManager {
 	 * 
 	 */
 	private Response insertResponseType(Class<?> controller, Response response) {
+		if(response.getRedirect() != null)
+			return response.responseType("application/redirect");
+		
 		if(response.getResponse() == null)
 			return response.statusCode(500);
 		

@@ -32,11 +32,11 @@ public class RequestParams {
 	}
 
 	public Map<String, Object> getHeaders() {
-		return headers == null ? new HashMap<>() : data;
+		return headers == null ? new HashMap<>() : headers;
 	}
 
 	public Map<String, Object> getParams() {
-		return params == null ? new HashMap<>() : data;
+		return params == null ? new HashMap<>() : params;
 	}
 	
 	public List<String> getSegments() {
