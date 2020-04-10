@@ -18,6 +18,7 @@ import atrahasis.core.util.BeanInstanceManager;
 import atrahasis.core.util.Pair;
 import atrahasis.core.util.ParamSorter;
 import atrahasis.core.util.QueryParamsExtractor;
+import atrahasis.core.view.WindowSize;
 import javafx.scene.Scene;
 
 /**
@@ -81,19 +82,20 @@ public class NavigationManager {
 	 * Response - The response that the controller gives back.<br>
 	 * Model - The model that the controller fills if there is one.
 	 */
-	public Pair<Response, Model> call() {
+	public Object[] call() {
+		
 		if(url == null || finder == null || routes == null || filterManager == null)
-			return new Pair<Response,Model>(new Response().statusCode(404), new Model());
+			return new Object[] {new Response().statusCode(404), new Model(), new WindowSize()};
 		
 		Pair<String, Map<String,Object>> data = getUrlData();
 		
 		if(data == null)
-			return new Pair<Response,Model>(new Response().statusCode(404), new Model());
+			return new Object[] {new Response().statusCode(404), new Model(), new WindowSize()};
 		
 		Pair<Class<?>, Method> controller = getController(data.object1, request.getMethod());
 		
 		if(controller == null)
-			return new Pair<Response,Model>(new Response().statusCode(404), new Model());
+			return new Object[] {new Response().statusCode(404), new Model(), new WindowSize()};
 
 		Class<?> clazz = controller.object1;
 		Method method = controller.object2;
@@ -135,18 +137,19 @@ public class NavigationManager {
 	 * the URL invoked by the user.
 	 *
 	 */
-	private Pair<Response, Model> invokeRoutingMethods(Class<?> controllerClass, Method controllerMethod, Map<String,Object> controllerParams) {
+	private Object[] invokeRoutingMethods(Class<?> controllerClass, Method controllerMethod, Map<String,Object> controllerParams) {
 		Request request = this.request == null ? new Request(url, "GET", new HashMap<>(), controllerParams, new HashMap<>()) : this.request;
 		Response response = new Response();
 		Model model = new Model();
+		WindowSize size = new WindowSize();
 		
 		response = invokeFilter(controllerClass, request, response);
 		if(!response.isAbleToContinue()) 
-			return new Pair<Response,Model>(response, model);
+			return new Object[] { response, model,size };
 		
-		response = invokeController(controllerClass, controllerMethod, controllerParams, model, request, response);
+		response = invokeController(controllerClass, controllerMethod, controllerParams, model, request, response, size);
 		response = insertResponseType(controllerClass, response);
-		return new Pair<Response,Model>(response, model);
+		return new Object[] { response, model,size };
 	}
 	
 	/**
@@ -223,9 +226,10 @@ public class NavigationManager {
 										Map<String,Object> controllerParams, 
 										Model model,
 										Request request, 
-										Response response
+										Response response,
+										WindowSize size
 	) {
-		List<Object> dataParams = new ParamSorter().sortParameters(controllerParams, controllerMethod, model, request, response);
+		List<Object> dataParams = new ParamSorter().sortParameters(controllerParams, controllerMethod, model, request, response, size);
 		Object responseObject = invokeMethod(controllerClass, controllerMethod, dataParams);
 		return getValidResponse(responseObject, response);
 	}

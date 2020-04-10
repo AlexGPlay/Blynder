@@ -27,10 +27,10 @@ public class RequestParamsTest {
 		data.put("data", "");
 		
 		Map<String,Object> headers = new HashMap<>();
-		data.put("headers", "");
+		headers.put("headers", "");
 		
 		Map<String,Object> params = new HashMap<>();
-		data.put("params", "");
+		params.put("params", "");
 		
 		List<String> segments = new ArrayList<>();
 		segments.add("segments");

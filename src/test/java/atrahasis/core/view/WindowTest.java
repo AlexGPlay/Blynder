@@ -20,9 +20,11 @@ public class WindowTest {
 	@Test
 	public void testWindowJpanel() {
 		try {
-			Window window = new Window();
+			WindowSize size = new WindowSize();
+			WindowProps props = new WindowProps();
+			Window window = new Window(size, props);
 			window.initializeBrowser(Browser.Standard);
-			window.setView(new JPanel(), new Model());
+			window.setView(new JPanel(), new Model(), size);
 		}
 		catch(Exception e) {
 			StringWriter sw = new StringWriter();
@@ -35,9 +37,11 @@ public class WindowTest {
 	@Test
 	public void testWindowHTML() {
 		try {
-			Window window = new Window();
+			WindowSize size = new WindowSize();
+			WindowProps props = new WindowProps();
+			Window window = new Window(size,props);
 			window.initializeBrowser(Browser.Standard);
-			window.setView("test.html", new Model());
+			window.setView("test.html", new Model(), size);
 		}
 		catch(Exception e) {
 			StringWriter sw = new StringWriter();
@@ -50,10 +54,12 @@ public class WindowTest {
 	@Test
 	public void testWindowScene() {
 		try {
-			Window window = new Window();
+			WindowSize size = new WindowSize();
+			WindowProps props = new WindowProps();
+			Window window = new Window(size,props);
 			window.initializeBrowser(Browser.Standard);
 			Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("test.fxml"));
-			window.setView(new Scene(root), new Model());
+			window.setView(new Scene(root), new Model(), size);
 		}
 		catch(Exception e) {
 			StringWriter sw = new StringWriter();
@@ -66,9 +72,11 @@ public class WindowTest {
 	@Test
 	public void testWindowFXML() {
 		try {
-			Window window = new Window();
+			WindowSize size = new WindowSize();
+			WindowProps props = new WindowProps();
+			Window window = new Window(size,props);
 			window.initializeBrowser(Browser.Standard);
-			window.setView("test.fxml", new Model());
+			window.setView("test.fxml", new Model(), size);
 		}
 		catch(Exception e) {
 			StringWriter sw = new StringWriter();

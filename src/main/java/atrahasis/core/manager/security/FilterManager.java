@@ -228,7 +228,7 @@ public class FilterManager {
 	 */
 	private Object invokeFilterMethod(Object instance, Method method, Request request, Response response) {
 		try {
-			List<Object> dataParams = new ParamSorter().sortParameters(new HashMap<>(), method, null, request, response);
+			List<Object> dataParams = new ParamSorter().sortParameters(new HashMap<>(), method, request, response);
 			Object filterReturn = method.invoke(instance, dataParams.toArray());
 			return filterReturn == null ? response : filterReturn;
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {

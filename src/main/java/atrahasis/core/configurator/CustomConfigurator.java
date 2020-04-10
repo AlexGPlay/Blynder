@@ -10,6 +10,8 @@ import atrahasis.core.finder.IRoutesFinder;
 import atrahasis.core.mapper.IAutowiredMapper;
 import atrahasis.core.mapper.IControllerMapper;
 import atrahasis.core.mapper.IFilterMapper;
+import atrahasis.core.view.WindowProps;
+import atrahasis.core.view.WindowSize;
 
 /**
  * 
@@ -148,6 +150,32 @@ public class CustomConfigurator extends BasicConfigurator{
 	 */
 	public CustomConfigurator with(Browser browser) {
 		this.browser = browser;
+		return this;
+	}
+	
+	/**
+	 * 
+	 * Changes the current window default size.
+	 * @param windowSize is the instance that will replace the current one.
+	 * @return The current Configurator instance, making it easier to concatenate
+	 * changes.
+	 * 
+	 */
+	public CustomConfigurator with(WindowSize windowSize) {
+		this.size = windowSize;
+		return this;
+	}
+	
+	/**
+	 * 
+	 * Changes the current window default props.
+	 * @param windowProps is the instance that will replace the current one.
+	 * @return The current Configurator instance, making it easier to concatenate
+	 * changes.
+	 * 
+	 */
+	public CustomConfigurator with(WindowProps windowProps) {
+		this.props = windowProps;
 		return this;
 	}
 	

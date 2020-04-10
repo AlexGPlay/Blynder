@@ -17,7 +17,6 @@ import atrahasis.core.mapper.AutowiredMapper;
 import atrahasis.core.mapper.ControllerMapper;
 import atrahasis.core.network.Request;
 import atrahasis.core.network.Response;
-import atrahasis.core.template.Model;
 import atrahasis.core.util.BeanInstanceManager;
 import atrahasis.core.util.Pair;
 import atrahasis.testClasses.*;
@@ -28,7 +27,7 @@ public class NavigationManagerTest {
 	
 	@Test
 	public void testWithInvalidParams() {
-		Pair<Response,Model> resp = new NavigationManager(
+		Object[] resp = new NavigationManager(
 			null,
 			null,
 			null,
@@ -36,12 +35,12 @@ public class NavigationManagerTest {
 			null
 		).call();
 		
-		assertEquals(404, resp.object1.getStatusCode());
+		assertEquals(404, ((Response)(resp[0])).getStatusCode());
 	}
 	
 	@Test
 	public void testWithInvalidPath() {
-		Pair<Response,Model> resp = new NavigationManager(
+		Object[] resp = new NavigationManager(
 			"/test",
 			new RoutesFinder(),
 			new HashMap<>(),
@@ -49,7 +48,7 @@ public class NavigationManagerTest {
 			null
 		).call();
 		
-		assertEquals(404, resp.object1.getStatusCode());
+		assertEquals(404, ((Response)(resp[0])).getStatusCode());
 	}
 	
 	@Test
@@ -60,7 +59,7 @@ public class NavigationManagerTest {
 		Map<String, Map<String, Pair<Class<?>, Method>>> routes = controllerMapper.map(controllers);
 		routes.get("/test/path1").remove("GET");
 		
-		Pair<Response,Model> resp = new NavigationManager(
+		Object[] resp = new NavigationManager(
 			"/test/path1",
 			new RoutesFinder(),
 			routes,
@@ -68,7 +67,7 @@ public class NavigationManagerTest {
 			null
 		).call();
 		
-		assertEquals(404, resp.object1.getStatusCode());
+		assertEquals(404, ((Response)(resp[0])).getStatusCode());
 	}
 	
 	@Test
@@ -78,7 +77,7 @@ public class NavigationManagerTest {
 		
 		Map<String, Map<String, Pair<Class<?>, Method>>> routes = controllerMapper.map(controllers);
 		
-		Pair<Response,Model> resp = new NavigationManager(
+		Object[] resp = new NavigationManager(
 			"/test/path1",
 			new RoutesFinder(),
 			routes,
@@ -86,7 +85,7 @@ public class NavigationManagerTest {
 			new Request("/test/path1", "POST")
 		).call();
 		
-		assertEquals(404, resp.object1.getStatusCode());
+		assertEquals(404, ((Response)(resp[0])).getStatusCode());
 	}
 	
 	@Test
@@ -98,7 +97,7 @@ public class NavigationManagerTest {
 		
 		Map<String, Map<String, Pair<Class<?>, Method>>> routes = controllerMapper.map(controllers);
 		
-		Pair<Response,Model> resp = new NavigationManager(
+		Object[] resp = new NavigationManager(
 			"/test",
 			new RoutesFinder(),
 			routes,
@@ -106,8 +105,8 @@ public class NavigationManagerTest {
 			null
 		).call();
 		
-		assertEquals(200, resp.object1.getStatusCode());
-		assertEquals("application/api", resp.object1.getResponseType());
+		assertEquals(200, ((Response)(resp[0])).getStatusCode());
+		assertEquals("application/api", ((Response)(resp[0])).getResponseType());
 	}
 	
 	@Test
@@ -119,7 +118,7 @@ public class NavigationManagerTest {
 		
 		Map<String, Map<String, Pair<Class<?>, Method>>> routes = controllerMapper.map(controllers);
 		
-		Pair<Response,Model> resp = new NavigationManager(
+		Object[] resp = new NavigationManager(
 			"/test",
 			new RoutesFinder(),
 			routes,
@@ -127,8 +126,8 @@ public class NavigationManagerTest {
 			null
 		).call();
 		
-		assertEquals(200, resp.object1.getStatusCode());
-		assertEquals("application/html", resp.object1.getResponseType());
+		assertEquals(200, ((Response)(resp[0])).getStatusCode());
+		assertEquals("application/html", ((Response)(resp[0])).getResponseType());
 	}
 	
 	@Test
@@ -140,7 +139,7 @@ public class NavigationManagerTest {
 		
 		Map<String, Map<String, Pair<Class<?>, Method>>> routes = controllerMapper.map(controllers);
 		
-		Pair<Response,Model> resp = new NavigationManager(
+		Object[] resp = new NavigationManager(
 			"/test",
 			new RoutesFinder(),
 			routes,
@@ -148,8 +147,8 @@ public class NavigationManagerTest {
 			null
 		).call();
 		
-		assertEquals(200, resp.object1.getStatusCode());
-		assertEquals("application/fxml", resp.object1.getResponseType());
+		assertEquals(200, ((Response)(resp[0])).getStatusCode());
+		assertEquals("application/fxml", ((Response)(resp[0])).getResponseType());
 	}
 	
 	@Test
@@ -161,7 +160,7 @@ public class NavigationManagerTest {
 		
 		Map<String, Map<String, Pair<Class<?>, Method>>> routes = controllerMapper.map(controllers);
 		
-		Pair<Response,Model> resp = new NavigationManager(
+		Object[] resp = new NavigationManager(
 				"/test",
 				new RoutesFinder(),
 				routes,
@@ -169,8 +168,8 @@ public class NavigationManagerTest {
 				null
 			).call();
 		
-		assertEquals(200, resp.object1.getStatusCode());
-		assertEquals("application/swing", resp.object1.getResponseType());
+		assertEquals(200, ((Response)(resp[0])).getStatusCode());
+		assertEquals("application/swing", ((Response)(resp[0])).getResponseType());
 	}
 
 	@Test
@@ -182,7 +181,7 @@ public class NavigationManagerTest {
 		
 		Map<String, Map<String, Pair<Class<?>, Method>>> routes = controllerMapper.map(controllers);
 		
-		Pair<Response,Model> resp = new NavigationManager(
+		Object[] resp = new NavigationManager(
 				"/test",
 				new RoutesFinder(),
 				routes,
@@ -190,7 +189,7 @@ public class NavigationManagerTest {
 				null
 			).call();
 		
-		assertEquals(500, resp.object1.getStatusCode());
+		assertEquals(500, ((Response)(resp[0])).getStatusCode());
 	}
 	
 	@Test
@@ -202,7 +201,7 @@ public class NavigationManagerTest {
 		
 		Map<String, Map<String, Pair<Class<?>, Method>>> routes = controllerMapper.map(controllers);
 		
-		Pair<Response,Model> resp = new NavigationManager(
+		Object[] resp = new NavigationManager(
 				"/test",
 				new RoutesFinder(),
 				routes,
@@ -210,7 +209,7 @@ public class NavigationManagerTest {
 				null
 			).call();
 		
-		assertEquals(500, resp.object1.getStatusCode());
+		assertEquals(500, ((Response)(resp[0])).getStatusCode());
 	}
 	
 }

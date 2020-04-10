@@ -19,6 +19,8 @@ import atrahasis.core.mapper.FilterMapper;
 import atrahasis.core.mapper.IAutowiredMapper;
 import atrahasis.core.mapper.IControllerMapper;
 import atrahasis.core.mapper.IFilterMapper;
+import atrahasis.core.view.WindowProps;
+import atrahasis.core.view.WindowSize;
 
 /**
  * 
@@ -39,6 +41,8 @@ public class BasicConfigurator implements IConfigurator{
 	protected IFilterFinder filterFinder;
 	protected IFilterMapper filterMapper;
 	protected Browser browser;
+	protected WindowSize size;
+	protected WindowProps props;
 	
 	public BasicConfigurator() {
 		this.autowiredFinder = new AutowiredFinder();
@@ -51,6 +55,8 @@ public class BasicConfigurator implements IConfigurator{
 		this.filterFinder = new FilterFinder();
 		this.filterMapper = new FilterMapper();
 		this.browser = Browser.Standard;
+		this.size = new WindowSize();
+		this.props = new WindowProps("Application");
 	}
 	
 	@Override
@@ -101,6 +107,16 @@ public class BasicConfigurator implements IConfigurator{
 	@Override
 	public IFilterMapper getFilterMapper() {
 		return filterMapper;
+	}
+
+	@Override
+	public WindowSize getWindowSize() {
+		return size;
+	}
+
+	@Override
+	public WindowProps getWindowProps() {
+		return props;
 	}
 
 }

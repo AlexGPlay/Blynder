@@ -1,10 +1,13 @@
 package atrahasis.core.io;
 
+import java.awt.Image;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import javax.swing.ImageIcon;
 
 /**
  * 
@@ -36,6 +39,21 @@ public class FileLoader {
 		.forEach(b::append);
 		
 		return b.toString();
+	}
+	
+	/**
+	 * 
+	 * Given a filename this method get an image from the given relative path.
+	 * 
+	 * @param file
+	 * the filename.
+	 * @return
+	 * The image instance.
+	 * 
+	 */
+	public Image getImage(String file) {
+		URL url = getClass().getClassLoader().getResource(file);
+		return new ImageIcon(url).getImage();
 	}
 	
 }

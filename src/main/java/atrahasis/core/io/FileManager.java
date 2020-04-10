@@ -1,5 +1,6 @@
 package atrahasis.core.io;
 
+import java.awt.Image;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -25,6 +26,21 @@ public class FileManager {
 	 */
 	public String loadContent(String file) throws IOException, URISyntaxException {
 		return new FileLoader().getContent(file);
+	}
+	
+	/**
+	 * 
+	 * Given a filename this class will call the FileLoader class and
+	 * get an image from the given relative path.
+	 * 
+	 * @param file
+	 * the filename.
+	 * @return
+	 * The image instance.
+	 * 
+	 */
+	public Image loadImage(String file) {
+		return new FileLoader().getImage(file);
 	}
 	
 	/**

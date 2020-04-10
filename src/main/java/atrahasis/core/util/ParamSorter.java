@@ -7,9 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import atrahasis.core.annotations.PathVariable;
-import atrahasis.core.network.Request;
-import atrahasis.core.network.Response;
-import atrahasis.core.template.Model;
 
 /**
  * 
@@ -34,7 +31,7 @@ public class ParamSorter {
 	 * A list of sorted objects that will be inserted into the method.
 	 * 
 	 */
-	public List<Object> sortParameters(Map<String,Object> parameters, Method method, Model model, Request request, Response response){
+	public List<Object> sortParameters(Map<String,Object> parameters, Method method, Object... extras){
 		List<Object> sortedParams = new ArrayList<>();
 		
 		for(Parameter param : method.getParameters()) {
@@ -42,24 +39,34 @@ public class ParamSorter {
 				sortedParams.add( getDataForAnnotatedParam(parameters, param, param.getAnnotationsByType(PathVariable.class)[0]) );
 			}
 			
-			else if(param.getType() == Model.class) {
-				sortedParams.add(model);
-			}
-			
-			else if(param.getType() == Request.class) {
-				sortedParams.add(request);
-			}
-			
-			else if(param.getType() == Response.class) {
-				sortedParams.add(response);
-			}
-			
 			else {
-				sortedParams.add(null);
+				sortedParams.add(getExtraForParameter(param, extras));
 			}
 		}
 		
 		return sortedParams;
+	}
+	
+	/**
+	 * Given a controller parameter, this method will try to find the extra
+	 * parameter that has the same class.
+	 * 
+	 * @param param that will be injected.
+	 * @param extras that can be of that type.
+	 * @return
+	 * The extra that has the same class.
+	 * Null if there isn't one.
+	 * 
+	 */
+	private Object getExtraForParameter(Parameter param, Object... extras) {
+		for(Object obj : extras) { 
+			if(obj == null)
+				continue;
+			
+			if(param.getType() == obj.getClass())
+				return obj;
+		}
+		return null;
 	}
 	
 	/**

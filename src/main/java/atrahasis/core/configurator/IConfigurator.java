@@ -10,6 +10,8 @@ import atrahasis.core.finder.IRoutesFinder;
 import atrahasis.core.mapper.IAutowiredMapper;
 import atrahasis.core.mapper.IControllerMapper;
 import atrahasis.core.mapper.IFilterMapper;
+import atrahasis.core.view.WindowProps;
+import atrahasis.core.view.WindowSize;
 
 /**
  * 
@@ -89,5 +91,19 @@ public interface IConfigurator {
 	 * 
 	 */
 	public IFilterMapper getFilterMapper();
+	
+	/**
+	 * 
+	 * @return The window default size.
+	 * 
+	 */
+	public WindowSize getWindowSize();
+	
+	/**
+	 * 
+	 * @return The window default props.
+	 * 
+	 */
+	public WindowProps getWindowProps();
 	
 }

@@ -19,6 +19,7 @@ import atrahasis.core.util.BeanInstanceManager;
 import atrahasis.core.util.Pair;
 import atrahasis.core.view.NotFoundView;
 import atrahasis.core.view.Window;
+import atrahasis.core.view.WindowSize;
 
 /**
  * 
@@ -235,7 +236,7 @@ public class ApplicationManager {
 	 * 
 	 */
 	protected void initializeWindow() {
-		mainWindow = new Window();
+		mainWindow = new Window(configurator.getWindowSize(), configurator.getWindowProps());
 		mainWindow.initializeBrowser(configurator.getBrowser());
 		mainWindow.setVisible(true);
 	}
@@ -290,7 +291,7 @@ public class ApplicationManager {
 	 */
 	public Response navigate(String url, Request request) {
 		try {
-			Pair<Response, Model> response = new NavigationManager(
+			Object[] response = new NavigationManager(
 					url, 
 					configurator.getRoutesFinder(), 
 					routes,
@@ -302,18 +303,20 @@ public class ApplicationManager {
 				return null;
 			}
 			
-			else if(response.object1.getStatusCode() == 404) {
-				response.object1
+			Response responseObject = (Response) response[0];
+			
+			if(responseObject.getStatusCode() == 404) {
+				responseObject
 				.response(new NotFoundView())
 				.responseType("application/swing");
 			}
 			
-			else if(response.object1.getStatusCode() == 500) {
-				return response.object1;
+			else if(responseObject.getStatusCode() == 500) {
+				return responseObject;
 			}
 			
-			doResponseAction(response.object1, response.object2);
-			return response.object1;
+			doResponseAction(response);
+			return responseObject;
 		}
 		catch(IllegalViewException | NullPointerException e) {
 			e.printStackTrace();
@@ -329,17 +332,21 @@ public class ApplicationManager {
 	 * a filter or the controller requested a redirect to another path, in that
 	 * case the app will be redirected and there will be no render.
 	 * 
-	 * @param response
+	 * @param responseArray
+	 * Composed of a response, a model and a windowSize.
 	 * The response of the controller.
-	 * 
-	 * @param model
-	 * Model that was filled in the controller or an empty one if it wasn't used.
+	 * The model that was filled in the controller or an empty one if it wasn't used.
+	 * The windowSize that will be displayed.
 	 * 
 	 * @throws IllegalViewException
 	 * If the view is not supported.
 	 * 
 	 */
-	protected void doResponseAction(Response response, Model model) throws IllegalViewException {
+	protected void doResponseAction(Object[] responseArray) throws IllegalViewException {
+		Response response = (Response) responseArray[0];
+		Model model = (Model) responseArray[1];
+		WindowSize size = (WindowSize) responseArray[2];
+		
 		String redirect = response.getRedirect();
 		if(redirect != null) {
 			navigate(redirect);
@@ -349,7 +356,7 @@ public class ApplicationManager {
 				return;
 			
 			Object view = response.getResponse();
-			mainWindow.setView(view, model);
+			mainWindow.setView(view, model, size);
 		}
 	}
 	

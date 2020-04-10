@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import atrahasis.core.browser.IBrowser;
 import atrahasis.core.template.Model;
+import atrahasis.core.view.WindowSize.Sizing;
 
 /**
  * 
@@ -32,15 +33,25 @@ public class Window{
 	private JPanel mainPane;
 	
 	private IBrowser browser;
+	private WindowSize defaultSize;
+	private WindowProps defaultProps;
+	private boolean changedSize = false;
 	
-	public Window() {
+	public Window(WindowSize defaultSize, WindowProps defaultProps) {
 		frame = new JFrame();
+		this.defaultSize = defaultSize;
+		this.defaultProps = defaultProps;
+		
 		mainPane = new JPanel();
 		mainPane.setLayout(new BorderLayout());
+		
 		frame.getContentPane().add(mainPane);
 		
 		frame.setVisible(false);
+		
 		addWindowCloseEvent();
+		setDefaultWindowSize();
+		setDefaultWindowProps();
 	}
 	
 	private void addWindowCloseEvent() {
@@ -53,13 +64,26 @@ public class Window{
 		});
 	}
 	
+	private void setDefaultWindowSize() {
+		if(defaultSize.getSizing() == Sizing.AUTO)
+			frame.setSize(100,100);
+		else
+			frame.setSize(defaultSize.getWidth(), defaultSize.getHeigth());
+		
+		frame.setResizable(defaultSize.isResizable());
+	}
+	
+	private void setDefaultWindowProps() {
+		frame.setTitle(defaultProps.getTitle());
+		frame.setIconImage(defaultProps.getIconAsImage());
+	}
+	
 	public void initializeBrowser(Browser browser) {
 		this.browser = new BrowserFactory(browser).getBrowser();
 		
 		this.browser.loadHTML("<h1>loading</h1>");
 		changeView(this.browser.getUI());
 		
-		frame.setSize(100, 100);
 		frame.setVisible(true);
 		frame.setVisible(false);
 	}
@@ -67,12 +91,9 @@ public class Window{
 	private void changeView(Component component) {
 		mainPane.removeAll();
 		mainPane.add(component, BorderLayout.CENTER);
-		frame.pack();
-		
-		frame.repaint();
 	}
 	
-	public void setView(Object view, Model model) throws IllegalViewException {
+	public void setView(Object view, Model model, WindowSize size) throws IllegalViewException {
 		if(view instanceof JPanel)
 			setSwing((JPanel)view);
 		
@@ -87,6 +108,8 @@ public class Window{
 			else if(viewName.contains(".fxml"))
 				setFxml(viewName);
 		}
+		
+		setWindowSize(size);
 	}
 	
 	private void setSwing(JPanel panel) {
@@ -97,7 +120,6 @@ public class Window{
 		String code = new HTMLHandler().getHtml(html, model);
 		changeView(browser.getUI());
 		browser.loadHTML(code);
-		frame.setSize(800,800);
 	}
 	
 	private void setFxml(String fxml) {
@@ -114,9 +136,34 @@ public class Window{
 		panel.setScene(scene);
 		changeView(panel);
 	}
+	
+	private void setWindowSize(WindowSize size) {
+		if(size.getSizing() == Sizing.AUTO) {
+			if(defaultSize.getSizing() == Sizing.AUTO) {
+				frame.pack();
+			}
+			else if(defaultSize.getSizing() == Sizing.MANUAL && changedSize) {
+				frame.setSize(defaultSize.getWidth(), defaultSize.getHeigth());
+			}
+		}
+		
+		else if(size.getSizing() == Sizing.MANUAL) {
+			frame.setSize(size.getWidth(), size.getHeigth());
+			changedSize = true;
+		}
+		
+		frame.setResizable(size.isResizable());
+		
+		frame.revalidate();
+		frame.repaint();
+	}
 
 	public void setVisible(boolean b) {
 		frame.setVisible(b);
+	}
+	
+	public JFrame getFrame() {
+		return frame;
 	}
 
 }
