@@ -30,9 +30,9 @@ public class WindowPropsTest {
 	
 	@Test
 	public void testTwoParamsConstructor() {
-		WindowProps props = new WindowProps("Title", "IconPath");
+		WindowProps props = new WindowProps("Title", null);
 		
-		assertEquals("IconPath", props.getIcon());
+		assertNull(props.getIcon());
 		assertEquals("Title", props.getTitle());
 		
 		Window window = new Window(new WindowSize(), props);
@@ -44,9 +44,9 @@ public class WindowPropsTest {
 		WindowProps props = new WindowProps();
 		
 		props.setTitle("Title");
-		props.setIcon("IconPath");
+		props.setIcon(null);
 		
-		assertEquals("IconPath", props.getIcon());
+		assertNull(props.getIcon());
 		assertEquals("Title", props.getTitle());
 		
 		Window window = new Window(new WindowSize(), props);
