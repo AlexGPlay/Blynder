@@ -236,7 +236,7 @@ public class ApplicationManager {
 	 * 
 	 */
 	protected void initializeWindow() {
-		mainWindow = new Window(configurator.getWindowSize(), configurator.getWindowProps());
+		mainWindow = new Window(configurator);
 		mainWindow.initializeBrowser(configurator.getBrowser());
 		mainWindow.setVisible(true);
 	}

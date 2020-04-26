@@ -17,6 +17,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import atrahasis.core.browser.IBrowser;
+import atrahasis.core.configurator.IConfigurator;
+import atrahasis.core.template.ITemplateEngine;
 import atrahasis.core.template.Model;
 import atrahasis.core.view.WindowSize.Sizing;
 
@@ -32,15 +34,17 @@ public class Window{
 	private JFrame frame;
 	private JPanel mainPane;
 	
+	private ITemplateEngine templateEngine;
 	private IBrowser browser;
 	private WindowSize defaultSize;
 	private WindowProps defaultProps;
 	private boolean changedSize = false;
 	
-	public Window(WindowSize defaultSize, WindowProps defaultProps) {
+	public Window(IConfigurator configurator) {
 		frame = new JFrame();
-		this.defaultSize = defaultSize;
-		this.defaultProps = defaultProps;
+		this.defaultSize = configurator.getWindowSize();
+		this.defaultProps = configurator.getWindowProps();
+		this.templateEngine = configurator.getTemplateEngine();
 		
 		mainPane = new JPanel();
 		mainPane.setLayout(new BorderLayout());
@@ -117,7 +121,7 @@ public class Window{
 	}
 	
 	private void setHtml(String html, Model model) {
-		String code = new HTMLHandler().getHtml(html, model);
+		String code = new HTMLHandler(templateEngine).getHtml(html, model);
 		changeView(browser.getUI());
 		browser.loadHTML(code);
 	}

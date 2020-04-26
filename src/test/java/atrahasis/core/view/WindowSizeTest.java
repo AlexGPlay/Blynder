@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import org.junit.Test;
 
+import atrahasis.core.configurator.CustomConfigurator;
 import atrahasis.core.template.Model;
 
 public class WindowSizeTest {
@@ -18,8 +19,11 @@ public class WindowSizeTest {
 		try {
 			WindowSize size = new WindowSize();
 			WindowProps props = new WindowProps();
+			CustomConfigurator config = new CustomConfigurator()
+					.with(props)
+					.with(size);
 			
-			Window window = new Window(size,props);
+			Window window = new Window(config);
 			assertEquals(100, window.getFrame().getWidth());
 			assertEquals(100, window.getFrame().getHeight());
 		}
@@ -36,8 +40,11 @@ public class WindowSizeTest {
 		try {
 			WindowSize size = new WindowSize(200, 200);
 			WindowProps props = new WindowProps();
+			CustomConfigurator config = new CustomConfigurator()
+					.with(props)
+					.with(size);
 			
-			Window window = new Window(size,props);
+			Window window = new Window(config);
 			assertEquals(200, window.getFrame().getWidth());
 			assertEquals(200, window.getFrame().getHeight());
 		}
@@ -54,7 +61,12 @@ public class WindowSizeTest {
 		try {
 			WindowSize size = new WindowSize();
 			WindowProps props = new WindowProps();
-			Window window = new Window(size,props);
+			CustomConfigurator config = new CustomConfigurator()
+					.with(props)
+					.with(size);
+			
+			Window window = new Window(config);
+			
 			assertEquals(100, window.getFrame().getWidth());
 			assertEquals(100, window.getFrame().getHeight());
 			window.setView(new JPanel(), new Model(), size);
@@ -74,7 +86,11 @@ public class WindowSizeTest {
 		try {
 			WindowSize size = new WindowSize();
 			WindowProps props = new WindowProps();
-			Window window = new Window(size,props);
+			CustomConfigurator config = new CustomConfigurator()
+					.with(props)
+					.with(size);
+			
+			Window window = new Window(config);
 			assertEquals(100, window.getFrame().getWidth());
 			assertEquals(100, window.getFrame().getHeight());
 			
@@ -97,7 +113,11 @@ public class WindowSizeTest {
 		try {
 			WindowSize size = new WindowSize();
 			WindowProps props = new WindowProps();
-			Window window = new Window(size,props);
+			CustomConfigurator config = new CustomConfigurator()
+					.with(props)
+					.with(size);
+			
+			Window window = new Window(config);
 			assertEquals(100, window.getFrame().getWidth());
 			assertEquals(100, window.getFrame().getHeight());
 			
@@ -124,11 +144,20 @@ public class WindowSizeTest {
 	public void testResizable() {
 		WindowSize size = new WindowSize(false);
 		WindowProps props = new WindowProps();
-		Window window = new Window(size,props);
+		CustomConfigurator config = new CustomConfigurator()
+				.with(props)
+				.with(size);
+		
+		Window window = new Window(config);
 		assertFalse(window.getFrame().isResizable());
 		
 		size = new WindowSize(true);
-		window = new Window(size,props);
+		config = new CustomConfigurator()
+				.with(props)
+				.with(size);
+		
+		window = new Window(config);
+		
 		assertTrue(window.getFrame().isResizable());
 	}
 

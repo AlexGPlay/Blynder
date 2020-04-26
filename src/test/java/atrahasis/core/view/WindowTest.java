@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import org.junit.Test;
 
 import atrahasis.core.browser.BrowserFactory.Browser;
+import atrahasis.core.configurator.CustomConfigurator;
 import atrahasis.core.template.Model;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,7 +23,11 @@ public class WindowTest {
 		try {
 			WindowSize size = new WindowSize();
 			WindowProps props = new WindowProps();
-			Window window = new Window(size, props);
+			CustomConfigurator config = new CustomConfigurator()
+					.with(props)
+					.with(size);
+			
+			Window window = new Window(config);
 			window.initializeBrowser(Browser.Standard);
 			window.setView(new JPanel(), new Model(), size);
 		}
@@ -39,7 +44,11 @@ public class WindowTest {
 		try {
 			WindowSize size = new WindowSize();
 			WindowProps props = new WindowProps();
-			Window window = new Window(size,props);
+			CustomConfigurator config = new CustomConfigurator()
+					.with(props)
+					.with(size);
+			
+			Window window = new Window(config);
 			window.initializeBrowser(Browser.Standard);
 			window.setView("test.html", new Model(), size);
 		}
@@ -56,7 +65,11 @@ public class WindowTest {
 		try {
 			WindowSize size = new WindowSize();
 			WindowProps props = new WindowProps();
-			Window window = new Window(size,props);
+			CustomConfigurator config = new CustomConfigurator()
+					.with(props)
+					.with(size);
+			
+			Window window = new Window(config);
 			window.initializeBrowser(Browser.Standard);
 			Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("test.fxml"));
 			window.setView(new Scene(root), new Model(), size);
@@ -74,7 +87,11 @@ public class WindowTest {
 		try {
 			WindowSize size = new WindowSize();
 			WindowProps props = new WindowProps();
-			Window window = new Window(size,props);
+			CustomConfigurator config = new CustomConfigurator()
+					.with(props)
+					.with(size);
+			
+			Window window = new Window(config);
 			window.initializeBrowser(Browser.Standard);
 			window.setView("test.fxml", new Model(), size);
 		}

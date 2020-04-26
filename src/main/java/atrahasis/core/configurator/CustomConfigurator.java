@@ -10,6 +10,7 @@ import atrahasis.core.finder.IRoutesFinder;
 import atrahasis.core.mapper.IAutowiredMapper;
 import atrahasis.core.mapper.IControllerMapper;
 import atrahasis.core.mapper.IFilterMapper;
+import atrahasis.core.template.ITemplateEngine;
 import atrahasis.core.view.WindowProps;
 import atrahasis.core.view.WindowSize;
 
@@ -137,6 +138,19 @@ public class CustomConfigurator extends BasicConfigurator{
 	 */
 	public CustomConfigurator with(IFilterMapper filterMapper) {
 		this.filterMapper = filterMapper;
+		return this;
+	}
+	
+	/**
+	 * 
+	 * Changes the current TemplateEngine instance with a new one.
+	 * @param templateEngine is the new instance that will be used.
+	 * @return The current Configurator instance, making it easier to concatenate
+	 * changes.
+	 * 
+	 */
+	public CustomConfigurator with(ITemplateEngine templateEngine) {
+		this.templateEngine = templateEngine;
 		return this;
 	}
 	

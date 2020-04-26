@@ -10,6 +10,7 @@ import atrahasis.core.finder.IRoutesFinder;
 import atrahasis.core.mapper.IAutowiredMapper;
 import atrahasis.core.mapper.IControllerMapper;
 import atrahasis.core.mapper.IFilterMapper;
+import atrahasis.core.template.ITemplateEngine;
 import atrahasis.core.view.WindowProps;
 import atrahasis.core.view.WindowSize;
 
@@ -70,6 +71,13 @@ public interface IConfigurator {
 	 * 
 	 */
 	public IControllerMapper getControllerMapper();
+	
+	/**
+	 * 
+	 * @return The template engine that will be used to create the views.
+	 * 
+	 */
+	public ITemplateEngine getTemplateEngine();
 	
 	/**
 	 * 

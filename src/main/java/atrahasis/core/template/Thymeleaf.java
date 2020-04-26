@@ -9,7 +9,7 @@ import org.thymeleaf.context.Context;
  * the variables given by the user. The variables will be inside a Model class.
  *
  */
-public class Thymeleaf {
+public class Thymeleaf implements ITemplateEngine{
 
 	private TemplateEngine engine = new TemplateEngine();
 	

@@ -5,10 +5,11 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import atrahasis.core.template.Model;
+import atrahasis.core.template.Thymeleaf;
 
 public class HTMLHandlerTest {
 
-	private HTMLHandler htmlHandler = new HTMLHandler();
+	private HTMLHandler htmlHandler = new HTMLHandler(new Thymeleaf());
 	
 	@Test
 	public void testEmptyModel() {

@@ -6,8 +6,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import atrahasis.core.io.FileManager;
+import atrahasis.core.template.ITemplateEngine;
 import atrahasis.core.template.Model;
-import atrahasis.core.template.Thymeleaf;
 
 /**
  * 
@@ -17,12 +17,18 @@ import atrahasis.core.template.Thymeleaf;
  */
 public class HTMLHandler {
 
+	private ITemplateEngine templateEngine;
+	
+	public HTMLHandler(ITemplateEngine templateEngine) {
+		this.templateEngine = templateEngine;
+	}
+	
 	/**
 	 * 
 	 * The method that will be called from outside requesting an HTML and the
 	 * variables that need to be processed into it. Given the nature of the
 	 * java browsers, this method will store an html that is the processed view
-	 * given by thymeleaf and after that, the path to that file will be returned.
+	 * given by the template engine and after that, the path to that file will be returned.
 	 * @param file
 	 * The HTML file.
 	 * @param model
@@ -35,7 +41,7 @@ public class HTMLHandler {
 		String res = "<body>Error</body>";
 		try {
 			res = new FileManager().loadContent(file);
-			String processedHtml = new Thymeleaf().processHtml(res, model);
+			String processedHtml = this.templateEngine.processHtml(res, model);
 			String newFileName = createFilename(file, processedHtml);
 			return new FileManager().saveContent(newFileName, processedHtml);
 		} catch (IOException | URISyntaxException e) {
