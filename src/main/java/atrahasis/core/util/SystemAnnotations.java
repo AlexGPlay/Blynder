@@ -4,7 +4,7 @@ import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
-import atrahasis.core.annotations.ApiController;
+import atrahasis.core.annotations.RestController;
 import atrahasis.core.annotations.Bean;
 import atrahasis.core.annotations.Controller;
 import atrahasis.core.annotations.Filter;
@@ -13,30 +13,30 @@ import atrahasis.data.annotations.Repository;
 
 /**
  * 
- * A data class that contains all the built-in beans.
+ * A data class that contains all the built-in annotations.
  *
  */
-public class BeanAnnotations {
+public class SystemAnnotations {
 
 	/**
 	 * 
-	 * A method that builds a list with all the beans of the project for their
+	 * A method that builds a list with all the annotations of the project for their
 	 * later use.
 	 * @return
-	 * A list that contains all the beans classes.
+	 * A list that contains all the annotation classes.
 	 * 
 	 */
-	public static List<Class<? extends Annotation>> getBeans(){
-		List<Class<? extends Annotation>> beans = new ArrayList<>();
+	public static List<Class<? extends Annotation>> getSystemAnnotations(){
+		List<Class<? extends Annotation>> annotations = new ArrayList<>();
 		
-		beans.add(Controller.class);
-		beans.add(Bean.class);
-		beans.add(Filter.class);
-		beans.add(Service.class);
-		beans.add(Repository.class);
-		beans.add(ApiController.class);
+		annotations.add(Controller.class);
+		annotations.add(Bean.class);
+		annotations.add(Filter.class);
+		annotations.add(Service.class);
+		annotations.add(Repository.class);
+		annotations.add(RestController.class);
 		
-		return beans;
+		return annotations;
 	}
 	
 	/**
@@ -55,7 +55,7 @@ public class BeanAnnotations {
 	public static boolean isStorable(Class<?> clazz) {
 		Annotation[] classes = clazz.getAnnotations();
 		for(Annotation annotation : classes) {
-			if(getStorableBeans().contains(annotation.annotationType()))
+			if(getStorableAnnotations().contains(annotation.annotationType()))
 				return true;
 		}
 		return false;
@@ -66,15 +66,15 @@ public class BeanAnnotations {
 	 * Creates a list that contains all of the storable classes.
 	 * 
 	 * @return
-	 * A list that contaisn all the storable classes.
+	 * A list that contains all the storable classes.
 	 * 
 	 */
-	private static List<Class<? extends Annotation>> getStorableBeans(){
-		List<Class<? extends Annotation>> beans = new ArrayList<>();
+	private static List<Class<? extends Annotation>> getStorableAnnotations(){
+		List<Class<? extends Annotation>> storableAnnotations = new ArrayList<>();
 		
-		beans.add(Repository.class);
+		storableAnnotations.add(Repository.class);
 		
-		return beans;
+		return storableAnnotations;
 	}
 	
 }

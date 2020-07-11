@@ -10,7 +10,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import atrahasis.core.annotations.ApiController;
+import atrahasis.core.annotations.RestController;
 import atrahasis.core.annotations.Bean;
 import atrahasis.core.annotations.Controller;
 import atrahasis.core.annotations.Filter;
@@ -18,7 +18,7 @@ import atrahasis.core.annotations.Service;
 import atrahasis.data.annotations.Repository;
 import atrahasis.testClasses.*;
 
-public class BeanAnnotationsTest {
+public class SystemAnnotationsTest {
 
 	@Test
 	public void testBeans() {
@@ -28,9 +28,9 @@ public class BeanAnnotationsTest {
 		expectedBeans.add(Filter.class);
 		expectedBeans.add(Service.class);
 		expectedBeans.add(Repository.class);
-		expectedBeans.add(ApiController.class);
+		expectedBeans.add(RestController.class);
 		
-		List<Class<? extends Annotation>> res = BeanAnnotations.getBeans();
+		List<Class<? extends Annotation>> res = SystemAnnotations.getSystemAnnotations();
 		
 		for(Class<?> c : expectedBeans)
 			if(!res.contains(c))
@@ -46,7 +46,7 @@ public class BeanAnnotationsTest {
 		expectedBeans.put(RepositoryTestClass1.class, true);
 		
 		for(Class<?> c : expectedBeans.keySet())
-			assertEquals(expectedBeans.get(c), BeanAnnotations.isStorable(c));
+			assertEquals(expectedBeans.get(c), SystemAnnotations.isStorable(c));
 	}
 
 }

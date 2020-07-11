@@ -7,7 +7,7 @@ import atrahasis.core.configurator.BasicConfigurator;
 import atrahasis.core.exception.MapApplicationException;
 import atrahasis.core.manager.ApplicationManager;
 import atrahasis.core.manager.security.FilterManager;
-import atrahasis.core.util.BeanInstanceManager;
+import atrahasis.core.util.SystemInstanceManager;
 
 public class ApplicationManagerTestClass extends ApplicationManager{
 
@@ -32,9 +32,9 @@ public class ApplicationManagerTestClass extends ApplicationManager{
 			filters = configurator.getFilterFinder().findFilters(classes);
 			routes = configurator.getControllerMapper().map(controllers);
 			controllerFilters = configurator.getFilterMapper().map(controllers, filters);
-			beans = configurator.getBeanFinder().findBeans(classes);
+			customClasses = configurator.getSystemFinder().findClasses(classes);
 			
-			BeanInstanceManager.initInstanceSaver(beans, configurator.getAutowiredMapper(), configurator.getAutowiredFinder());
+			SystemInstanceManager.initInstanceSaver(customClasses, configurator.getAutowiredMapper(), configurator.getAutowiredFinder());
 			
 			filterManager = new FilterManager(controllerFilters, filters);
 		}

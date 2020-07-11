@@ -2,12 +2,12 @@ package atrahasis.core.configurator;
 
 import atrahasis.core.browser.BrowserFactory.Browser;
 import atrahasis.core.finder.AutowiredFinder;
-import atrahasis.core.finder.BeanFinder;
+import atrahasis.core.finder.SystemFinder;
 import atrahasis.core.finder.ClassFinder;
 import atrahasis.core.finder.ControllerFinder;
 import atrahasis.core.finder.FilterFinder;
 import atrahasis.core.finder.IAutowiredFinder;
-import atrahasis.core.finder.IBeanFinder;
+import atrahasis.core.finder.ISystemFinder;
 import atrahasis.core.finder.IClassFinder;
 import atrahasis.core.finder.IControllerFinder;
 import atrahasis.core.finder.IFilterFinder;
@@ -34,7 +34,7 @@ import atrahasis.core.view.WindowSize;
 public class BasicConfigurator implements IConfigurator{
 
 	protected IAutowiredFinder autowiredFinder;
-	protected IBeanFinder beanFinder;
+	protected ISystemFinder systemFinder;
 	protected IClassFinder classFinder;
 	protected IControllerFinder controllerFinder;
 	protected IRoutesFinder routesFinder;
@@ -49,7 +49,7 @@ public class BasicConfigurator implements IConfigurator{
 	
 	public BasicConfigurator() {
 		this.autowiredFinder = new AutowiredFinder();
-		this.beanFinder = new BeanFinder();
+		this.systemFinder = new SystemFinder();
 		this.classFinder = new ClassFinder();
 		this.controllerFinder = new ControllerFinder();
 		this.routesFinder = new RoutesFinder();
@@ -69,8 +69,8 @@ public class BasicConfigurator implements IConfigurator{
 	}
 
 	@Override
-	public IBeanFinder getBeanFinder() {
-		return beanFinder;
+	public ISystemFinder getSystemFinder() {
+		return systemFinder;
 	}
 
 	@Override

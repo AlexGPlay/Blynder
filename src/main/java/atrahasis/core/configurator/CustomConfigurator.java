@@ -2,7 +2,7 @@ package atrahasis.core.configurator;
 
 import atrahasis.core.browser.BrowserFactory.Browser;
 import atrahasis.core.finder.IAutowiredFinder;
-import atrahasis.core.finder.IBeanFinder;
+import atrahasis.core.finder.ISystemFinder;
 import atrahasis.core.finder.IClassFinder;
 import atrahasis.core.finder.IControllerFinder;
 import atrahasis.core.finder.IFilterFinder;
@@ -39,14 +39,14 @@ public class CustomConfigurator extends BasicConfigurator{
 	
 	/**
 	 * 
-	 * Changes the current BeanFinder instance with a new one.
+	 * Changes the current SystemFinder instance with a new one.
 	 * @param beanFinder is the new instance that will be used.
 	 * @return The current Configurator instance, making it easier to concatenate
 	 * changes.
 	 * 
 	 */
-	public CustomConfigurator with(IBeanFinder beanFinder) {
-		this.beanFinder = beanFinder;
+	public CustomConfigurator with(ISystemFinder systemFinder) {
+		this.systemFinder = systemFinder;
 		return this;
 	}
 	

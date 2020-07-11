@@ -17,7 +17,7 @@ import atrahasis.core.mapper.AutowiredMapper;
 import atrahasis.core.mapper.ControllerMapper;
 import atrahasis.core.network.Request;
 import atrahasis.core.network.Response;
-import atrahasis.core.util.BeanInstanceManager;
+import atrahasis.core.util.SystemInstanceManager;
 import atrahasis.core.util.Pair;
 import atrahasis.testClasses.*;
 
@@ -93,7 +93,7 @@ public class NavigationManagerTest {
 		List<Class<?>> controllers = new ArrayList<>();
 		controllers.add(ControllerTestApi.class);
 		
-		BeanInstanceManager.initInstanceSaver(controllers, new AutowiredMapper(), new AutowiredFinder());
+		SystemInstanceManager.initInstanceSaver(controllers, new AutowiredMapper(), new AutowiredFinder());
 		
 		Map<String, Map<String, Pair<Class<?>, Method>>> routes = controllerMapper.map(controllers);
 		
@@ -114,7 +114,7 @@ public class NavigationManagerTest {
 		List<Class<?>> controllers = new ArrayList<>();
 		controllers.add(ControllerTestHtml.class);
 		
-		BeanInstanceManager.initInstanceSaver(controllers, new AutowiredMapper(), new AutowiredFinder());
+		SystemInstanceManager.initInstanceSaver(controllers, new AutowiredMapper(), new AutowiredFinder());
 		
 		Map<String, Map<String, Pair<Class<?>, Method>>> routes = controllerMapper.map(controllers);
 		
@@ -135,7 +135,7 @@ public class NavigationManagerTest {
 		List<Class<?>> controllers = new ArrayList<>();
 		controllers.add(ControllerTestFxml.class);
 		
-		BeanInstanceManager.initInstanceSaver(controllers, new AutowiredMapper(), new AutowiredFinder());
+		SystemInstanceManager.initInstanceSaver(controllers, new AutowiredMapper(), new AutowiredFinder());
 		
 		Map<String, Map<String, Pair<Class<?>, Method>>> routes = controllerMapper.map(controllers);
 		
@@ -156,7 +156,7 @@ public class NavigationManagerTest {
 		List<Class<?>> controllers = new ArrayList<>();
 		controllers.add(ControllerTestSwing.class);
 		
-		BeanInstanceManager.initInstanceSaver(controllers, new AutowiredMapper(), new AutowiredFinder());
+		SystemInstanceManager.initInstanceSaver(controllers, new AutowiredMapper(), new AutowiredFinder());
 		
 		Map<String, Map<String, Pair<Class<?>, Method>>> routes = controllerMapper.map(controllers);
 		
@@ -177,7 +177,7 @@ public class NavigationManagerTest {
 		List<Class<?>> controllers = new ArrayList<>();
 		controllers.add(ControllerTestInvalid.class);
 		
-		BeanInstanceManager.initInstanceSaver(controllers, new AutowiredMapper(), new AutowiredFinder());
+		SystemInstanceManager.initInstanceSaver(controllers, new AutowiredMapper(), new AutowiredFinder());
 		
 		Map<String, Map<String, Pair<Class<?>, Method>>> routes = controllerMapper.map(controllers);
 		
@@ -197,7 +197,7 @@ public class NavigationManagerTest {
 		List<Class<?>> controllers = new ArrayList<>();
 		controllers.add(ControllerTestNull.class);
 		
-		BeanInstanceManager.initInstanceSaver(controllers, new AutowiredMapper(), new AutowiredFinder());
+		SystemInstanceManager.initInstanceSaver(controllers, new AutowiredMapper(), new AutowiredFinder());
 		
 		Map<String, Map<String, Pair<Class<?>, Method>>> routes = controllerMapper.map(controllers);
 		

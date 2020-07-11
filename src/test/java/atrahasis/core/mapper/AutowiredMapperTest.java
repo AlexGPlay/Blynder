@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.Test;
 
 import atrahasis.core.finder.AutowiredFinder;
-import atrahasis.core.util.BeanInstanceManager;
+import atrahasis.core.util.SystemInstanceManager;
 import atrahasis.testClasses.AutowiredBeanTestClass;
 import atrahasis.testClasses.BeanParamNoAutowiredTestClass;
 import atrahasis.testClasses.RepositoryTestClass1;
@@ -30,7 +30,7 @@ public class AutowiredMapperTest {
 			
 			List<Class<?>> beans = new ArrayList<>();
 			beans.add(BeanParamNoAutowiredTestClass.class);
-			BeanInstanceManager.initInstanceSaver(beans, autowiredMapper, autowiredFinder);
+			SystemInstanceManager.initInstanceSaver(beans, autowiredMapper, autowiredFinder);
 			
 			assertNull(testClass.ob);
 			autowiredMapper.mapAutowired(testClass, beans, autowiredFinder.findAutowired(classes));
@@ -57,7 +57,7 @@ public class AutowiredMapperTest {
 			
 			List<Class<?>> beans = new ArrayList<>();
 			beans.add(RepositoryTestClass1.class);
-			BeanInstanceManager.initInstanceSaver(beans, autowiredMapper, autowiredFinder);
+			SystemInstanceManager.initInstanceSaver(beans, autowiredMapper, autowiredFinder);
 			
 			assertNull(testClass.ob);
 			autowiredMapper.mapAutowired(testClass, beans, autowiredFinder.findAutowired(classes));

@@ -2,7 +2,7 @@ package atrahasis.core.configurator;
 
 import atrahasis.core.browser.BrowserFactory.Browser;
 import atrahasis.core.finder.IAutowiredFinder;
-import atrahasis.core.finder.IBeanFinder;
+import atrahasis.core.finder.ISystemFinder;
 import atrahasis.core.finder.IClassFinder;
 import atrahasis.core.finder.IControllerFinder;
 import atrahasis.core.finder.IFilterFinder;
@@ -32,10 +32,10 @@ public interface IConfigurator {
 	
 	/**
 	 * 
-	 * @return The bean finder class which will be used in the process.
+	 * @return The system finder class which will be used in the process.
 	 * 
 	 */
-	public IBeanFinder getBeanFinder();
+	public ISystemFinder getSystemFinder();
 	
 	/**
 	 * 

@@ -22,8 +22,12 @@ public class Application{
 	
 	public static void launchApp(IConfigurator configurator) {
 		try {
+			long init = System.currentTimeMillis();
 			ApplicationManager.initializeInstance(configurator);
+			long end = System.currentTimeMillis();
+			System.out.println(String.format("System mapped in %d", end-init));
 			ApplicationManager.getInstance().navigate("/");
+
 		} catch (MapApplicationException e) {
 			e.printStackTrace();
 			System.exit(0);

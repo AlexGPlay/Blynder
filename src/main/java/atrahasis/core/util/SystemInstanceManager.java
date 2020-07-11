@@ -16,23 +16,23 @@ import atrahasis.data.http.proxy.HttpProxyFactory;
  * framework can make for a better use of memory.
  *
  */
-public class BeanInstanceManager {
+public class SystemInstanceManager {
 
 	private static Map<Class<?>, Object> instances = new HashMap<>();
-	private static List<Class<?>> beans;
+	private static List<Class<?>> customClasses;
 	private static IAutowiredMapper mapper;
 	private static IAutowiredFinder finder;
 	
-	public static void initInstanceSaver(List<Class<?>> beans, IAutowiredMapper mapper, IAutowiredFinder finder) {
-		BeanInstanceManager.beans = beans;
-		BeanInstanceManager.mapper = mapper;
-		BeanInstanceManager.finder = finder;
+	public static void initInstanceSaver(List<Class<?>> customClasses, IAutowiredMapper mapper, IAutowiredFinder finder) {
+		SystemInstanceManager.customClasses = customClasses;
+		SystemInstanceManager.mapper = mapper;
+		SystemInstanceManager.finder = finder;
 	}
 	
 	/**
 	 * 
-	 * A methdo that creates the instances of the beans. It will store the 
-	 * instance if it is an storable beans or in other hand if it isn't the instance
+	 * A methdod that creates the instances of the custom classes. It will store the 
+	 * instance if it is an storable class or in other hand if it isn't the instance
 	 * will die once it is used.
 	 * @param clazz
 	 * The class that needs an instance.
@@ -48,14 +48,14 @@ public class BeanInstanceManager {
 	 * 
 	 */
 	public static Object lookForInstance(Class<?> clazz) throws InstantiationException, IllegalAccessException {
-		return BeanAnnotations.isStorable(clazz) ? getStorableObject(clazz) : getUnstorableObject(clazz);
+		return SystemAnnotations.isStorable(clazz) ? getStorableObject(clazz) : getUnstorableObject(clazz);
 	}
 	
 	/**
 	 * 
 	 * Given a class that is storable, this method will check if an instance of that
-	 * bean already exists and return it or it will instantiate the first instance of
-	 * that bean and put it in the map for another use.
+	 * class already exists and return it or it will instantiate the first instance of
+	 * that class and put it in the map for another use.
 	 * 
 	 * @param clazz which instance will be returned.
 	 * @return An instance of the class.
@@ -106,7 +106,7 @@ public class BeanInstanceManager {
 			List<Class<?>> classes = new ArrayList<>();
 			classes.add(clazz);
 			
-			mapper.mapAutowired(o, beans, finder.findAutowired(classes));
+			mapper.mapAutowired(o, customClasses, finder.findAutowired(classes));
 			return o;
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();

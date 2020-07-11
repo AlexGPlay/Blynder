@@ -1,10 +1,10 @@
 package atrahasis.testClasses;
 
-import atrahasis.core.annotations.ApiController;
+import atrahasis.core.annotations.RestController;
 import atrahasis.core.annotations.Path;
 import atrahasis.core.network.Response;
 
-@ApiController
+@RestController
 public class ControllerTestApi {
 
 	@Path("/test")

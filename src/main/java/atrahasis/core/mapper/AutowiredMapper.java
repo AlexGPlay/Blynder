@@ -3,7 +3,7 @@ package atrahasis.core.mapper;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import atrahasis.core.util.BeanInstanceManager;
+import atrahasis.core.util.SystemInstanceManager;
 import atrahasis.core.util.Pair;
 
 /**
@@ -46,7 +46,7 @@ public class AutowiredMapper implements IAutowiredMapper{
 		Class<?> clazz = getFieldClass(field.object2, classes);
 		Field f = field.object2;
 		
-		Object toInject = BeanInstanceManager.lookForInstance(clazz);
+		Object toInject = SystemInstanceManager.lookForInstance(clazz);
 		
 		f.setAccessible(true);
 		f.set(parentInstance, toInject);

@@ -15,7 +15,7 @@ import atrahasis.core.network.Request;
 import atrahasis.core.network.Response;
 import atrahasis.core.network.url.AppUrlHandlerSetter;
 import atrahasis.core.template.Model;
-import atrahasis.core.util.BeanInstanceManager;
+import atrahasis.core.util.SystemInstanceManager;
 import atrahasis.core.util.Pair;
 import atrahasis.core.view.NotFoundView;
 import atrahasis.core.view.Window;
@@ -49,7 +49,7 @@ public class ApplicationManager {
 	 * A list of all the beans of the project.
 	 * 
 	 */
-	protected List<Class<?>> beans;
+	protected List<Class<?>> customClasses;
 	
 	/**
 	 * 
@@ -168,7 +168,7 @@ public class ApplicationManager {
 		classes = new ArrayList<>();
 		controllers = new ArrayList<>();
 		filters = new ArrayList<>();
-		beans = new ArrayList<>();
+		customClasses = new ArrayList<>();
 		routes = new HashMap<>();
 		controllerFilters = new HashMap<>();
 		data = new HashMap<>();
@@ -216,9 +216,9 @@ public class ApplicationManager {
 			filters = configurator.getFilterFinder().findFilters(classes);
 			routes = configurator.getControllerMapper().map(controllers);
 			controllerFilters = configurator.getFilterMapper().map(controllers, filters);
-			beans = configurator.getBeanFinder().findBeans(classes);
+			customClasses = configurator.getSystemFinder().findClasses(classes);
 			
-			BeanInstanceManager.initInstanceSaver(beans, configurator.getAutowiredMapper(), configurator.getAutowiredFinder());
+			SystemInstanceManager.initInstanceSaver(customClasses, configurator.getAutowiredMapper(), configurator.getAutowiredFinder());
 			
 			filterManager = new FilterManager(controllerFilters, filters);
 		}
@@ -291,6 +291,7 @@ public class ApplicationManager {
 	 */
 	public Response navigate(String url, Request request) {
 		try {
+			long start = System.currentTimeMillis();
 			Object[] response = new NavigationManager(
 					url, 
 					configurator.getRoutesFinder(), 
@@ -298,6 +299,8 @@ public class ApplicationManager {
 					filterManager,
 					request
 			).call();
+			long end1 = System.currentTimeMillis();
+			System.out.println(String.format("Navigation to %s in %d", url, end1-start));
 			
 			if(response == null) {
 				return null;
@@ -316,6 +319,8 @@ public class ApplicationManager {
 			}
 			
 			doResponseAction(response);
+			long end2 = System.currentTimeMillis();
+			System.out.println(String.format("Navigation and processing to %s in %d", url, end2-start));
 			return responseObject;
 		}
 		catch(IllegalViewException | NullPointerException e) {

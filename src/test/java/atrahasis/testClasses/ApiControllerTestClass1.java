@@ -1,9 +1,9 @@
 package atrahasis.testClasses;
 
-import atrahasis.core.annotations.ApiController;
+import atrahasis.core.annotations.RestController;
 import atrahasis.core.annotations.Path;
 
-@ApiController
+@RestController
 public class ApiControllerTestClass1 {
 
 	@Path(value="/api/path1", method="POST")

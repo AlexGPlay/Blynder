@@ -7,14 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import atrahasis.core.annotations.ApiController;
+import atrahasis.core.annotations.RestController;
 import atrahasis.core.annotations.Controller;
 import atrahasis.core.finder.IRoutesFinder;
 import atrahasis.core.manager.security.FilterManager;
 import atrahasis.core.network.Request;
 import atrahasis.core.network.Response;
 import atrahasis.core.template.Model;
-import atrahasis.core.util.BeanInstanceManager;
+import atrahasis.core.util.SystemInstanceManager;
 import atrahasis.core.util.Pair;
 import atrahasis.core.util.ParamSorter;
 import atrahasis.core.util.QueryParamsExtractor;
@@ -174,7 +174,7 @@ public class NavigationManager {
 		if(response.getResponse() == null)
 			return response.statusCode(500);
 		
-		if(controller.isAnnotationPresent(ApiController.class))
+		if(controller.isAnnotationPresent(RestController.class))
 			return response.responseType("application/api");
 		
 		else if(controller.isAnnotationPresent(Controller.class)) {
@@ -242,7 +242,7 @@ public class NavigationManager {
 	 */
 	private Object invokeMethod(Class<?> controllerClass, Method controllerMethod, List<Object> dataParams) {
 		try {
-			return controllerMethod.invoke( BeanInstanceManager.lookForInstance(controllerClass), dataParams.toArray() );
+			return controllerMethod.invoke( SystemInstanceManager.lookForInstance(controllerClass), dataParams.toArray() );
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| InstantiationException e) {
 			e.printStackTrace();

@@ -11,9 +11,9 @@ import atrahasis.testClasses.ControllerTestClass1;
 import atrahasis.testClasses.CustomBeanTestClass;
 import atrahasis.testClasses.NoAnnotedTestClass;
 
-public class BeanFinderTest {
+public class SystemFinderTest {
 
-	private BeanFinder bean = new BeanFinder();
+	private SystemFinder bean = new SystemFinder();
 	
 	@Test
 	public void testEmptyClasses() {
@@ -21,7 +21,7 @@ public class BeanFinderTest {
 		
 		List<Class<?>> obj = new ArrayList<>();
 		
-		assertEquals( obj, bean.findBeans(classes) );
+		assertEquals( obj, bean.findClasses(classes) );
 	}
 	
 	@Test
@@ -31,7 +31,7 @@ public class BeanFinderTest {
 		
 		List<Class<?>> obj = new ArrayList<>();
 		
-		assertEquals( obj, bean.findBeans(classes) );
+		assertEquals( obj, bean.findClasses(classes) );
 	}
 	
 	@Test
@@ -42,7 +42,7 @@ public class BeanFinderTest {
 		List<Class<?>> obj = new ArrayList<>();
 		obj.add(ControllerTestClass1.class);
 		
-		assertEquals( obj, bean.findBeans(classes) );
+		assertEquals( obj, bean.findClasses(classes) );
 	}
 	
 	@Test
@@ -54,7 +54,7 @@ public class BeanFinderTest {
 		List<Class<?>> obj = new ArrayList<>();
 		obj.add(ControllerTestClass1.class);
 		
-		assertEquals( obj, bean.findBeans(classes) );
+		assertEquals( obj, bean.findClasses(classes) );
 	}
 
 
@@ -68,7 +68,7 @@ public class BeanFinderTest {
 		obj.add(ControllerTestClass1.class);
 		obj.add(ControllerTestClass1.class);
 		
-		assertEquals( obj, bean.findBeans(classes) );
+		assertEquals( obj, bean.findClasses(classes) );
 	}
 	
 	@Test
@@ -82,7 +82,7 @@ public class BeanFinderTest {
 		obj.add(ControllerTestClass1.class);
 		obj.add(ControllerTestClass1.class);
 		
-		assertEquals( obj, bean.findBeans(classes) );
+		assertEquals( obj, bean.findClasses(classes) );
 	}
 	
 	@Test
@@ -93,7 +93,7 @@ public class BeanFinderTest {
 		List<Class<?>> obj = new ArrayList<>();
 		obj.add(CustomBeanTestClass.class);
 		
-		assertEquals( obj, bean.findBeans(classes) );
+		assertEquals( obj, bean.findClasses(classes) );
 	}
 	
 	@Test
@@ -105,7 +105,7 @@ public class BeanFinderTest {
 		List<Class<?>> obj = new ArrayList<>();
 		obj.add(CustomBeanTestClass.class);
 		
-		assertEquals( obj, bean.findBeans(classes) );
+		assertEquals( obj, bean.findClasses(classes) );
 	}
 	
 	@Test
@@ -118,7 +118,7 @@ public class BeanFinderTest {
 		obj.add(CustomBeanTestClass.class);
 		obj.add(ControllerTestClass1.class);
 		
-		assertEquals( obj, bean.findBeans(classes) );
+		assertEquals( obj, bean.findClasses(classes) );
 	}
 	
 	@Test
@@ -132,7 +132,7 @@ public class BeanFinderTest {
 		obj.add(CustomBeanTestClass.class);
 		obj.add(ControllerTestClass1.class);
 		
-		assertEquals( obj, bean.findBeans(classes) );
+		assertEquals( obj, bean.findClasses(classes) );
 	}
 
 }

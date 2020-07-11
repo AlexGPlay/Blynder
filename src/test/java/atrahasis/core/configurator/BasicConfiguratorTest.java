@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import atrahasis.core.browser.BrowserFactory.Browser;
 import atrahasis.core.finder.AutowiredFinder;
-import atrahasis.core.finder.BeanFinder;
+import atrahasis.core.finder.SystemFinder;
 import atrahasis.core.finder.ClassFinder;
 import atrahasis.core.finder.ControllerFinder;
 import atrahasis.core.finder.FilterFinder;
@@ -32,7 +32,7 @@ public class BasicConfiguratorTest {
 	
 	@Test
 	public void testGetBeanFinder() {
-		assertTrue(configurator.getBeanFinder() instanceof BeanFinder);	
+		assertTrue(configurator.getSystemFinder() instanceof SystemFinder);	
 	}
 	
 	@Test

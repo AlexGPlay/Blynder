@@ -23,7 +23,9 @@ public class FilterManagerTest {
 		List<Class<?>> controllers = new ArrayList<>();
 		
 		filterManager = new FilterManager(filterMapper.map(controllers, filters), filters);
-		filterManager.call(null, new Request("/test"), new Response());
+		Response res = filterManager.call(null, new Request("/test"), new Response());
+		
+		assertTrue(res.isAbleToContinue());
 	}
 	
 	@Test

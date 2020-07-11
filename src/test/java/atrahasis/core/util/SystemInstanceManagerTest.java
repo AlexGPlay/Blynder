@@ -14,7 +14,7 @@ import atrahasis.core.mapper.AutowiredMapper;
 import atrahasis.testClasses.RepositoryTestClass1;
 import atrahasis.testClasses.ServiceTestClass;
 
-public class BeanInstanceManagerTest {
+public class SystemInstanceManagerTest {
 
 	private AutowiredMapper autowiredMapper = new AutowiredMapper();
 	private AutowiredFinder autowiredFinder = new AutowiredFinder();
@@ -25,11 +25,11 @@ public class BeanInstanceManagerTest {
 			List<Class<?>> beans = new ArrayList<>();
 			beans.add(RepositoryTestClass1.class);
 			beans.add(ServiceTestClass.class);
-			BeanInstanceManager.initInstanceSaver(beans, autowiredMapper, autowiredFinder);
+			SystemInstanceManager.initInstanceSaver(beans, autowiredMapper, autowiredFinder);
 
-			ServiceTestClass testClass1 = (ServiceTestClass) BeanInstanceManager.lookForInstance(ServiceTestClass.class);
+			ServiceTestClass testClass1 = (ServiceTestClass) SystemInstanceManager.lookForInstance(ServiceTestClass.class);
 			assertNotNull(testClass1);
-			ServiceTestClass testClass2 = (ServiceTestClass) BeanInstanceManager.lookForInstance(ServiceTestClass.class);
+			ServiceTestClass testClass2 = (ServiceTestClass) SystemInstanceManager.lookForInstance(ServiceTestClass.class);
 			assertTrue(testClass1 != testClass2);
 		} catch (InstantiationException | IllegalAccessException e) {
 			StringWriter sw = new StringWriter();
@@ -44,11 +44,11 @@ public class BeanInstanceManagerTest {
 		try {
 			List<Class<?>> beans = new ArrayList<>();
 			beans.add(RepositoryTestClass1.class);
-			BeanInstanceManager.initInstanceSaver(beans, autowiredMapper, autowiredFinder);
+			SystemInstanceManager.initInstanceSaver(beans, autowiredMapper, autowiredFinder);
 
-			RepositoryTestClass1 testClass1 = (RepositoryTestClass1) BeanInstanceManager.lookForInstance(RepositoryTestClass1.class);
+			RepositoryTestClass1 testClass1 = (RepositoryTestClass1) SystemInstanceManager.lookForInstance(RepositoryTestClass1.class);
 			assertNotNull(testClass1);
-			RepositoryTestClass1 testClass2 = (RepositoryTestClass1) BeanInstanceManager.lookForInstance(RepositoryTestClass1.class);
+			RepositoryTestClass1 testClass2 = (RepositoryTestClass1) SystemInstanceManager.lookForInstance(RepositoryTestClass1.class);
 			assertTrue(testClass1 == testClass2);
 		} catch (InstantiationException | IllegalAccessException e) {
 			StringWriter sw = new StringWriter();
