@@ -9,6 +9,7 @@ import java.util.Map;
 import atrahasis.core.configurator.IConfigurator;
 import atrahasis.core.exception.IllegalViewException;
 import atrahasis.core.exception.MapApplicationException;
+import atrahasis.core.logging.Logging;
 import atrahasis.core.manager.navigation.NavigationManager;
 import atrahasis.core.manager.security.FilterManager;
 import atrahasis.core.network.Request;
@@ -300,7 +301,7 @@ public class ApplicationManager {
 					request
 			).call();
 			long end1 = System.currentTimeMillis();
-			System.out.println(String.format("Navigation to %s in %d", url, end1-start));
+			Logging.debug(String.format("Navigation to %s in %d", url, end1-start));
 			
 			if(response == null) {
 				return null;
@@ -320,7 +321,7 @@ public class ApplicationManager {
 			
 			doResponseAction(response);
 			long end2 = System.currentTimeMillis();
-			System.out.println(String.format("Navigation and processing to %s in %d", url, end2-start));
+			Logging.debug(String.format("Navigation and processing to %s in %d", url, end2-start));
 			return responseObject;
 		}
 		catch(IllegalViewException | NullPointerException e) {

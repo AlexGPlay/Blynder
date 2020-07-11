@@ -3,9 +3,12 @@ package atrahasis.core;
 import atrahasis.core.configurator.BasicConfigurator;
 import atrahasis.core.configurator.IConfigurator;
 import atrahasis.core.exception.MapApplicationException;
+import atrahasis.core.logging.Logging;
+import atrahasis.core.logging.LoggingSetter;
 import atrahasis.core.manager.ApplicationManager;
 import atrahasis.core.network.Request;
 import atrahasis.core.network.Response;
+import atrahasis.core.util.ArgsAnalyzer;
 
 /**
  * 
@@ -20,12 +23,22 @@ public class Application{
 		Application.launchApp(new BasicConfigurator());
 	}
 	
+	public static void launchApp(String[] args) {
+		Application.launchApp(new BasicConfigurator(), args);
+	}
+	
 	public static void launchApp(IConfigurator configurator) {
+		Application.launchApp(configurator, new String[] {});
+	}
+	
+	public static void launchApp(IConfigurator configurator, String[] args) {
 		try {
+			new LoggingSetter().setLogging();
+			new ArgsAnalyzer(args).execute();
 			long init = System.currentTimeMillis();
 			ApplicationManager.initializeInstance(configurator);
 			long end = System.currentTimeMillis();
-			System.out.println(String.format("System mapped in %d", end-init));
+			Logging.debug(String.format("System mapped in %d", end-init));
 			ApplicationManager.getInstance().navigate("/");
 
 		} catch (MapApplicationException e) {
