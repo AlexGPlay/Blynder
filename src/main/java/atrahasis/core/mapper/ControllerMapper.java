@@ -27,8 +27,8 @@ public class ControllerMapper implements IControllerMapper{
 		
 		classes
 		.stream()
-		.forEach( c -> map.putAll( mapController(c) ) );
-		
+		.forEach( c -> mapController(c, map) );
+
 		return map;
 	}
 	
@@ -45,9 +45,8 @@ public class ControllerMapper implements IControllerMapper{
 	 * the class itself and the method that controlls that URL.
 	 * 
 	 */
-	private Map<String, Map<String, Pair<Class<?>,Method>>> mapController(Class<?> clazz){
+	private Map<String, Map<String, Pair<Class<?>,Method>>> mapController(Class<?> clazz, Map<String, Map<String, Pair<Class<?>,Method>>> map){
 		List<Method> pathMethods = getPathMethods(clazz);
-		Map<String, Map<String, Pair<Class<?>,Method>>> map = new HashMap<>();
 		
 		pathMethods
 		.stream()
