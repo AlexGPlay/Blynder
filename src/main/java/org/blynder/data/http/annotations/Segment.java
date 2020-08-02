@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
  * segments as the user wants.<br>
  * An example of use can be the following one:
  * "at_sign"Segment segmentList.<br>
- * segmentList is a List<String> that contains: ["segment"].
+ * segmentList is a List of String that contains: ["segment"].
  *
  */
 

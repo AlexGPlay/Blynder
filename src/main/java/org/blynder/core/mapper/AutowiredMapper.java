@@ -25,6 +25,8 @@ public class AutowiredMapper implements IAutowiredMapper{
 	 * Given a pair composed with a field and the class it is in and the bean
 	 * classes of the project, this method will inject a dependency of the field
 	 * type into the field for the class that owns that field.
+	 * @param parentInstance
+	 * The class that owns what will be injected.
 	 * @param field
 	 * A pair composed with a field and the class that owns it.
 	 * @param classes

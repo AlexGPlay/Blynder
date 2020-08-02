@@ -41,8 +41,8 @@ public interface IRoutesFinder {
 	 * a route called "/test/{id}" this will return a pair containing the
 	 * following data:<br>
 	 * Pair.object1 = "/test/{id}"<br>
-	 * Pair.object2 = Map => {<br>
-	 * 	"id" => 3		<br>
+	 * Pair.object2 = Map = {<br>
+	 * 	"id" = 3		<br>
 	 * }
 	 * 	
 	 */

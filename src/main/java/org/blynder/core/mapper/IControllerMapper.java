@@ -14,7 +14,7 @@ import org.blynder.core.util.Pair;
  * For example, if there is a controller called "TestController" with a route
  * method called "TestMethod" and the route is "/test" this will return an entry
  * in the hash such as:<br>
- * "/test" => <br>
+ * "/test" = <br>
  * Pair.object1: "TestController"<br>
  * Pair.object2: "TestMethod"<br>
  *
@@ -37,7 +37,7 @@ public interface IControllerMapper {
 	 * For example, if there is a controller called "TestController" with a route
 	 * method called "TestMethod" and the route is "/test" this will return an entry
 	 * in the hash such as:<br>
-	 * "/test" => <br>
+	 * "/test" = <br>
 	 * Pair.object1: "TestController"<br>
 	 * Pair.object2: "TestMethod"<br>
 	 * 

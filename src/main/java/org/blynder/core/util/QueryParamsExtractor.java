@@ -9,8 +9,8 @@ import java.util.Map;
  * 
  * Given the URL the user wants to navigate to as a string, this class will
  * extract the QueryParams from it. For example, if the user wants to navigate
- * to app://foo?param1=a&param2=b, this class will create a Map with the following
- * entries: {param1 => a; param2 => b}
+ * to app://foo?param1=a&amp;param2=b, this class will create a Map with the following
+ * entries: {param1 = a; param2 = b}
  *
  */
 public class QueryParamsExtractor {

@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  * For example, if you want to send a POST request that contains a user and a
  * password in order to create it in the database, you can have a map such as
  * the following one:<br>
- * { username => user; password => password }.
+ * { username = user; password = password }.
  *
  */
 

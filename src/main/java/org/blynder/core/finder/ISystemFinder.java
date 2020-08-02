@@ -20,7 +20,7 @@ public interface ISystemFinder {
 	 * in the SystemAnnotations helper class.
 	 * @param clazz
 	 * 	Is the list of all the classes that the project has.
-	 * @returns
+	 * @return
 	 * 	A list that only has the classes that are annotated with custom annotations.
 	 * 
 	 */

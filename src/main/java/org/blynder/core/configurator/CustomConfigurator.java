@@ -40,7 +40,7 @@ public class CustomConfigurator extends BasicConfigurator{
 	/**
 	 * 
 	 * Changes the current SystemFinder instance with a new one.
-	 * @param beanFinder is the new instance that will be used.
+	 * @param systemFinder is the new instance that will be used.
 	 * @return The current Configurator instance, making it easier to concatenate
 	 * changes.
 	 * 

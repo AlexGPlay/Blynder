@@ -79,7 +79,7 @@ public class NavigationManager {
 	 * 4. Try to invoke the controller invoking the filters first if they exist.<br>
 	 * 
 	 * @return
-	 * Pair<Response,Model>:<br>
+	 * Pair[Response,Model]:<br>
 	 * Response - The response that the controller gives back.<br>
 	 * Model - The model that the controller fills if there is one.
 	 */

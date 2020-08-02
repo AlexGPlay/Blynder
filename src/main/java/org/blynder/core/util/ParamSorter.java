@@ -25,8 +25,8 @@ public class ParamSorter {
 	 * The PathVariable parameters.
 	 * @param method
 	 * The Method that hosts the URL.
-	 * @param model
-	 * A model that is inserted if the user requests it.
+	 * @param extras
+	 * Extra params that can be inserted into the parameters, for example, the model.
 	 * @return
 	 * A list of sorted objects that will be inserted into the method.
 	 * 

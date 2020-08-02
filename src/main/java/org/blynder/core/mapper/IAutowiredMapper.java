@@ -21,6 +21,8 @@ public interface IAutowiredMapper {
 	 * is autowired and the class it belongs to, this method will inject
 	 * a dependency into the class' field. Only the beans can be autowired,
 	 * that is why only the beans are given as classes.
+	 * @param parentInstance
+	 * The class that owns what will be injected.
 	 * @param classes
 	 * A list of the project beans.
 	 * @param fields
