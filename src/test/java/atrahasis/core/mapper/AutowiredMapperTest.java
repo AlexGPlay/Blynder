@@ -7,10 +7,11 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.blynder.core.finder.AutowiredFinder;
+import org.blynder.core.mapper.AutowiredMapper;
+import org.blynder.core.util.SystemInstanceManager;
 import org.junit.Test;
 
-import atrahasis.core.finder.AutowiredFinder;
-import atrahasis.core.util.SystemInstanceManager;
 import atrahasis.testClasses.AutowiredBeanTestClass;
 import atrahasis.testClasses.BeanParamNoAutowiredTestClass;
 import atrahasis.testClasses.RepositoryTestClass1;

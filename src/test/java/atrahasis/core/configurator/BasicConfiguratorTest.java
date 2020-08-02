@@ -2,19 +2,19 @@ package atrahasis.core.configurator;
 
 import static org.junit.Assert.*;
 
+import org.blynder.core.browser.BrowserFactory.Browser;
+import org.blynder.core.configurator.BasicConfigurator;
+import org.blynder.core.finder.AutowiredFinder;
+import org.blynder.core.finder.ClassFinder;
+import org.blynder.core.finder.ControllerFinder;
+import org.blynder.core.finder.FilterFinder;
+import org.blynder.core.finder.RoutesFinder;
+import org.blynder.core.finder.SystemFinder;
+import org.blynder.core.mapper.AutowiredMapper;
+import org.blynder.core.mapper.ControllerMapper;
+import org.blynder.core.mapper.FilterMapper;
 import org.junit.Before;
 import org.junit.Test;
-
-import atrahasis.core.browser.BrowserFactory.Browser;
-import atrahasis.core.finder.AutowiredFinder;
-import atrahasis.core.finder.SystemFinder;
-import atrahasis.core.finder.ClassFinder;
-import atrahasis.core.finder.ControllerFinder;
-import atrahasis.core.finder.FilterFinder;
-import atrahasis.core.finder.RoutesFinder;
-import atrahasis.core.mapper.AutowiredMapper;
-import atrahasis.core.mapper.ControllerMapper;
-import atrahasis.core.mapper.FilterMapper;
 
 public class BasicConfiguratorTest {
 

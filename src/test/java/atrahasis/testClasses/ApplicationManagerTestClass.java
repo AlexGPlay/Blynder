@@ -3,11 +3,11 @@ package atrahasis.testClasses;
 import java.util.ArrayList;
 import java.util.List;
 
-import atrahasis.core.configurator.BasicConfigurator;
-import atrahasis.core.exception.MapApplicationException;
-import atrahasis.core.manager.ApplicationManager;
-import atrahasis.core.manager.security.FilterManager;
-import atrahasis.core.util.SystemInstanceManager;
+import org.blynder.core.configurator.BasicConfigurator;
+import org.blynder.core.exception.MapApplicationException;
+import org.blynder.core.manager.ApplicationManager;
+import org.blynder.core.manager.security.FilterManager;
+import org.blynder.core.util.SystemInstanceManager;
 
 public class ApplicationManagerTestClass extends ApplicationManager{
 

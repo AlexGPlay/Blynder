@@ -2,9 +2,10 @@ package atrahasis.core.view;
 
 import static org.junit.Assert.*;
 
+import org.blynder.core.configurator.CustomConfigurator;
+import org.blynder.core.view.Window;
+import org.blynder.core.view.WindowProps;
 import org.junit.Test;
-
-import atrahasis.core.configurator.CustomConfigurator;
 
 public class WindowPropsTest {
 

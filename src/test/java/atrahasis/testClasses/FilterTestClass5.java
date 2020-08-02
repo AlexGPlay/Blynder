@@ -1,7 +1,7 @@
 package atrahasis.testClasses;
 
-import atrahasis.core.annotations.Filter;
-import atrahasis.core.network.Response;
+import org.blynder.core.annotations.Filter;
+import org.blynder.core.network.Response;
 
 @Filter
 public class FilterTestClass5 {

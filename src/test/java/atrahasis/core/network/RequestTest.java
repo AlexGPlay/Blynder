@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.blynder.core.network.Request;
 import org.junit.Test;
 
 public class RequestTest {

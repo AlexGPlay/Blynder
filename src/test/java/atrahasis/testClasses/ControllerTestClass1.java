@@ -1,6 +1,6 @@
 package atrahasis.testClasses;
 
-import atrahasis.core.annotations.Controller;
+import org.blynder.core.annotations.Controller;
 
 @Controller
 public class ControllerTestClass1 {

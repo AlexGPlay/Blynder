@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.blynder.data.http.request.components.RequestParams;
 import org.junit.Test;
 
 public class RequestParamsTest {

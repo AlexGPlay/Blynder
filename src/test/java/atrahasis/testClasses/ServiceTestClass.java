@@ -1,7 +1,7 @@
 package atrahasis.testClasses;
 
-import atrahasis.core.annotations.Autowired;
-import atrahasis.core.annotations.Service;
+import org.blynder.core.annotations.Autowired;
+import org.blynder.core.annotations.Service;
 
 @Service
 public class ServiceTestClass {

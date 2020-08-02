@@ -2,6 +2,7 @@ package atrahasis.data.http.proxy;
 
 import static org.junit.Assert.*;
 
+import org.blynder.data.http.proxy.HttpProxyFactory;
 import org.junit.Test;
 
 import atrahasis.testClasses.RepositoryTestClass1;

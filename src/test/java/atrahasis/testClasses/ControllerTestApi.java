@@ -1,8 +1,8 @@
 package atrahasis.testClasses;
 
-import atrahasis.core.annotations.RestController;
-import atrahasis.core.annotations.Path;
-import atrahasis.core.network.Response;
+import org.blynder.core.annotations.Path;
+import org.blynder.core.annotations.RestController;
+import org.blynder.core.network.Response;
 
 @RestController
 public class ControllerTestApi {

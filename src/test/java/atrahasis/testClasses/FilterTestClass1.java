@@ -1,6 +1,6 @@
 package atrahasis.testClasses;
 
-import atrahasis.core.annotations.Filter;
+import org.blynder.core.annotations.Filter;
 
 @Filter
 public class FilterTestClass1 {

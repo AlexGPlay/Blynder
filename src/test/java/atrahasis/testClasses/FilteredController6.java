@@ -1,8 +1,8 @@
 package atrahasis.testClasses;
 
-import atrahasis.core.annotations.Controller;
-import atrahasis.core.annotations.FilterWith;
-import atrahasis.core.annotations.Path;
+import org.blynder.core.annotations.Controller;
+import org.blynder.core.annotations.FilterWith;
+import org.blynder.core.annotations.Path;
 
 @FilterWith(filtersAsString={"FilterTestClass5"})
 @Controller

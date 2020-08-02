@@ -7,9 +7,9 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.blynder.core.finder.RoutesFinder;
+import org.blynder.core.util.Pair;
 import org.junit.Test;
-
-import atrahasis.core.util.Pair;
 
 public class RoutesFinderTest {
 

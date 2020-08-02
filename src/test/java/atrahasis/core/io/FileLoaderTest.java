@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import org.blynder.core.io.FileLoader;
 import org.junit.Test;
 
 public class FileLoaderTest {

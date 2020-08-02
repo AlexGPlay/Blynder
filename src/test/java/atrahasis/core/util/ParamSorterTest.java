@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 
+import org.blynder.core.util.ParamSorter;
 import org.junit.Test;
 
 import atrahasis.testClasses.*;

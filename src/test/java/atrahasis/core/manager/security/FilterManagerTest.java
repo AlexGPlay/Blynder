@@ -5,11 +5,12 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.blynder.core.manager.security.FilterManager;
+import org.blynder.core.mapper.FilterMapper;
+import org.blynder.core.network.Request;
+import org.blynder.core.network.Response;
 import org.junit.Test;
 
-import atrahasis.core.mapper.FilterMapper;
-import atrahasis.core.network.Request;
-import atrahasis.core.network.Response;
 import atrahasis.testClasses.*;
 
 public class FilterManagerTest {

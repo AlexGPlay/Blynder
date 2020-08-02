@@ -7,10 +7,10 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.blynder.core.network.Request;
+import org.blynder.core.network.Response;
 import org.junit.Test;
 
-import atrahasis.core.network.Request;
-import atrahasis.core.network.Response;
 import atrahasis.testClasses.ApplicationManagerTestClass;
 import atrahasis.testClasses.ControllerTestApi;
 import atrahasis.testClasses.ControllerTestClass2;

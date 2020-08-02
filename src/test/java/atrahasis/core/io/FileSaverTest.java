@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import org.blynder.core.io.FileSaver;
 import org.junit.Test;
 
 public class FileSaverTest {

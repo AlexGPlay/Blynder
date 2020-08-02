@@ -7,11 +7,14 @@ import java.io.StringWriter;
 
 import javax.swing.JPanel;
 
+import org.blynder.core.browser.BrowserFactory.Browser;
+import org.blynder.core.configurator.CustomConfigurator;
+import org.blynder.core.template.Model;
+import org.blynder.core.view.Window;
+import org.blynder.core.view.WindowProps;
+import org.blynder.core.view.WindowSize;
 import org.junit.Test;
 
-import atrahasis.core.browser.BrowserFactory.Browser;
-import atrahasis.core.configurator.CustomConfigurator;
-import atrahasis.core.template.Model;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

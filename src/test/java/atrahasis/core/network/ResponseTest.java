@@ -2,6 +2,7 @@ package atrahasis.core.network;
 
 import static org.junit.Assert.*;
 
+import org.blynder.core.network.Response;
 import org.junit.Test;
 
 public class ResponseTest {

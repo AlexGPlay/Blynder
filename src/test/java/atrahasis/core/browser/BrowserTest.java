@@ -2,9 +2,10 @@ package atrahasis.core.browser;
 
 import static org.junit.Assert.*;
 
+import org.blynder.core.browser.BrowserFactory;
+import org.blynder.core.browser.IBrowser;
+import org.blynder.core.browser.BrowserFactory.Browser;
 import org.junit.Test;
-
-import atrahasis.core.browser.BrowserFactory.Browser;
 
 public class BrowserTest {
 

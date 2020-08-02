@@ -1,8 +1,8 @@
 package atrahasis.testClasses;
 
-import atrahasis.core.annotations.Controller;
-import atrahasis.core.annotations.Path;
-import atrahasis.core.annotations.PathVariable;
+import org.blynder.core.annotations.Controller;
+import org.blynder.core.annotations.Path;
+import org.blynder.core.annotations.PathVariable;
 
 @Controller
 public class ControllerTestClass4 {

@@ -1,7 +1,7 @@
 package atrahasis.testClasses;
 
-import atrahasis.core.annotations.Autowired;
-import atrahasis.core.annotations.Bean;
+import org.blynder.core.annotations.Autowired;
+import org.blynder.core.annotations.Bean;
 
 @Bean
 public class AutowiredBeanTestClass {

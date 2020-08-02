@@ -2,10 +2,10 @@ package atrahasis.core.util;
 
 import static org.junit.Assert.*;
 
+import org.blynder.core.logging.Logging;
+import org.blynder.core.logging.Logging.LOG_LEVELS;
+import org.blynder.core.util.ArgsAnalyzer;
 import org.junit.Test;
-
-import atrahasis.core.logging.Logging;
-import atrahasis.core.logging.Logging.LOG_LEVELS;
 
 public class ArgsAnalyzerTest {
 	

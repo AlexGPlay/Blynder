@@ -8,9 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.blynder.core.mapper.ControllerMapper;
+import org.blynder.core.util.Pair;
 import org.junit.Test;
 
-import atrahasis.core.util.Pair;
 import atrahasis.testClasses.ApiControllerTestClass1;
 import atrahasis.testClasses.ControllerTestClass1;
 import atrahasis.testClasses.ControllerTestClass2;

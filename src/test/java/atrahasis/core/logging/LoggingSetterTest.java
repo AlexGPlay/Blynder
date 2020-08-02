@@ -6,6 +6,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import org.blynder.core.logging.Logging;
+import org.blynder.core.logging.LoggingSetter;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

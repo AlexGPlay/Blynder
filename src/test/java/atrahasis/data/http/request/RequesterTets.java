@@ -2,11 +2,11 @@ package atrahasis.data.http.request;
 
 import static org.junit.Assert.*;
 
+import org.blynder.data.http.request.Requester;
+import org.blynder.data.http.request.components.HttpResponse;
+import org.blynder.data.http.request.components.Request;
+import org.blynder.data.http.request.components.RequestParams;
 import org.junit.Test;
-
-import atrahasis.data.http.request.components.HttpResponse;
-import atrahasis.data.http.request.components.Request;
-import atrahasis.data.http.request.components.RequestParams;
 
 public class RequesterTets {
 

@@ -6,9 +6,10 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.blynder.core.finder.AutowiredFinder;
+import org.blynder.core.util.Pair;
 import org.junit.Test;
 
-import atrahasis.core.util.Pair;
 import atrahasis.testClasses.AutowiredBeanTestClass;
 import atrahasis.testClasses.AutowiredControllerTestClass;
 import atrahasis.testClasses.BeanParamNoAutowiredTestClass;

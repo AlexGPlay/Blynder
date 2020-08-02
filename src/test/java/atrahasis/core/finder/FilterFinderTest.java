@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.blynder.core.finder.FilterFinder;
 import org.junit.Test;
 
 import atrahasis.testClasses.FilterTestClass1;

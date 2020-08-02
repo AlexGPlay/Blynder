@@ -2,6 +2,7 @@ package atrahasis.data.http.request.components;
 
 import static org.junit.Assert.*;
 
+import org.blynder.data.http.request.components.Request;
 import org.junit.Test;
 
 public class RequestTest {

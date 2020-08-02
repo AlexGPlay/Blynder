@@ -5,10 +5,10 @@ import static org.junit.Assert.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import org.blynder.core.logging.Logging;
+import org.blynder.core.logging.Logging.LOG_LEVELS;
 import org.junit.Before;
 import org.junit.Test;
-
-import atrahasis.core.logging.Logging.LOG_LEVELS;
 
 public class LoggingTest {
 

@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Map;
 
+import org.blynder.core.util.QueryParamsExtractor;
 import org.junit.Test;
 
 public class QueryParamsExtractorTest {

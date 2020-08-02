@@ -2,10 +2,10 @@ package atrahasis.core.view;
 
 import static org.junit.Assert.*;
 
+import org.blynder.core.template.Model;
+import org.blynder.core.template.Thymeleaf;
+import org.blynder.core.view.HTMLHandler;
 import org.junit.Test;
-
-import atrahasis.core.template.Model;
-import atrahasis.core.template.Thymeleaf;
 
 public class HTMLHandlerTest {
 

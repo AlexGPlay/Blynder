@@ -1,6 +1,6 @@
 package atrahasis.testClasses;
 
-import atrahasis.core.annotations.Bean;
+import org.blynder.core.annotations.Bean;
 
 @Bean
 public class CustomBeanTestClass {

@@ -1,17 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>org.atrahasis</groupId>
-	<artifactId>atrahasis</artifactId>
+	<groupId>org.blynder</groupId>
+	<artifactId>blynder</artifactId>
 	<version>0.4</version>
 	<packaging>jar</packaging>
 	
-	<name>Atrahasis</name>
+	<name>Blynder</name>
 	<description>
 	A framework that allows the user to create desktop applications with web languages (HTML, JavaScript and
 	CSS), swing and JavaFX.
 	</description>
-	<url>https://github.com/AlexGPlay/Atrahasis</url>
+	<url>http://www.blynder.org/</url>
 	
 	<licenses>
 		<license>
@@ -25,14 +25,14 @@
 			<name>Alejandro Garcia</name>
 			<email>alexgp1234@gmail.com</email>
 			<organization>None</organization>
-			<organizationUrl>https://github.com/AlexGPlay/Atrahasis</organizationUrl>
+			<organizationUrl>http://www.blynder.org</organizationUrl>
 		</developer>
 	</developers>
 	
 	<scm>
-		<connection>scm:git:git://github.com/AlexGPlay/Atrahasis.git</connection>
-	  	<developerConnection>scm:git:ssh://github.com:AlexGPlay/Atrahasis.git</developerConnection>
-	  	<url>http://github.com/AlexGPlay/Atrahasis/tree/master</url>
+		<connection>scm:git:git://github.com/AlexGPlay/Blynder.git</connection>
+	  	<developerConnection>scm:git:ssh://github.com:AlexGPlay/Blynder.git</developerConnection>
+	  	<url>http://github.com/AlexGPlay/Blynder/tree/master</url>
 	</scm>
 	
 	<dependencies>

@@ -8,14 +8,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.blynder.core.annotations.Bean;
+import org.blynder.core.annotations.Controller;
+import org.blynder.core.annotations.Filter;
+import org.blynder.core.annotations.RestController;
+import org.blynder.core.annotations.Service;
+import org.blynder.core.util.SystemAnnotations;
+import org.blynder.data.annotations.Repository;
 import org.junit.Test;
 
-import atrahasis.core.annotations.RestController;
-import atrahasis.core.annotations.Bean;
-import atrahasis.core.annotations.Controller;
-import atrahasis.core.annotations.Filter;
-import atrahasis.core.annotations.Service;
-import atrahasis.data.annotations.Repository;
 import atrahasis.testClasses.*;
 
 public class SystemAnnotationsTest {

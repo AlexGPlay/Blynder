@@ -8,17 +8,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.blynder.core.finder.AutowiredFinder;
+import org.blynder.core.finder.RoutesFinder;
+import org.blynder.core.manager.navigation.NavigationManager;
+import org.blynder.core.manager.security.FilterManager;
+import org.blynder.core.mapper.AutowiredMapper;
+import org.blynder.core.mapper.ControllerMapper;
+import org.blynder.core.network.Request;
+import org.blynder.core.network.Response;
+import org.blynder.core.util.Pair;
+import org.blynder.core.util.SystemInstanceManager;
 import org.junit.Test;
 
-import atrahasis.core.finder.AutowiredFinder;
-import atrahasis.core.finder.RoutesFinder;
-import atrahasis.core.manager.security.FilterManager;
-import atrahasis.core.mapper.AutowiredMapper;
-import atrahasis.core.mapper.ControllerMapper;
-import atrahasis.core.network.Request;
-import atrahasis.core.network.Response;
-import atrahasis.core.util.SystemInstanceManager;
-import atrahasis.core.util.Pair;
 import atrahasis.testClasses.*;
 
 public class NavigationManagerTest {

@@ -2,6 +2,8 @@ package atrahasis.core.template;
 
 import static org.junit.Assert.*;
 
+import org.blynder.core.template.Model;
+import org.blynder.core.template.Thymeleaf;
 import org.junit.Before;
 import org.junit.Test;
 

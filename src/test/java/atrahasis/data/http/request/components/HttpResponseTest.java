@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import java.util.HashMap;
 
+import org.blynder.core.network.Response;
+import org.blynder.data.http.request.components.HttpResponse;
 import org.junit.Test;
-
-import atrahasis.core.network.Response;
 
 public class HttpResponseTest {
 

@@ -4,9 +4,10 @@ import static org.junit.Assert.*;
 
 import java.lang.reflect.Method;
 
+import org.blynder.data.http.request.builder.RequestParamsBuilder;
+import org.blynder.data.http.request.components.RequestParams;
 import org.junit.Test;
 
-import atrahasis.data.http.request.components.RequestParams;
 import atrahasis.testClasses.RepositoryTestClass1;
 
 public class RequestParamsBuilderTest {
