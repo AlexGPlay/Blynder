@@ -4,6 +4,10 @@ import java.awt.Image;
 
 import org.blynder.core.io.FileManager;
 
+/**
+ * Class that allows the user to change the application icon and its name. The
+ * WindowProps object can be used in a configurator in order to do so.
+ */
 public class WindowProps {
 
 	private String icon;

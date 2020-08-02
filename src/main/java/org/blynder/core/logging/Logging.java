@@ -3,6 +3,11 @@ package org.blynder.core.logging;
 import java.io.PrintStream;
 import java.util.Date;
 
+/**
+ * The Logging class is used to redirect the output of the system into a custom
+ * one. The output will change so it can have log levels that can be ignored, the
+ * default level is ERROR level, meaning that info messages will be ignored.
+ */
 public class Logging{
 
 	public static PrintStream oldOutPrintStream, oldErrPrintStream;

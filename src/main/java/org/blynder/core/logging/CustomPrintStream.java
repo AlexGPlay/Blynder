@@ -4,6 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Locale;
 
+/**
+ * PrintStream that will use the Logging class in order to print info to the
+ * outputstream or the error stream.
+ */
 public class CustomPrintStream extends PrintStream{
 
 	private Logging.LOG_LEVELS logLevel;

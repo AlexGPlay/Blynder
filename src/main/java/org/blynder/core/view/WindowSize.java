@@ -1,5 +1,10 @@
 package org.blynder.core.view;
 
+/**
+ * Class that allows the user to set the window size. It can be gave to the
+ * configurator in order to make the size the default one or can be asked for
+ * in a controller to change the view size.
+ */
 public class WindowSize {
 
 	public enum Sizing{
