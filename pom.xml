@@ -73,8 +73,9 @@
 		
 		<dependency>
 		    <groupId>org.openjfx</groupId>
-		    <artifactId>javafx-controls</artifactId>
-		    <version>14</version>
+		    <artifactId>javafx</artifactId>
+		    <version>14.0.2</version>
+		    <type>pom</type>
 		</dependency>
     	
 		<dependency>
