@@ -1,5 +1,6 @@
 package org.blynder.core.util;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -102,13 +103,13 @@ public class SystemInstanceManager {
 	private static Object instantiateObject(Class<?> clazz) {
 		try {
 			Object sI = getSpecialInstance(clazz);
-			Object o = sI == null ? clazz.newInstance() : sI;
+			Object o = sI == null ? clazz.getDeclaredConstructor().newInstance() : sI;
 			List<Class<?>> classes = new ArrayList<>();
 			classes.add(clazz);
 			
 			mapper.mapAutowired(o, customClasses, finder.findAutowired(classes));
 			return o;
-		} catch (InstantiationException | IllegalAccessException e) {
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 			return null;
 		}

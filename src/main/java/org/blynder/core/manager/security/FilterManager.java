@@ -248,8 +248,8 @@ public class FilterManager {
 	 */
 	private Object createFilterInstance(Class<?> filter) {
 		try {
-			return filter.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
+			return filter.getDeclaredConstructor().newInstance();
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			return null;
 		}
 	}

@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import org.blynder.core.browser.BrowserFactory;
 import org.blynder.core.browser.IBrowser;
@@ -137,9 +138,11 @@ public class Window{
 	}
 	
 	private void setJavaFx(Scene scene) {
-		JFXPanel panel = new JFXPanel();
-		panel.setScene(scene);
-		changeView(panel);
+		SwingUtilities.invokeLater(() -> {
+			JFXPanel panel = new JFXPanel();
+			panel.setScene(scene);
+			changeView(panel);
+		});
 	}
 	
 	private void setWindowSize(WindowSize size) {

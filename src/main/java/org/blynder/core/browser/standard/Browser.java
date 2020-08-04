@@ -24,7 +24,6 @@ import netscape.javascript.JSObject;
  * the JavaFX webView.
  *
  */
-@SuppressWarnings("restriction")
 public class Browser implements IBrowser{
 
 	private WebView browser;

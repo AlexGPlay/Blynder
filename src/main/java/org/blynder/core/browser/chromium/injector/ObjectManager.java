@@ -35,7 +35,7 @@ public class ObjectManager {
 		Class<?> app;
 		try {
 			app = Class.forName(clazz, true, loader);
-			instances.put(app, app.newInstance());
+			instances.put(app, app.getDeclaredConstructor().newInstance());
 			return app;
 		} 
 		catch (ClassNotFoundException e) {
@@ -45,6 +45,18 @@ public class ObjectManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

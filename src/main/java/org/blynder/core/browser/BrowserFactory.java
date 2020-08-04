@@ -33,7 +33,7 @@ public class BrowserFactory {
 		try {
 			String path = String.format("atrahasis.core.browser.%s.browser", browser.name());
 			Class<?> clazz = Class.forName(path);
-			return (IBrowser)clazz.newInstance();
+			return (IBrowser)clazz.getDeclaredConstructor().newInstance();
 		}
 		catch(Exception e) {
 			return null;
