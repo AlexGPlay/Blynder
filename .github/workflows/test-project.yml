@@ -17,4 +17,6 @@ jobs:
         java-version: 11
 
     - name: Test project
+      env:
+        DISPLAY: ":99.0"
       run: mvn test
