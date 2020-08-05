@@ -20,7 +20,7 @@ jobs:
       run: sudo apt-get update
         
     - name: Install JavaFX
-      run: sudo apt-get install openjdk-8-jdk openjfx
+      run: sudo apt-get install openjfx=8u161-b12-1ubuntu2 libopenjfx-jni=8u161-b12-1ubuntu2 libopenjfx-java=8u161-b12-1ubuntu2
 
     - name: Test project
       run: mvn test
