@@ -17,7 +17,7 @@ jobs:
         java-version: 1.8
         
     - name: Install JavaFX
-      run: sudo apt-get install openjfx=8u161-b12-1ubuntu2 libopenjfx-jni=8u161-b12-1ubuntu2 libopenjfx-java=8u161-b12-1ubuntu2
+      run: sudo apt install openjdk-8-jdk openjfx
 
     - name: Test project
       run: mvn test
