@@ -51,7 +51,7 @@ public class RequestParamsBuilder {
 		String[] possibleAnnotations = {"Data", "Params", "Headers", "Segment"};
 		
 		for(String s : possibleAnnotations) {
-			String completeName = "atrahasis.data.http.annotations." + s;
+			String completeName = "org.blynder.data.http.annotations." + s;
 			Class<? extends Annotation> annotation = getAnnotationForName(completeName);
 			if(parameter.isAnnotationPresent(annotation))
 				return annotation;
