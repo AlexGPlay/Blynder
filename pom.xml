@@ -3,7 +3,7 @@
 	
 	<groupId>org.blynder</groupId>
 	<artifactId>blynder</artifactId>
-	<version>0.4.1</version>
+	<version>0.4.2</version>
 	<packaging>jar</packaging>
 	
 	<name>Blynder</name>
