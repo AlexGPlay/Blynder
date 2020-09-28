@@ -13,10 +13,11 @@ public class WindowSize {
 	
 	private Sizing sizing;
 	private int heigth, width;
-	private boolean resizable;
+	private Boolean resizable;
 	
 	public WindowSize() {
-		this(true);
+		this.sizing = Sizing.AUTO;
+		this.resizable = null;
 	}
 	
 	public WindowSize(boolean resizable) {
@@ -63,7 +64,7 @@ public class WindowSize {
 		return width;
 	}
 	
-	public boolean isResizable() {
+	public Boolean isResizable() {
 		return resizable;
 	}
 	

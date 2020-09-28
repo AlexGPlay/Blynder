@@ -75,6 +75,7 @@ public class Window{
 		else
 			frame.setSize(defaultSize.getWidth(), defaultSize.getHeigth());
 		
+		if(defaultSize.isResizable() == null) defaultSize.setResizable(true);
 		frame.setResizable(defaultSize.isResizable());
 	}
 	
@@ -157,7 +158,12 @@ public class Window{
 			changedSize = true;
 		}
 		
-		frame.setResizable(size.isResizable());
+		if(size.isResizable() == null) {
+			frame.setResizable(defaultSize.isResizable());
+		}
+		else {
+			frame.setResizable(size.isResizable());
+		}
 		
 		frame.revalidate();
 		frame.repaint();
