@@ -34,6 +34,7 @@ public class AppUrlConnection extends HttpURLConnection  {
     private Proxy proxy;
     private Response response;
     private ByteArrayOutputStream output;
+    private boolean processed = false;
     
     protected AppUrlConnection(URL url, Proxy proxy) throws IOException {
         super(url);
@@ -43,6 +44,8 @@ public class AppUrlConnection extends HttpURLConnection  {
     }
     
     private void executeAppQuery() {
+    	if(processed) return;
+    	
         String appUrl = url.toString().replace("app:", "");
         if(appUrl.isEmpty()) {
         	appUrl = "/";
@@ -53,6 +56,7 @@ public class AppUrlConnection extends HttpURLConnection  {
         
         Request request = prepareRequest();
         response = Application.navigate(appUrl, request);
+        processed = true;
     }
     
     private Request prepareRequest() {
